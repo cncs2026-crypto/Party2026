@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="Codedthemes" />
+    <meta name="zalo-platform-site-verification" content="HlpZ6QNVTHL0_iGulDyL7JZkiJVKa6DeD3S" />
+
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" href="/static/images/icons/pen_1.ico?v=20241128" />
+
+    <title>Quay Số Trúng Thưởng</title>
+
+
+
+    <!-- JS framwork -->
+    <script src="../static/myjs/jquery-3.7.1.min.js"></script>
+    <script src="../static/spin/vanilla-tilt.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../static/bootstrap-5.3.3-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="../static/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <link rel="stylesheet" href="../static/bootstrap-5.3.3-dist/select/css_bootstrap-select.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="../static/FontAwesome.Pro.5.15.4.Web/css/all.min.css" type="text/css" media="all">
+    <script src="../static/FontAwesome.Pro.5.15.4.Web/js/all.min.js"></script>
+
+
+
+    <script src="../static/myjs/myjs.js"></script>
+    <script src="../static/spin/sweetalert2.all.min.js"></script>
+
+    <!-- DataTable -->
+    <script src="../static/dataTable/dataTables.js"></script>
+    <script src="../static/dataTable/dataTables.bootstrap5.js"></script>
+    <script src="../static/dataTable/dataTables.buttons.js"></script>
+    <script src="../static/dataTable/buttons.bootstrap5.js"></script>
+    <script src="../static/dataTable/buttons.colVis.min.js"></script>
+    <script src="../static/dataTable/buttons.html5.min.js"></script>
+    <script src="../static/dataTable/buttons.print.min.js"></script>
+    <script src="../static/dataTable/jszip.min.js"></script>
+    <script src="../static/dataTable/pdfmake.min.js"></script>
+    <script src="../static/dataTable/vfs_fonts.js"></script>
+
+
+    <link rel="stylesheet" href="../static/spin/css/style.css?v=1" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+    <!-- Menu cài đặt -->
+    <div class="nav-menu">
+        <ul>
+            <!-- Chọn sân chơi -->
+            <li class="active">
+                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Lựa chọn sân chơi" data-bs-toggle="modal" data-bs-target="#Modal_ChonSanChoi">
+                    <ion-icon name="home-outline" role="img" class="md hydrated"><i class="fal fa-home "></i></ion-icon>
+                </a>
+            </li>
+            <!-- Menu quản lý người chơi -->
+            <li class="">
+                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Quản lý người chơi" data-bs-toggle="modal" data-bs-target="#Modal_NguoiChoi">
+                    <ion-icon name="home-outline" role="img" class="md hydrated"><i class="fal fa-user "></i></ion-icon>
+                </a>
+            </li>
+            <!-- Menu Quản lý người đã trúng giải -->
+            <li class="">
+                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Quản lý người đã trúng giải" data-bs-toggle="modal" data-bs-target="#Modal_TrungThuong">
+                    <ion-icon name="home-outline" role="img" class="md hydrated"><i class="fal fa-trophy-alt "></i></ion-icon>
+                </a>
+            </li>
+            <!-- Menu Thiết lập quà tăng -->
+            <li class="">
+                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Thiết lập phần thưởng" data-bs-toggle="modal" data-bs-target="#Modal_SanChoi">
+                    <ion-icon name="home-outline" role="img" class="md hydrated"><i class="fad fa-gamepad"></i></ion-icon>
+                </a>
+            </li>
+
+             <!-- Menu quản lý giải thưởng -->
+             <li class="">
+                <a href="#" onclick="ActionGiaiThuong(0)" data-toggle="tooltip" data-placement="bottom" title="Quản lý giải thưởng" data-bs-toggle="modal" data-bs-target="#Modal_GiaiThuong">
+                    <ion-icon name="home-outline" role="img" class="md hydrated"><i class="fad fa-ticket"></i></ion-icon>
+                </a>
+            </li>
+
+            
+            <!-- Menu quản lý sân chơi -->
+            <li class="">
+                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Quản lý sân chơi" data-bs-toggle="modal" data-bs-target="#Modal_DsSanChoi">
+                    <ion-icon name="home-outline" role="img" class="md hydrated"><i class="fal fa-cog "></i></ion-icon>
+                </a>
+            </li>
+
+             <!-- Tắt/Mở nhạc -->
+             <li class="">
+                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Tắt/Mở âm thanh" code="0" onclick="ControlVolume(this)">
+                    <ion-icon name="home-outline" role="img" class="md hydrated"><i class="fa fa-volume-slash"></i></ion-icon>
+                </a>
+            </li>
+
+
+            <div id="marker"></div>
+        </ul>
+    </div>
+
+    <!-- Tiêu đề  -->
+    <div class="box-header">
+        <div class="card-list">
+            <!-- Card items will be inserted dynamically -->
+            <div class="card-header">
+                <div class="first-text">QUAY SỐ TRÚNG THƯỞNG CHÀO XUÂN 2026</div>
+                <div class="second-text">QUAY SỐ TRÚNG THƯỞNG CHÀO XUÂN 2026</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hộp quay số -->
+    <div class="spin-container box">
+        <div class="digit-column" id="digit1"></div>
+        <div class="digit-column" id="digit2"></div>
+        <div class="digit-column" id="digit3"></div>
+        <div class="digit-column" id="digit4"></div>
+        <div class="digit-column" id="digit5"></div>
+    </div>
+
+    <div id="result" class="result">Nhấn "Quay Số" để bắt đầu!</div>
+    <div class="result-box" hidden>
+        <button hidden class="spin-button" onclick="startSpin()">Quay Số</button>
+        
+    </div>
+
+
+    <!-- Nút quay số -->
+    <div class="circle-button" onclick="startSpin()">
+        <img src="" alt="Button Image">
+    </div>
+
+
+    <!-- Danh sách giải dưới để chọn -->
+    <div class="list-award">
+        <div class="glass-card-grid">
+
+        </div>
+    </div>
+
+    <!-- Danh sách giải trên để hiện thị-->
+    <div class="list-award-second">
+        <div class="glass-card-grid">
+
+        </div>
+    </div>
+
+    <!-- Danh sách giải trên để hiện thị-->
+    <div class="list-award-three">
+        <div class="glass-card-grid">
+            <article class="glass-card thrown" id="ticket-1">
+                <h3 class="glass-card-title"> <a href="#">Thẻ giải thưởng </a> </h3>
+                <div class="tags"> <a href="#" rel="tag">Tên phần quà</a> <a href="#" rel="tag" hidden="">tag 2</a> </div>
+                <p>Trị giá giải thưởng : ******* VNĐ</p> <img style="object-fit: fill;" src="../static/spin/images/ticketTet.png" alt="Sample Image">
+                <div class="author-row"> <a class="author-name" href="#">Chọn giải để bắt đầu</a> </div>
+            </article>
+        </div>
+    </div>
+
+    <style>
+        .control-more {
+            color:white;
+            font-size:27px;
+            cursor:pointer;
+
+            .svg-inline--fa:hover {
+                scale(1.3);
+            }
+        }
+        svg:hover {
+            scale(1.3);
+        }
+
+        /* Áp dụng hiệu ứng nhấp nháy cho dòng đầu tiên */
+        .game-table tbody tr:first-child {
+        animation: blinkEffect 1s infinite;
+        }
+
+        /* Định nghĩa hiệu ứng nhấp nháy */
+        @keyframes blinkEffect {
+        0% {
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        50% {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 40px rgba(255, 255, 255, 0.7);
+        }
+        100% {
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        }
+
+
+    </style>
+
+    <!-- Bảng danh dách hiển thị người trúng giải tạm thời -->
+    <div class="table-container" id="tabResult">
+        <div class="control-more" style="">
+            <i class="far fa-angle-double-up" onclick="ShowMoreTab(0)"></i>
+            <i class="far fa-angle-double-down" onclick="ShowMoreTab(1)"></i>
+        </div>
+        <table class="game-table ">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Mã trúng thưởng</th>
+                    <th>Tên giải</th>
+                    <th>Mã nhân viên</th>
+                    <th>Tên nhân viên</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- MP3-->
+    <div class="index_banner_home">
+		
+		<div id="ContentPlaceHolder1_container_mp3"></div>
+		<div id="container-audioDefault">
+			
+			<audio id="mp3Quay">
+				<source src="/static/spin/mp3/Spinning Sounds - Most recent_2.mp3" type="audio/mpeg" />
+			</audio>
+			<audio id="mp3EndQuay">
+				<source src="/static/spin/mp3/fanfare-winner.mp3" type="audio/mpeg" />
+			</audio>
+			<audio id="mp3Spin">
+				<source src="/static/spin/mp3/sm-spin.mp3" type="audio/mpeg" />
+			</audio>
+			<audio id="mp3QuayNgan">
+				<source src="/static/spin/mp3/Spinning(mp3cut.net).mp3" type="audio/mpeg" />
+			</audio>
+            <audio id="mp3Nen" loop>
+				<source src="/static/spin/mp3/loto.mp3" type="audio/mpeg" />
+			</audio>
+
+            
+		</div>
+	</div>
+
+    <!-- Model-->
+    {% include 'modal.html' %}
+
+    <!-- JS framwork -->
+
+    <script src="/static/spin/modal.js?v=001"></script>
+    <script src="/static/spin/ticket.js?v=001"></script>
+    <script src="/static/spin/spin.js?v=001"></script>
+
+    <script>
+        ActionDsSanChoi(0); //Khởi tạo sân chơi
+    </script>
+</body>
+
+</html>

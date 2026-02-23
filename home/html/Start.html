@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoạt động sự kiện</title>
+
+    <!-- bootstrap Fremwork -->
+    <link rel="stylesheet" type="text/css" href="../static/assets/css/bootstrap/css/bootstrap.min.css">
+
+    <!-- font-awesome-n -->
+    <link rel="stylesheet" type="text/css" href="../static/FontAwesome.Pro.5.15.4.Web/css/all.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css?v=001">
+
+    <!-- Required Jquery -->
+    <script type="text/javascript" src="../static/assets/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/assets/js/jquery-ui/jquery-ui.min.js "></script>
+    <script type="text/javascript" src="../static/assets/js/popper.js/popper.min.js"></script>
+    <script type="text/javascript" src="../static/assets/js/bootstrap/js/bootstrap.min.js "></script>
+    <script src="../static/myjs/vue/vue2.7.js"></script>
+
+
+</head>
+
+<body>
+
+    <div id="OtherID" style="width: 100%;height: 100%;">
+        <div v-show="Control.Hearder" class="header">
+
+            <h1 class="header-text-first">Tên Công Ty</h1>
+            <h1 class="header-text-second">Tên tiếng nước ngoài hoặc nội dung khác</h1>
+            <p class="header-text-third">Khẩu hiệu</p>
+
+        </div>
+
+        <div class="navbar-logo">
+            <img class="img-logo" v-bind:src="Control.Logo" height=45>
+        </div>
+
+        <div v-show="Control.VideoShow" class="container">
+            <div class="row align-items-center">
+
+                <div class="col-4">
+                    <div class="card" style="max-width: 18rem;">
+                        <video src="../static/video/NucuoixuanQV.mov" class="card-img-top" controls muted autoplay loop></video>
+
+                        <div class="card-body">
+                            <h5 class="card-title">Nụ cười xuân</h5>
+                            <p class="card-text">Quế võ</p>
+                            <a href="#" class="btn btn-primary" hidden></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="card" style="max-width: 18rem;">
+                        <video src="https://static.vecteezy.com/system/resources/previews/049/474/460/mp4/happy-new-year-2025-free-video.mp4" class="card-img-top" controls muted autoplay loop></video>
+
+                        <div class="card-body">
+                            <h5 class="card-title">2025</h5>
+                            <p class="card-text">Effect 1</p>
+                            <a href="#" class="btn btn-primary" hidden></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="card" style="max-width: 18rem;">
+                        <video src="../static/video/1.mp4" class="card-img-top" controls muted autoplay loop></video>
+
+                        <div class="card-body">
+                            <h5 class="card-title">2025</h5>
+                            <p class="card-text">Effect 1</p>
+                            <a href="#" class="btn btn-primary" hidden></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="card" style="max-width: 18rem;">
+                        <video src="../static/video/4.mp4" class="card-img-top" controls muted autoplay loop></video>
+
+                        <div class="card-body">
+                            <h5 class="card-title">2025</h5>
+                            <p class="card-text">Effect 1</p>
+                            <a href="#" class="btn btn-primary" hidden></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="card" style="max-width: 18rem;">
+                        <video src="../static/video/6.mp4" class="card-img-top" controls muted autoplay loop></video>
+
+                        <div class="card-body">
+                            <h5 class="card-title">2025</h5>
+                            <p class="card-text">Effect 1</p>
+                            <a href="#" class="btn btn-primary" hidden></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="card" style="max-width: 18rem;">
+                        <video src="../static/video/5.mp4" class="card-img-top" controls muted autoplay loop></video>
+
+                        <div class="card-body">
+                            <h5 class="card-title">2025</h5>
+                            <p class="card-text">Effect 1</p>
+                            <a href="#" class="btn btn-primary" hidden></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="card" style="max-width: 18rem;">
+                        <video src="../static/video/3.mp4" class="card-img-top" controls muted autoplay loop></video>
+
+                        <div class="card-body">
+                            <h5 class="card-title">2025</h5>
+                            <p class="card-text">Effect 1</p>
+                            <a href="#" class="btn btn-primary" hidden></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="ModalSetting">
+            <div class="modal-dialog modal-dialog-centered  modal-md " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id=""><i class="fas fa-setting f-20"></i><a> Cài đặt</a></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="get" onclick="" id="">
+                            <div class="col-md d-flex">
+                                <div class="card-body" style="padding: 10px;">
+                                    <div class="row" id="">
+
+                                        <!-- Tên Cấu hình-->
+                                        <div class="col-md-6 col-sm-12 col-12  mb-1 mt-0" hidden>
+                                            <div class="form-group  mt-0">
+                                                <label class=" mb-0 mt-0">Đặt tên cấu hình</label>
+                                                <input v-bind:value="Control.ConfName" class="form-control form-control-sm" type="text">
+                                            </div>
+                                        </div>
+
+                                        <!--Chọn cấu hình-->
+                                        <div class="col-md-6 col-sm-12 col-12  mb-1 mt-0" hidden>
+                                            <div class="form-group  mt-0">
+                                                <label class=" mb-0 mt-0">Chọn cấu hình</label>
+                                                <select v-bind:value="Control.ConfName" id="OpConf" name="OpConf" class="form-control form-control-sm">
+                                            <option value="1">Cấu hình 1</option>
+                                            <option value="2">Cấu hình 2</option>
+                                            <option value="3">Cấu hình 3</option>
+                                            <option value="4">Cấu hình 4</option>
+                                            <option value="5">Cấu hình 5</option>
+                                            <option value="6">Cấu hình 6</option>
+                                            <option value="7">Cấu hình 7</option>
+                                            <option value="8">Cấu hình 8</option>
+                                            <option value="9">Cấu hình 9</option>
+                                            <option value="10">Cấu hình 10</option>
+                                        </select>
+                                            </div>
+                                        </div>
+
+                                        <!--Chọn logo-->
+                                        <div class="col-md-6 col-sm-12 col-12  mb-1 mt-0">
+                                            <div class="form-group  mt-0">
+                                                <label class=" mb-0 mt-0">Logo</label>
+                                                <select v-model="Control.Logo" id="OpL" name="OpLogp" class="form-control form-control-sm">
+                                            <option value="">Không sử dụng</option>
+                                            <option value="logo.png">Foxconn</option>
+                                        </select>
+                                            </div>
+                                        </div>
+
+                                        <!--Màu tiêu đề-->
+                                        <div class="col-md-6 col-sm-12 col-12  mb-1 mt-0">
+                                            <div class="form-group  mt-0">
+                                                <label class=" mb-0 mt-0">Màu nền tiêu đề</label>
+                                                <select v-model="Control.BgColorHeader" id="OpColorHead" name="OpColorHead" class="form-control form-control-sm">
+                                            <option value="">Không sử dụng</option>
+                                            <option value="linear-gradient(45deg, #ff4500, #ffd700)">Vàng cam</option>
+                                            <option value="linear-gradient(45deg, #83081e, #ff0000b5)">Đỏ đậm</option>
+                                            <option value="linear-gradient(45deg, #ffac00, #ffd700)">Vàng Gold</option>
+                                            <option value="#ffff">Đen</option>
+                                        </select>
+                                            </div>
+                                        </div>
+
+                                        <!--Chữ tiêu đề lớn-->
+                                        <div class="col-md-6 col-sm-12 col-12  mb-1 mt-0">
+                                            <div class="form-group  mt-0">
+                                                <label class="mb-0 mt-0">Chữ tiêu đề lớn</label>
+                                                <input v-model="Control.TextHeader1" class="form-control form-control-sm" type="text" placeholder="Nhập chữ">
+                                            </div>
+                                        </div>
+                                        <!--Chữ tiêu đề lớn-->
+                                        <div class="col-md-6 col-sm-12 col-12  mb-1 mt-0">
+                                            <div class="form-group  mt-0">
+                                                <label class="mb-0 mt-0">Chữ tiêu đề giữa</label>
+                                                <input v-model="Control.TextHeader2" class="form-control form-control-sm" type="text" placeholder="Nhập chữ">
+                                            </div>
+                                        </div>
+                                        <!--Chữ tiêu đề lớn-->
+                                        <div class="col-md-6 col-sm-12 col-12  mb-1 mt-0">
+                                            <div class="form-group  mt-0">
+                                                <label class="mb-0 mt-0">Chữ tiêu đề cuối</label>
+                                                <input v-model="Control.TextHeader3" class="form-control form-control-sm" type="text" placeholder="Nhập chữ">
+                                            </div>
+                                        </div>
+
+                                        <!--Hình nền lớn-->
+                                        <div class="col-md-6 col-sm-12 col-12  mb-1 mt-0">
+                                            <div class="form-group  mt-0">
+                                                <label class=" mb-0 mt-0">Hình nền</label>
+                                                <select id="OpMainBack" name="OpMainBack" v-model="Control.BgMain" class="form-control form-control-sm">
+                                                    <option value="">Không sử dụng</option>
+                                                    <option value="bg_tet_0.jpg">Tết 0</option>
+                                                    <option value="bg_tet_1.jpg">Tết 1</option>
+                                                    <option value="bg_tet_2.jpg">Tết 2</option>
+                                                    <option value="bg_tet_3.jpg">Tết 3</option>
+                                                    <option value="bg_tet_4.jpg">Tết 4</option>
+                                                    <option value="bg_tet_5.jpg">Tết 5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        <!--Chạy video-->
+                                        <div class="col-md-6 col-sm-12 col-12  mb-1 mt-0">
+                                            <div class="form-group  mt-0">
+                                                <label class=" mb-0 mt-0">Hiển thị video</label>
+                                                <select id="OpVideo" name="OpVideo" v-model="Control.ShowVideoFlag" class="form-control form-control-sm">                                                   
+                                                    <option value=0>Không sử dụng</option>
+                                                    <option value=1>Hiển thị</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <hr>
+
+                                    <div class="row d-flex justify-content-center">
+                                        <button type="button" class="btn btn-sm btn-save mr-2" hidden onclick="ApplyEffect(2)">Lưu</button>
+                                        <button type="button" class="btn btn-sm mr-2" @click="ApplyEffect(3)">Áp dụng</button>
+                                        <button type="button" class="btn btn-sm btn-del mr-2" data-dismiss="modal" aria-label="Close">Thoát</button>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="background-main"> </div>
+
+        <div class="row">
+            <img class="img-tet" src="../static/img/tet2.png" onclick="ShowModal()" style="cursor: pointer;">
+        </div>
+
+    </div>
+</body>
+
+<script type="text/javascript" src="../static/myjs/myjs.js?v=20241205"></script>
+<script src="../static/myjs/start.js?v=001"></script>
+
+</html>

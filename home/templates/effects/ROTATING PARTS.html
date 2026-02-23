@@ -1,0 +1,492 @@
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Boulons et Engrenages</title>
+    <link href="https://cdn.jsdelivr.net/npm/@fontsource/press-start-2p@4.5.0/index.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .ui {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+        }
+        
+        .ui button {
+            background: transparent;
+            border: 2px solid #666666;
+            color: #666666;
+            font-family: "Press Start 2P", monospace;
+            font-size: 12px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .ui button:hover {
+            background: #666666;
+            color: #0a0a1a;
+        }
+        
+        .ui .code-by {
+            color: #666666;
+            font-family: "Press Start 2P", monospace;
+            font-size: 12px;
+            align-self: flex-end;
+        }
+        
+        .title {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: "Press Start 2P", monospace;
+            font-size: 48px;
+            color: #666666;
+            text-transform: uppercase;
+            white-space: nowrap;
+            animation: glow 2s ease-in-out infinite alternate;
+            z-index: 10;
+        }
+        
+        @keyframes glow {
+            from {
+                filter: brightness(100%);
+            }
+            to {
+                filter: brightness(150%);
+            }
+        }
+        
+        .instructions {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: "Press Start 2P", monospace;
+            font-size: 12px;
+            color: #666666;
+            text-align: center;
+            white-space: nowrap;
+            line-height: 1.6;
+            z-index: 10;
+        }
+        
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+    </style>>
+</head>
+
+<body>
+    <div class="title">* ROTATING PARTS *</div>
+    <div class="ui">
+        <button type="button" onclick="window.location.href='https://codepen.io/H-L-the-lessful/pens/showcase';">MY WORK</button>
+        <div class="code-by">CODE by HL</div>
+    </div>
+    <div class="instructions">
+        <span id="line1"></span><br>
+        <span id="line2"></span>
+    </div>
+    <script type="importmap">
+        { "imports": { "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.js", "three/examples/jsm/controls/OrbitControls": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/controls/OrbitControls.js" } }
+    </script>
+    <script>
+        import * as THREE from "https://esm.sh/three";
+        import {
+            OrbitControls
+        } from "https://esm.sh/three/examples/jsm/controls/OrbitControls";
+
+        class GearSphere {
+            constructor() {
+                this.scene = new THREE.Scene();
+                this.camera = new THREE.PerspectiveCamera(
+                    75,
+                    window.innerWidth / window.innerHeight,
+                    0.1,
+                    1000
+                );
+                this.renderer = new THREE.WebGLRenderer({
+                    antialias: true
+                });
+                this.setupRenderer();
+                this.setupLights();
+                this.createGearSphere();
+                this.createHexBolts();
+                this.setupControls();
+                this.animate();
+            }
+
+            setupRenderer() {
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.setClearColor(0x0a0a1a);
+                document.body.appendChild(this.renderer.domElement);
+                this.camera.position.z = 5;
+            }
+
+            setupLights() {
+                const ambientLight = new THREE.AmbientLight(0x404040, 2.5);
+                this.scene.add(ambientLight);
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 5.5);
+                directionalLight.position.set(10, 10, 10);
+                directionalLight.castShadow = true;
+                directionalLight.shadow.mapSize.width = 2048;
+                directionalLight.shadow.mapSize.height = 2048;
+                directionalLight.shadow.camera.near = 1;
+                directionalLight.shadow.camera.far = 20;
+                this.scene.add(directionalLight);
+                const spotLight = new THREE.SpotLight(0xffffff, 2, 20, Math.PI / 4, 0.5);
+                spotLight.position.set(0, 5, 0);
+                spotLight.target.position.set(0, 0, 0);
+                this.scene.add(spotLight);
+                this.scene.add(spotLight.target);
+                const pointLight1 = new THREE.PointLight(0xffffff, 3, 60);
+                pointLight1.position.set(7, 7, 7);
+                this.scene.add(pointLight1);
+                const pointLight2 = new THREE.PointLight(0xffffff, 2.5, 60);
+                pointLight2.position.set(-7, -7, -7);
+                this.scene.add(pointLight2);
+                const pointLight3 = new THREE.PointLight(0x8888ff, 2, 50);
+                pointLight3.position.set(0, 10, 0);
+                this.scene.add(pointLight3);
+                const pointLight4 = new THREE.PointLight(0xff8888, 1.5, 50);
+                pointLight4.position.set(0, -10, 0);
+                this.scene.add(pointLight4);
+                const hemisphereLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 2);
+                this.scene.add(hemisphereLight);
+                this.scene.fog = new THREE.Fog(0x0a0a1a, 10, 30);
+                const sphereGeometry = new THREE.SphereGeometry(1.0, 32, 32);
+                const sphereMaterial = new THREE.MeshStandardMaterial({
+                    color: 0x666666,
+                    metalness: 0.98,
+                    roughness: 0.05,
+                    normalMap: new THREE.TextureLoader().load(
+                        "https://th.bing.com/th/id/OIP.ZNuaqvpOgzPCdceTeWsG0gAAAA?rs=1&pid=ImgDetMain"
+                    ),
+                    normalScale: new THREE.Vector2(0.5, 0.5),
+                    envMap: new THREE.TextureLoader().load(
+                        "https://th.bing.com/th/id/OIG1.wX0_ZqF2y7DvDytnIJFR?pid=ImgGn"
+                    ),
+                    displacementMap: new THREE.TextureLoader().load(""),
+                    displacementScale: 0.001,
+                    aoMap: new THREE.TextureLoader().load(""),
+                    aoMapIntensity: 0.5
+                });
+                this.centralSphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+                this.scene.add(this.centralSphere);
+            }
+
+            createHexBoltGeometry(radius, height) {
+                const sides = 6;
+                const angle = (2 * Math.PI) / sides;
+                const outerShape = new THREE.Shape();
+                const outerRadius = radius;
+                const innerRadius = radius * 0.6;
+                for (let i = 0; i < sides; i++) {
+                    const x = outerRadius * Math.cos(i * angle);
+                    const y = outerRadius * Math.sin(i * angle);
+                    i === 0 ? outerShape.moveTo(x, y) : outerShape.lineTo(x, y);
+                }
+                const mainHole = new THREE.Path();
+                const circleSegments = 32;
+                for (let i = 0; i <= circleSegments; i++) {
+                    const angle = (i / circleSegments) * Math.PI * 2;
+                    const x = innerRadius * Math.cos(angle);
+                    const y = innerRadius * Math.sin(angle);
+                    i === 0 ? mainHole.moveTo(x, y) : mainHole.lineTo(x, y);
+                }
+                outerShape.holes.push(mainHole);
+                const threadShape = new THREE.Path();
+                const threadDepth = height * 0.12;
+                const threadWidth = innerRadius * 0.12;
+                const threadCount = 24;
+                const threadAngleStep = (Math.PI * 2) / threadCount;
+                for (let i = 0; i < threadCount; i++) {
+                    const startAngle = i * threadAngleStep;
+                    const endAngle = (i + 0.5) * threadAngleStep;
+                    const x1 = (innerRadius - threadDepth) * Math.cos(startAngle);
+                    const y1 = (innerRadius - threadDepth) * Math.sin(startAngle);
+                    const x2 = innerRadius * Math.cos(endAngle);
+                    const y2 = innerRadius * Math.sin(endAngle);
+                    if (i === 0) {
+                        threadShape.moveTo(x1, y1);
+                    }
+                    threadShape.lineTo(x1, y1);
+                    threadShape.lineTo(x2, y2);
+                }
+                outerShape.holes.push(threadShape);
+                const extrudeSettings = {
+                    depth: height,
+                    bevelEnabled: true,
+                    bevelThickness: height * 0.05,
+                    bevelSize: radius * 0.05,
+                    bevelSegments: 2,
+                    steps: 1,
+                    curveSegments: 32
+                };
+                return new THREE.ExtrudeGeometry(outerShape, extrudeSettings);
+            }
+
+            createHexBolts() {
+                const boltMaterial = new THREE.MeshStandardMaterial({
+                    color: 0x666666,
+                    metalness: 0.98,
+                    roughness: 0.05,
+                    normalMap: new THREE.TextureLoader().load(""),
+                    normalScale: new THREE.Vector2(0.5, 0.5),
+                    envMap: new THREE.TextureLoader().load(
+                        "https://th.bing.com/th/id/OIG1.wX0_ZqF2y7DvDytnIJFR?pid=ImgGn"
+                    ),
+                    flatShading: false,
+                    displacementMap: new THREE.TextureLoader().load(""),
+                    displacementScale: 0.001,
+                    aoMap: new THREE.TextureLoader().load(""),
+                    aoMapIntensity: 0.5
+                });
+                this.bolts = [];
+                const orbitRadius = 3.5;
+                const boltCount = 16;
+                const boltSize = 0.1;
+                const boltHeight = 0.05;
+                const cubeTextureLoader = new THREE.CubeTextureLoader();
+                const environmentMap = cubeTextureLoader.load([
+                    "https://th.bing.com/th/id/OIG1.wX0_ZqF2y7DvDytnIJFR?pid=ImgGn",
+                    "https://th.bing.com/th/id/OIG1.wX0_ZqF2y7DvDytnIJFR?pid=ImgGn",
+                    "https://th.bing.com/th/id/OIG1.wX0_ZqF2y7DvDytnIJFR?pid=ImgGn",
+                    "https://th.bing.com/th/id/OIG1.wX0_ZqF2y7DvDytnIJFR?pid=ImgGn",
+                    "https://th.bing.com/th/id/OIG1.wX0_ZqF2y7DvDytnIJFR?pid=ImgGn",
+                    "https://th.bing.com/th/id/OIG1.wX0_ZqF2y7DvDytnIJFR?pid=ImgGn"
+                ]);
+                boltMaterial.envMap = environmentMap;
+                for (let i = 0; i < boltCount; i++) {
+                    const angle = (i / boltCount) * Math.PI * 2;
+                    const x = orbitRadius * Math.cos(angle);
+                    const z = orbitRadius * Math.sin(angle);
+                    const boltGeometry = this.createHexBoltGeometry(boltSize, boltHeight);
+                    const bolt = new THREE.Mesh(boltGeometry, boltMaterial);
+                    bolt.position.set(
+                        x + (Math.random() - 0.5) * 0.1,
+                        0 + (Math.random() - 0.5) * 0.05,
+                        z + (Math.random() - 0.5) * 0.1
+                    );
+                    bolt.rotation.x = Math.PI / 2 + Math.random() * 0.1;
+                    bolt.rotation.z = Math.PI / 6 + Math.random() * 0.1;
+                    bolt.scale.set(
+                        0.95 + Math.random() * 0.1,
+                        0.95 + Math.random() * 0.1,
+                        0.95 + Math.random() * 0.1
+                    );
+                    this.scene.add(bolt);
+                    this.bolts.push({
+                        mesh: bolt,
+                        angle: angle,
+                        spinSpeed: 0.02 + Math.random() * 0.03
+                    });
+                }
+            }
+
+            createGearGeometry(radius, thickness, toothHeight, toothCount) {
+                const gearShape = new THREE.Shape();
+                const innerRadius = radius - toothHeight;
+                const toothAngle = (2 * Math.PI) / toothCount;
+                const toothTipAngle = toothAngle * 0.8;
+                gearShape.moveTo(innerRadius * Math.cos(0), innerRadius * Math.sin(0));
+                for (let i = 0; i < toothCount; i++) {
+                    const startAngle = i * toothAngle;
+                    const midAngle = startAngle + toothAngle * 0.4;
+                    const endAngle = startAngle + toothAngle * 0.6;
+                    gearShape.lineTo(
+                        radius * Math.cos(startAngle + toothTipAngle * 0.2),
+                        radius * Math.sin(startAngle + toothTipAngle * 0.2)
+                    );
+                    gearShape.bezierCurveTo(
+                        radius * Math.cos(startAngle + toothTipAngle * 0.6),
+                        radius * Math.sin(startAngle + toothTipAngle * 0.6),
+                        radius * Math.cos(startAngle + toothTipAngle * 0.8),
+                        radius * Math.sin(startAngle + toothTipAngle * 0.8),
+                        radius * Math.cos(midAngle),
+                        radius * Math.sin(midAngle)
+                    );
+                    gearShape.lineTo(radius * Math.cos(endAngle), radius * Math.sin(endAngle));
+                    gearShape.quadraticCurveTo(
+                        innerRadius * Math.cos(startAngle + toothAngle * 0.75),
+                        innerRadius * Math.sin(startAngle + toothAngle * 0.75),
+                        innerRadius * Math.cos(startAngle + toothAngle),
+                        innerRadius * Math.sin(startAngle + toothAngle)
+                    );
+                }
+                const extrudeSettings = {
+                    steps: 2,
+                    depth: thickness,
+                    bevelEnabled: false,
+                    curveSegments: 64
+                };
+                return new THREE.ExtrudeGeometry(gearShape, extrudeSettings);
+            }
+
+            createGearSphere() {
+                const metalMaterial = new THREE.MeshStandardMaterial({
+                    color: 0x666666,
+                    metalness: 0.98,
+                    roughness: 0.05,
+                    normalMap: new THREE.TextureLoader().load(""),
+                    normalScale: new THREE.Vector2(0.5, 0.5),
+                    envMap: new THREE.TextureLoader().load(
+                        "https://th.bing.com/th/id/OIG1.wX0_ZqF2y7DvDytnIJFR?pid=ImgGn"
+                    ),
+                    displacementMap: new THREE.TextureLoader().load(""),
+                    displacementScale: 0.001,
+                    aoMap: new THREE.TextureLoader().load(""),
+                    aoMapIntensity: 0.5
+                });
+                const wireframeMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x666666,
+                    wireframe: true
+                });
+                this.gears = [];
+                const sphereRadius = 2;
+                const gearCount = 50;
+                const minSeparation = 0.4;
+                for (let i = 0; i < gearCount; i++) {
+                    const gearRadius = 0.2 + Math.random() * 0.2;
+                    const gearThickness = 0.1;
+                    const toothHeight = 0.05;
+                    const toothCount = Math.floor(10 + Math.random() * 10);
+                    const gearGeometry = this.createGearGeometry(
+                        gearRadius,
+                        gearThickness,
+                        toothHeight,
+                        toothCount
+                    );
+                    const gear = new THREE.Mesh(gearGeometry, metalMaterial);
+                    let isOverlapping;
+                    let attempts = 0;
+                    do {
+                        isOverlapping = false;
+                        const theta = Math.random() * Math.PI * 2;
+                        const phi = Math.acos(1 - 2 * Math.random());
+                        const x = sphereRadius * Math.sin(phi) * Math.cos(theta);
+                        const y = sphereRadius * Math.sin(phi) * Math.sin(theta);
+                        const z = sphereRadius * Math.cos(phi);
+                        for (const existingGear of this.gears) {
+                            const distance = Math.sqrt(
+                                Math.pow(x - existingGear.position.x, 2) +
+                                Math.pow(y - existingGear.position.y, 2) +
+                                Math.pow(z - existingGear.position.z, 2)
+                            );
+                            if (distance < minSeparation + gearRadius) {
+                                isOverlapping = true;
+                                break;
+                            }
+                        }
+                        if (!isOverlapping) {
+                            gear.position.set(x, y, z);
+                        }
+                        attempts++;
+                        if (attempts > 500) {
+                            console.warn("Could not place gear after 500 attempts");
+                            break;
+                        }
+                    } while (isOverlapping);
+                    gear.rotation.x = Math.random() * Math.PI * 2;
+                    gear.rotation.y = Math.random() * Math.PI * 2;
+                    gear.rotation.z = Math.random() * Math.PI * 2;
+                    this.scene.add(gear);
+                    this.gears.push(gear);
+                }
+            }
+
+            setupControls() {
+                this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+                this.controls.enableDamping = true;
+                this.controls.dampingFactor = 0.05;
+            }
+
+            animate() {
+                requestAnimationFrame(() => this.animate());
+                this.gears.forEach((gear, index) => {
+                    const rotationSpeed = 0.01 * ((index % 3) + 1);
+                    gear.rotation.x += rotationSpeed;
+                    gear.rotation.y += rotationSpeed * 0.5;
+                    gear.rotation.z += rotationSpeed * 0.75;
+                });
+                this.scene.rotation.y += 0.008;
+                this.bolts.forEach((bolt) => {
+                    bolt.angle += 0.003;
+                    const x = 3.5 * Math.cos(bolt.angle);
+                    const z = 3.5 * Math.sin(bolt.angle);
+                    bolt.mesh.position.set(
+                        x + Math.sin(Date.now() * 0.001 + bolt.angle) * 0.1,
+                        Math.cos(Date.now() * 0.002 + bolt.angle) * 0.1,
+                        z + Math.cos(Date.now() * 0.0015 + bolt.angle) * 0.1
+                    );
+                    bolt.mesh.rotation.x += bolt.spinSpeed * 1.2;
+                    bolt.mesh.rotation.y += bolt.spinSpeed * 0.8;
+                    bolt.mesh.rotation.z += bolt.spinSpeed * 0.5;
+                    const scale = 1 + Math.sin(Date.now() * 0.002 + bolt.angle) * 0.02;
+                    bolt.mesh.scale.set(scale, scale, scale);
+                });
+                const scale = 1 + Math.sin(Date.now() * 0.003) * 0.2;
+                this.centralSphere.scale.set(scale, scale, scale);
+                this.controls.update();
+                this.renderer.render(this.scene, this.camera);
+            }
+        }
+
+        function typeWriter(text, element, speed, callback) {
+            let i = 0;
+
+            function type() {
+                if (i < text.length) {
+                    element.appendChild(document.createTextNode(text.charAt(i)));
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    if (callback) callback();
+                }
+            }
+            type();
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const gearSphere = new GearSphere();
+            window.gearSphere = gearSphere;
+            window.addEventListener("resize", () => {
+                gearSphere.camera.aspect = window.innerWidth / window.innerHeight;
+                gearSphere.camera.updateProjectionMatrix();
+                gearSphere.renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+            const line1 = document.getElementById("line1");
+            const line2 = document.getElementById("line2");
+            typeWriter("Clic & hold left mouse button to Rotate !", line1, 50, () => {
+                setTimeout(() => {
+                    typeWriter("Use mouse wheel to Zoom !", line2, 50);
+                }, 500);
+            });
+        });
+    </script>
+</body>
+
+</html>

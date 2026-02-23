@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoạt động sự kiện</title>
+
+    <!-- Required Jquery -->
+    <script type="text/javascript" src="../static/assets/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/assets/js/jquery-ui/jquery-ui.min.js "></script>
+    <script type="text/javascript" src="../static/assets/js/popper.js/popper.min.js"></script>
+    <script type="text/javascript" src="../static/assets/js/bootstrap/js/bootstrap.min.js "></script>
+    <script src="../static/myjs/vue/vue2.7.js"></script>
+
+    <style>
+        .gradient {
+            background: radial-gradient(ellipse at center, #FFD700, #FF4500);
+            height: 200px;
+            width: 100%;
+        }
+        
+        .image-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Tạo hiệu ứng mờ dần ở viền */
+            -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+            mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+        }
+    </style>
+</head>
+
+<body class="gradient">
+    <div class="image-container">
+        <img src="http://127.0.0.1:8000/static/img/bg_tet/bg_tet_2.jpg" alt="Sample Image">
+    </div>
+
+    <div class="image-container">
+        <img class="blur" src="http://127.0.0.1:8000/static/img/bg_tet/bg_tet_2.jpg" alt="Blurred Image">
+        <img src="http://127.0.0.1:8000/static/img/bg_tet/bg_tet_2.jpg" alt="Original Image">
+    </div>
+
+
+    <template>
+        <div>
+          <h1>Danh sách tệp</h1>
+          <ul>
+            <li v-for="file in files" :key="file">{{ file }}</li>
+          </ul>
+        </div>
+      </template>
+
+    <script type="module">
+        import { createApp } from 'vue'; import App from './App.vue'; createApp(App).mount('#app');
+    </script>
+
+    <script>
+        const fs = require("fs");
+        const path = require("../static/");
+
+        export default {
+            data() {
+                return {
+                    files: [],
+                };
+            },
+            mounted() {
+                this.listFiles();
+            },
+            methods: {
+                listFiles() {
+                    const directoryPath = path.join(__dirname, "vues");
+                    this.files = fs.readdirSync(directoryPath);
+                },
+            },
+        };
+    </script>
+
+</body>
+
+
+
+</html>

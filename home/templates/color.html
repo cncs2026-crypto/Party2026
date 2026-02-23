@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red to Yellow Gradient</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        
+        .container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .gradient-box {
+            width: 300px;
+            height: 30px;
+            background: linear-gradient(to right, #ff0000, #ff4500, #ff8c00, #ffd700, #ffff00);
+            margin-right: 20px;
+            border-radius: 5px;
+        }
+        
+        .color-description {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .color-box {
+            width: 50px;
+            height: 30px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        
+        .color-name {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="gradient-box"></div>
+        <div class="color-description">
+            <div class="color-box" style="background-color: #ff0000;"></div>
+            <div class="color-name">Red</div>
+            <div class="color-box" style="background-color: #ff4500;"></div>
+            <div class="color-name">Red-Orange</div>
+            <div class="color-box" style="background-color: #ff8c00;"></div>
+            <div class="color-name">Orange</div>
+            <div class="color-box" style="background-color: #ffd700;"></div>
+            <div class="color-name">Gold</div>
+            <div class="color-box" style="background-color: #ffff00;"></div>
+            <div class="color-name">Yellow</div>
+        </div>
+    </div>
+</body>
+
+</html>

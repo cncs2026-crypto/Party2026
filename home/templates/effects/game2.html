@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Quay Số</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        
+        #resultTable {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Game Quay Số</h1>
+    <button onclick="startLottery()">Quay số</button>
+    <table id="resultTable"></table>
+
+    <script>
+        function getRandomNumbers(n = 3) {
+            let numbers = Array.from({
+                length: 100
+            }, (_, i) => i + 1);
+            let selectedNumbers = [];
+            while (selectedNumbers.length < n) {
+                let index = Math.floor(Math.random() * numbers.length);
+                selectedNumbers.push(numbers.splice(index, 1)[0]);
+            }
+            return selectedNumbers;
+        }
+
+        function displayNumbers(numbers) {
+            let table = document.getElementById("resultTable");
+            table.innerHTML = "";
+            for (let i = 0; i < numbers.length; i += 3) {
+                let row = table.insertRow();
+                for (let j = 0; j < 3; j++) {
+                    let cell = row.insertCell();
+                    if (numbers[i + j] !== undefined) {
+                        cell.textContent = numbers[i + j];
+                    }
+                }
+            }
+        }
+
+        function startLottery() {
+            document.getElementById("resultTable").innerHTML = "Đang quay...";
+            elapsedTime = 0;
+            interval = setInterval(() => {
+                let numbers = getRandomNumbers();
+                displayNumbers(numbers);
+
+                elapsedTime++;
+                if (elapsedTime >= 50) {
+                    clearInterval(interval);
+                }
+            }, 100);
+
+        }
+    </script>
+</body>
+
+</html>

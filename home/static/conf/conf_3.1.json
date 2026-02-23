@@ -1,0 +1,30 @@
+[{
+    "ConfVal": "Cam on cac sep",
+    "LogoLeft":"Foxconn.png",
+    "LogoRight": "Tet.png",
+    "Header": 1,
+    "VideoShow": "",
+    "BgColorHeader": "",
+    "TextHeader1": "CẢM ƠN CÁC VỊ CHỦ QUẢN IT TỔNG BỘ",
+    "TextHeader2": "非常感謝各位中央資訊主管",
+    "TextHeader3": "",
+    "BgMain": "0.3.Cam on cac sep.jpg",
+    "BgMainMgTop": 313,
+    "BgMainMgLeft": 0,
+    "BgMainWidth": 100,
+    "BgMainHeight": 100,
+    "TabLucky": "0",
+
+    "LeafEffect_1": false,
+    "LeafEffect_2": false,
+    "LeafEffect_3": false,
+    "LeafEffect_4": false,
+    "FireWorkEffect_1": false,
+    "FireWorkEffect_2": false,
+    "FireWorkEffect_3": false,
+    "FireWorkEffect_4": false,
+    "FireWorkEffect_5": false,
+    "FireWorkEffect_6": false,
+    "FireWorkEffect_7": false
+
+}]

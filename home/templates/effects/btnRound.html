@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nút Xoay Liên Tục</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        
+        .circle-button {
+            width: 10em;
+            height: 10em;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: pink;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .circle-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.2s linear;
+        }
+        
+        .circle-button:hover {
+            scale: 1.5;
+            cursor: pointer;
+        }
+        
+        .circle-button img {
+            animation: spin 3s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="circle-button">
+        <img src="https://eleader.marketing/wp-content/uploads/2024/05/chiecnonkydieu2.png" alt="Button Image">
+    </div>
+</body>
+
+</html>

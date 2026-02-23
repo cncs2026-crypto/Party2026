@@ -1,0 +1,30 @@
+[{
+    "ConfVal": "Màn hình chính 2",
+    "LogoLeft": "Foxconn.png",
+    "LogoRight": "Tet.png",
+    "Header": 1,
+    "VideoShow": "",
+    "BgColorHeader": "red_1",
+    "TextHeader1": "IT TỔNG BỘ VIỆT NAM ",
+    "TextHeader2": "越南資訊",
+    "TextHeader3": "TẾT SUM VẦY - GẮN KẾT YÊU THƯƠNG",
+    "BgMain": "bg_tet_1.7.jpg",
+    "BgMainMgTop": 272,
+    "BgMainMgLeft": 4,
+    "BgMainWidth": 100,
+    "BgMainHeight": 100,
+    "TabLucky": "0",
+
+    "LeafEffect_1": true,
+    "LeafEffect_2": false,
+    "LeafEffect_3": false,
+    "LeafEffect_4": false,
+    "FireWorkEffect_1": false,
+    "FireWorkEffect_2": false,
+    "FireWorkEffect_3": false,
+    "FireWorkEffect_4": false,
+    "FireWorkEffect_5": false,
+    "FireWorkEffect_6": false,
+    "FireWorkEffect_7": false
+
+}]

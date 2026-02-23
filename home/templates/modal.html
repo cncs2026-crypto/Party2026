@@ -1,0 +1,1115 @@
+<div class="layout-overlay">
+</div>
+<div class="modal-loading"></div>
+<style type="text/css">
+    .layout-overlay {
+        background-color: #ccc;
+        /*or semitransparent image*/
+        display: none;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        opacity: 0.6;
+    }
+    
+    .modal-loading {
+        display: none;
+        width: 80px;
+        height: 80px;
+        position: fixed;
+        margin-left: 46%;
+        margin-top: 200px;
+        z-index: 101;
+    }
+    
+    .modal-loading:after {
+        content: " ";
+        display: inline-block;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border-radius: 50%;
+        border: 6px solid #fff;
+        border-color: #0d6efd transparent #0d6efd transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+    }
+    
+    @keyframes lds-dual-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<style>
+    .modal {
+        .btn-add-emp,
+        .btn-search-emp {
+            width: auto;
+        }
+        .list-group-item {
+            cursor: pointer;
+            min-width: 9em;
+            display: flex;
+            label {
+                cursor: pointer;
+                margin-left: 10px;
+            }
+            .form-check-input {
+                scale: 1.5;
+            }
+        }
+        .img-ticket {
+            position: absolute;
+            display: flex;
+            width: 50em;
+            float: right;
+            top: 0;
+            right: 0;
+            .card-img-ticket {
+                width: 20em;
+                position: absolute;
+                right: 0;
+                padding: 2px;
+                border-radius: 15px;
+                top: -6em;
+                display: none;
+                z-index: 3;
+            }
+            &:hover .card-img-ticket {
+                display: block;
+            }
+        }
+    }
+    
+    .table {
+        tbody,
+        td,
+        tfoot,
+        th,
+        thead,
+        tr {
+            align-content: center;
+        }
+        td .svg-inline--fa {
+            cursor: pointer;
+            &:hover {
+                scale: 1.3;
+            }
+        }
+    }
+    
+    .tab-ds-giai {
+        padding: 1em;
+        .tab-sanchoi {
+            tr {
+                td {
+                    align-content: center;
+                    img {
+                        display: none;
+                        position: absolute;
+                        width: 10em;
+                        height: auto;
+                    }
+                }
+                .th-chooseimg {
+                    width: 17em;
+                }
+            }
+        }
+    }
+</style>
+
+
+<!--Modal Lựa chọn sân chơi-->
+<div class="modal fade" id="Modal_ChonSanChoi" tabindex="-1" aria-labelledby="Modal_ChonSanChoi" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-xl modal-lg  modal-md ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="">Lựa chọn sân chơi </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="col-lg-4 col-md-4 col-sm-6 float-left">
+                    <label>Lựa chọn hình nền:</label>
+                    <select class="form-select form-select-sm1  text-black" onchange="ChangeBackgr(this)">
+                        <option value="bg_1.jpg">bg_1.jpg</option>
+                        <option value="bg_2.jpg">bg_2.jpg</option>
+                        <option value="bg_3.jpg">bg_3.jpg</option>
+                        <option value="bg_4.jpg">bg_4.jpg</option>
+                        <option value="bg_5.jpg">bg_5.jpg</option>
+                        <option value="bg_6.jpg">bg_6.jpg</option>
+                        <option value="bg_7.jpg">bg_7.jpg</option>
+                        <option value="bg_8.jpg">bg_8.jpg</option>
+                        <option value="bg_9.jpg">bg_9.jpg</option>
+                        <option value="bg_10.jpg">bg_10.jpg</option>
+                        <option value="bg_11.jpg">bg_11.jpg</option>
+                        <option value="bg_12.jpg">bg_12.jpg</option>
+                        <option value="bg_13.jpg">bg_13.jpg</option>
+                        <option value="bg_14.jpg">bg_14.jpg</option>
+                        <option value="bg_15.jpg">bg_15.jpg</option>
+                        <option value="bg_16.jpg">bg_16.jpg</option>
+                        <option value="bg_17.jpg">bg_17.jpg</option>
+                        <option value="bg_18.jpg">bg_18.jpg</option>
+                        <option value="bg_19.jpg">bg_19.jpg</option>
+                        <option value="bg_20.jpg">bg_20.jpg</option>
+                        <option value="bg_21.jpg">bg_21.jpg</option>
+                        <option value="bg_22.jpg">bg_22.jpg</option>
+                        </select>
+                </div>
+                <br>
+                <div class="card-list" id="cardList">
+                    <!-- Card items will be inserted dynamically -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    #Modal_ChonSanChoi {
+        .modal-title {
+            color: black !important;
+        }
+        .modal-body {
+            justify-items: center;
+            align-content: center;
+            min-height: 28em;
+            overflow: hidden;
+            h1 {
+                margin: 20px 0;
+                color: #333;
+                position: absolute;
+                font-size: 2em !important;
+                font-weight: 600;
+            }
+            .card-list {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+                .card {
+                    width: 200px;
+                    height: 300px;
+                    border-radius: 15px;
+                    background: rgb(31 40 89);
+                    opacity: 0.6;
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    cursor: pointer;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    color: #fff;
+                    text-align: center;
+                    transition: transform 0.3s, box-shadow 0.3s;
+                    padding: 2em;
+                    background-image: url(../static/img/bg_tet/remdo4.jpg) !important;
+                    background-size: 100% !important;
+                    background-size: cover !important;
+                    background-repeat: no-repeat !important;
+                    background-position: center center !important;
+                    pre {
+                        white-space: pre-wrap;
+                        font-size: 1.5em;
+                    }
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        width: 100%;
+                        height: 200%;
+                        background: linear-gradient(to bottom, rgba(74, 144, 226, 0.5), transparent);
+                        transform: scaleY(-1);
+                        border-radius: 10px;
+                        z-index: -1;
+                    }
+                    &:hover {
+                        transform: translateY(-10px);
+                        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+                        background-color: #1e2759;
+                        opacity: 1;
+                    }
+                    .main-card {
+                        margin-top: 40px;
+                        width: 400px;
+                        height: 500px;
+                        border-radius: 20px;
+                        background: rgba(255, 255, 255, 0.25);
+                        backdrop-filter: blur(15px);
+                        -webkit-backdrop-filter: blur(15px);
+                        border: 1px solid rgba(255, 255, 255, 0.4);
+                        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+                        display: none;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        color: #fff;
+                        text-align: center;
+                    }
+                    .main-card h2 {
+                        margin-bottom: 10px;
+                    }
+                    .main-card p {
+                        font-size: 16px;
+                        line-height: 1.5;
+                    }
+                }
+                .card-active {
+                    transform: translateY(-10px);
+                    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+                    background-color: #1e2759;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+</style>
+
+<!--Modal Quản lý danh sách sân chơi-->
+<div class="modal fade" id="Modal_DsSanChoi" tabindex="-1" aria-labelledby="Modal_DsSanChoi" aria-hidden="true">
+    <div class="modal-dialog   modal-xl modal-lg  modal-md ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="">Quản lý danh sách sân chơi </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="form_dsSanChoi">
+                    <div class="row mb-4">
+
+
+                        <div class="col-lg-4 col-md-4 col-sm-6 float-left">
+                            <label>Mã sân chơi:</label>
+                            <select class="form-select form-select-sm1" aria-label="MaSanChoi" name="MaSanChoi" id="MaSanChoi" onchange="ActionDsSanChoi(3)">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <!-- thông tin tên sân chơi -->
+                        <div class="col-lg-4 col-md-4 col-sm-6 float-left">
+                            <label>Nhập tên sân chơi:</label> <input class="form-control form-control-sm1" type="text" value="" name="TenSanChoi" id="TenSanChoi">
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-6 float-left" hidden>
+                            <label>Tab Name</Table>:</label> <input class="form-control form-control-sm1" type="text" value="TabDsSanChoi" name="tab_name" id="tab_name">
+                        </div>
+
+                        <!-- Nút thêm đơn-->
+                        <div class="col float-left">
+                            <button class="btn btn-outline-info mt-4 btn-add-emp" onclick="ActionDsSanChoi(1)" type="button">
+                                <i class="fa fa-plus f-20 text-success"></i>Lưu thông tin
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+
+                <div class="col-md-12 col-12">
+                    <div class="modal-header">
+                        <h2 class="modal-title fs-5 text-danger" id="">Danh sách sân chơi</h2>
+                    </div>
+
+                    <table class="table text-left" id="Tab_DsSanChoi">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">MaSanChoi</th>
+                                <th scope="col">TenSanChoi</th>
+                                <th scope="col">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal cài đặt Sân Chơi -->
+<div class="modal fade" id="Modal_SanChoi" tabindex="-1" aria-labelledby="Modal_SanChoi" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="">Thiết lập sân chơi</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <!-- TAB QUẢN LÝ SÂN CHƠI -->
+                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="tab-danhsach" data-bs-toggle="tab" data-bs-target="#tabpanel-danhsach" type="button" role="tab" aria-controls="tabpanel-danhsach" aria-selected="true">📋 Danh sách sân chơi</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="tab-thaotac" data-bs-toggle="tab" data-bs-target="#tabpanel-thaotac" type="button" role="tab" aria-controls="tabpanel-thaotac" aria-selected="false">⚙️ Cấu hình sân chơi</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="tab-giai" data-bs-toggle="tab" data-bs-target="#tabpanel-giai" type="button" role="tab" aria-controls="tabpanel-giai" aria-selected="false">🎖️ Quản lý danh sách giải</button>
+                    </li>
+                </ul>
+
+                <!-- TAB 1: DANH SÁCH SÂN CHƠI -->
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="tabpanel-danhsach" role="tabpanel" aria-labelledby="tab-danhsach">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <button class="btn btn-success btn-sm" onclick="ShowAddSanChoiForm()" type="button">
+                                    <i class="fa fa-plus"></i> Thêm sân chơi mới
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Form thêm/sửa sân chơi -->
+                        <div id="form_sanchoi_container" class="mb-4" style="display:none;">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title" id="form_title">Thêm sân chơi mới</h5>
+                                    <form id="form_sanchoi_add">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label>Mã sân chơi:</label>
+                                                <input type="text" class="form-control" id="MaSanChoi_Add" name="MaSanChoi" placeholder="VD: SC001" required>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label>Tên sân chơi:</label>
+                                                <input type="text" class="form-control" id="TenSanChoi_Add" name="TenSanChoi" placeholder="VD: Sân chơi A" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <button type="button" class="btn btn-primary btn-sm" onclick="SaveSanChoi()" id="btn_save_sanchoi">
+                                                    <i class="fa fa-save"></i> Lưu
+                                                </button>
+                                                <button type="button" class="btn btn-secondary btn-sm" onclick="HideSanChoiForm()">
+                                                    <i class="fa fa-times"></i> Hủy
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bảng danh sách sân chơi -->
+                        <table class="table table-hover table-bordered" id="table_danhsach_sanchoi">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Mã sân chơi</th>
+                                    <th>Tên sân chơi</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Danh sách sẽ được nạp bằng JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- TAB 2: CẤU HÌNH SÂN CHƠI -->
+                    <div class="tab-pane fade" id="tabpanel-thaotac" role="tabpanel" aria-labelledby="tab-thaotac">
+                        <form id="form_sanchoi">
+
+                    <div class="row mb-4">
+                        <!-- Bảng sân chơi-->
+                        <div class=" col-md-4 col-sm-6 float-left mb-4" hidden>
+                            <label></label>
+                            <input id="tab_name" name="tab_name" value="TabSanChoi">
+                        </div>
+                        <!-- Chọn sân chơi -->
+                        <div class=" col-md-4 col-sm-6 float-left mb-4">
+                            <label>Chọn sân chơi :</label>
+                            <select class="form-select form-select" aria-label="Default select example" name="MaSanChoi" id="MaSanChoi" onchange="ActionSanChoi(3)">
+                                <option value=""></option>
+                            </select>
+                        </div>
+
+                        <!-- Bảng danh sách giải thưởng -->
+                        <div class="tab-ds-giai">
+                            <table class="table table-hover tab-sanchoi">
+                                <thead>
+                                    <tr>
+                                        <th>Tên giải thưởng</th>
+                                        <th style="width: 150px;">Chọn quà</th>
+                                        <th>Tên quà tặng</th>
+                                        <th class="th-chooseimg">Hình ảnh</th>
+                                        <th>Hình nền game</th>
+                                        <th>Video nền game</th>
+                                        <th>Nền vòng quay</th>
+                                        <th>Số lần quay</th>
+                                        <th>Số lượng giải</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% comment %}
+                                    <tr>
+                                        <td>
+                                            <li class="list-group-item  list-group-item-action" onclick="setCheckBox(this)">
+                                                <input class="form-check-input me-1" type="checkbox" value="" id="GT001" name="GT001">
+                                                <label class="form-check-label">Giải Đặc Biệt</label>
+                                            </li>
+                                        </td>
+                                        <td>
+                                            <select class="form-select form-select" value="GT001" name="MaQuaTang_GT001" id="MaQuaTang_GT001">
+                                                <option></option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control img-ticket-name" id="TenQuaTang_GT001" name="TenQuaTang_GT001" value="">
+                                        </td>
+                                        <td>
+                                            <input type="file" class="form-control load-img-ticket" accept="file_extension(,.jpg,.png,.jpeg)">
+                                            <img class="card-img-ticket" src="">
+                                        </td>
+                                    </tr> {% endcomment %}
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <!-- Chọn các loại giải thưởng cho sân chơi -->
+                        <div class="col-md-12 float-left mb-4">
+                            <ul class="list-group list-group-horizontal-1" id="DsMaGiai">
+
+                            </ul>
+                        </div>
+
+
+                        <div class=" col-md-4 col-sm-6 float-left">
+                            <label></label>
+                            <button class="btn btn-outline-info" onclick="ActionSanChoi(1)" type="button">
+                            <i class="fa fa-check f-20 text-success"></i>
+                            <span>Lưu thông tin</span>
+                        </button>
+                        </div>
+                    </div>
+
+                </form>
+                    </div>
+
+                    <!-- TAB 3: QUẢN LÝ DANH SÁCH GIẢI -->
+                    <div class="tab-pane fade" id="tabpanel-giai" role="tabpanel" aria-labelledby="tab-giai">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <button class="btn btn-success btn-sm" onclick="ShowAddGiaiForm()" type="button">
+                                    <i class="fa fa-plus"></i> Thêm giải mới
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Form thêm/sửa giải -->
+                        <div id="form_giai_container" class="mb-4">
+                            <div class="card bg-light" style="display:none;">
+                                <div class="card-body">
+                                    <h5 class="card-title" id="form_giai_title">Thêm giải mới</h5>
+                                    <form id="form_giai_add">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label>Mã giải:</label>
+                                                <input type="text" class="form-control" id="MaGiai_Add" name="MaGiai" placeholder="VD: GT001" required>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label>Tên giải:</label>
+                                                <input type="text" class="form-control" id="TenGiai_Add" name="TenGiai" placeholder="VD: Giải Đặc Biệt" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <button type="button" class="btn btn-primary btn-sm" onclick="SaveGiai()" id="btn_save_giai">
+                                                    <i class="fa fa-save"></i> Lưu
+                                                </button>
+                                                <button type="button" class="btn btn-secondary btn-sm" onclick="HideGiaiForm()">
+                                                    <i class="fa fa-times"></i> Hủy
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bảng danh sách giải -->
+                        <table class="table table-hover table-bordered" id="table_danhsach_giai">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Mã giải</th>
+                                    <th>Tên giải</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Danh sách sẽ được nạp bằng JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Quản lý người Chơi-->
+<div class="modal fade" id="Modal_NguoiChoi" tabindex="-1" aria-labelledby="Modal_NguoiChoi" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="max-width: 90vw;">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header border-0">
+                <div>
+                    <h5 class="modal-title mb-0">
+                        <i class="fa fa-users"></i> Quản Lý Người Chơi
+                    </h5>
+                    <small class="text-dark-50">Thêm, sửa, xóa thông tin người chơi</small>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <!-- SECTION 1: CONTROL PANEL -->
+                <div class="card mb-4 border-primary">
+                    <div class="card-header text-white">
+                        <h6 class="mb-0">
+                            <i class="fa fa-sliders-h"></i> Điều Khiển
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div id="div_Emp">
+                            <form id="form_emp">
+                            <!-- Row 1: Actions & Filter -->
+                            <div class="row g-3 mb-3">
+                                <!-- Thao tác -->
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Thao Tác</label>
+                                    <select class="form-select" name="Action" id="Action">
+                                        <option value="0" selected>Tra Cứu Thông Tin</option>
+                                        <option value="1">Thêm Thông Tin</option>
+                                        <option value="2">Thêm Từ Excel</option>
+                                        <option value="3">Xóa 1 Thông Tin</option>
+                                        <option value="4">Xóa Từ Excel</option>
+                                        <option value="5">Xóa Toàn Bộ</option>
+                                        <option value="6">Sửa Thông Tin</option>
+                                    </select>
+                                </div>
+
+                                <!-- Sân chơi -->
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Sân Chơi</label>
+                                    <select class="form-select" name="MaSanChoi" id="MaSanChoi" onchange="ActionEmp(8)">
+                                        <option value="">-- Chọn sân chơi --</option>
+                                    </select>
+                                </div>
+
+                                <!-- Lọc danh sách -->
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Lọc Danh Sách</label>
+                                    <select class="form-select" name="Filter" id="Filter">
+                                        <option value="0" selected>Tất Cả</option>
+                                        <option value="1">Chưa Quay Thưởng</option>
+                                        <option value="2">Đã Quay Thưởng</option>
+                                    </select>
+                                </div>
+
+                                <!-- Nút Thực Hiện -->
+                                <div class="col-md-3 d-flex align-items-end">
+                                    <button type="button" class="btn btn-success w1-100" onclick="ActionEmp(0)">
+                                        <i class="fa fa-check"></i> Thực Hiện
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Row 2: Giải Thưởng -->
+                            <div class="row g-3 mb-3">
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">Chọn Giải Thưởng</label>
+                                    <div class="d-flex gap-2 flex-wrap" id="DsMaGiai">
+                                        <!-- Giải sẽ được load từ backend -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Row 3: Nhân viên info -->
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Mã Dự Thưởng</label>
+                                    <input type="text" class="form-control" name="MaDuThuong" id="MaDuThuong" maxlength="5" placeholder="Tối đa 5 ký tự">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Mã Nhân Viên</label>
+                                    <input type="text" class="form-control" name="MaNhanVien" id="MaNhanVien" placeholder="Mã NV">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Họ Tên Nhân Viên</label>
+                                    <input type="text" class="form-control" name="TenNhanVien" id="TenNhanVien" placeholder="Tên đầy đủ">
+                                </div>
+                                <input type="hidden" name="tab_name" id="tab_name" value="TabNguoiChoi">
+                            </div>
+
+                            <!-- Row 4: Upload Excel -->
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">
+                                        <i class="fa fa-file-excel text-success"></i> Import Từ File Excel
+                                        <span class="badge bg-info ms-2">Tùy Chọn</span>
+                                    </label>
+                                    <div class="input-group">
+                                        <input type="file" class="form-control" id="listfile" name="listfile" accept=".xlsx,.xls,.csv">
+                                        <button class="btn btn-primary" type="button" onclick="ActionEmp(2)">
+                                            <i class="fa fa-upload"></i> Upload
+                                        </button>
+                                        <a href="/static/download/NguoiChoi.xlsx" class="btn btn-outline-secondary" target="_blank">
+                                            <i class="fa fa-download"></i> Tải Template
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: DATA TABLE -->
+                <div class="card">
+                    <div class="card-header text-white">
+                        <h6 class="mb-0">
+                            <i class="fa fa-table"></i> Danh Sách Người Chơi
+                        </h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="Tab_NguoiChoi">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th width="40">#</th>
+                                        <th>Mã NV</th>
+                                        <th>Tên Nhân Viên</th>
+                                        <th>Mã Dự Thưởng</th>
+                                        <th>Giải Thưởng</th>
+                                        <th>Sân Chơi</th>
+                                        <th>Ngày Tạo</th>
+                                        <th width="100">Thao Tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Data sẽ được load từ backend -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer bg-light border-top">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fa fa-times"></i> Đóng
+                </button>
+                <button type="button" class="btn btn-primary" onclick="ActionEmp(0)">
+                    <i class="fa fa-save"></i> Lưu & Thực Hiện
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Danh sách người đã trúng thưởng-->
+<div class="modal fade" id="Modal_TrungThuong" tabindex="-1" aria-labelledby="Modal_TrungThuong" aria-hidden="true">
+
+    <div class="modal-dialog  modal-fullscreen modal-xl modal-lg  modal-md ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="">Quản lý danh sách trúng thưởng </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="form_TrungThuong">
+                    <div class="row mb-4" id="div_TrungThuong">
+
+                        <!-- Chọn sân chơi -->
+                        <div class="col-lg-2 col-md-3 col-sm-6 float-left mb-0">
+                            <label>Sân chơi :</label>
+                            <select class="form-select form-select-sm1" aria-label="MaSanChoi" name="MaSanChoi" id="MaSanChoi" onchange="ActionTrungThuong(8)">
+                                <option value="" selected=""></option>                                
+                            </select>
+                        </div>
+
+                        <!-- Thẻ giải thưởng -->
+                        <div class="col-lg-10 col-md-9 col-sm-6 float-left mt-4">
+                            <ul class="list-group list-group-horizontal" id="DsMaGiai">
+
+                            </ul>
+                        </div>
+                        <!-- thông tin nhân viên -->
+                        <div class="col-lg-2 col-md-3 col-sm-6 float-left mt-4">
+                            <label>Mã dự thưởng:</label> <input class="form-control form-control-sm1" type="text" value="" maxlength="5" placeholder="Tối đa 5 ký tự" name="MaDuThuong" id="MaDuThuong">
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-sm-6 float-left mt-4">
+                            <label>Mã nhân viên:</label> <input class="form-control form-control-sm1" type="text" value="" name="MaNhanVien" id="MaNhanVien">
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-sm-6 float-left mt-4" hidden>
+                            <label>Họ tên:</label> <input class="form-control form-control-sm1" type="text" value="" name="TenNhanVien" id="TenNhanVien">
+                        </div>
+
+                        <div class="col-lg-2 col-md-3 col-sm-6 float-left" hidden>
+                            <label>Tab Name</Table>:</label> <input class="form-control form-control-sm1" type="text" value="TabTrungThuong" name="tab_name" id="tab_name">
+                        </div>
+
+                        <!-- Nút thêm đơn-->
+                        <div class="col float-left  mt-4">
+                            <button class="btn btn-outline-info mt-4 btn-add-emp" onclick="ActionTrungThuong(0)" type="button">
+                                <i class="fa fa-search f-20 text-success"></i> Tra cứu
+                            </button>
+                            <button class="btn btn-outline-info mt-4 btn-add-emp" onclick="ActionTrungThuong(1)" type="button">
+                                <i class="fa fa-plus f-20 text-success"></i> Lưu thông tin
+                            </button>
+                            <button class="btn btn-outline-info mt-4 btn-add-emp" onclick="ActionTrungThuong(4)" type="button">
+                                <i class="fa fa-trash f-20 text-danger"></i> Xóa toàn bộ 
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+
+                <div class="col-md-12 col-12">
+                    <div class="modal-header">
+                        <h2 class="modal-title fs-5 text-danger" id="">Danh sách người đã trúng thưởng</h2>
+                    </div>
+
+                    <table class="table text-left" id="Tab_TrungThuong">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">MaNhanVien</th>
+                                <th scope="col">TenNhanVien</th>
+                                <th scope="col">MaDuThuong</th>
+                                <th scope="col">MaGiai</th>
+                                <th scope="col">MaSanChoi</th>
+                                <th scope="col">NgayTao</th>
+                                <th scope="col">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal quản lý các phần quà-->
+<div class="modal fade" id="Modal_GiaiThuong" tabindex="-1" aria-labelledby="Modal_GiaiThuong" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-lg  modal-md ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="">Quản lý phần quà</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body" style="max-height: 85vh; overflow-y: auto;">
+                <form id="form_giaithuong">
+                    <!-- SECTION 1: FORM THÊM/SỬA PHẦN QUÀ -->
+                    <div class="card mb-4 border-primary">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">
+                                <i class="fa fa-gift"></i> Thêm/Sửa Phần Quà
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <!-- Mã phần quà -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Mã Phần Quà <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-lg" name="MaGiaiThuong" id="MaGiaiThuong" placeholder="VD: 0001" required>
+                                    <small class="text-muted">Mã định danh duy nhất cho phần quà</small>
+                                </div>
+                                
+                                <!-- Tên phần quà -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Tên Phần Quà <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-lg" name="TenGiaiThuong" id="TenGiaiThuong" placeholder="VD: iPhone 16 Pro" required>
+                                    <small class="text-muted">Tên hiển thị của phần quà</small>
+                                </div>
+
+                                <!-- Nút hành động -->
+                                <div class="col-12">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                                        <button type="button" class="btn btn-success btn-lg" onclick="ActionGiaiThuong(1)" id="btn-save-gift">
+                                            <i class="fa fa-save"></i> Thêm Mới
+                                        </button>
+                                        <button type="button" class="btn btn-warning btn-lg" onclick="ActionGiaiThuong(4)" id="btn-edit-gift" style="display:none;">
+                                            <i class="fa fa-edit"></i> Cập Nhật
+                                        </button>
+                                        <button type="button" class="btn btn-secondary btn-lg" onclick="ClearGiftForm()" id="btn-clear-gift" style="display:none;">
+                                            <i class="fa fa-times"></i> Hủy
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 2: DANH SÁCH PHẦN QUÀ -->
+                    <div class="card">
+                        <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">
+                                <i class="fa fa-list"></i> Danh Sách Phần Quà
+                            </h5>
+                            <span class="badge bg-light text-dark" id="gift-count">0</span>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="width: 5%;">#</th>
+                                            <th style="width: 15%;">Mã Phần Quà</th>
+                                            <th style="width: 30%;">Tên Phần Quà</th>
+                                            <th style="width: 15%;" class="text-center">Hình Ảnh</th>
+                                            <th style="width: 20%;" class="text-center">Upload Ảnh</th>
+                                            <th style="width: 15%;" class="text-center">Thao Tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="gift-table-body">
+                                        <!-- Danh sách sẽ được nạp bằng JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hidden input -->
+                    <input id="tab_name" name="tab_name" value="TabGiaiThuong" hidden>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================================= -->
+<!-- MODAL CÀI ĐẶT CHUNG (Settings) -->
+<!-- ============================================================================= -->
+<div class="modal fade" id="Modal_Setting" tabindex="-1" aria-labelledby="Modal_Setting" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="max-width: 70vw;">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title">
+                    <i class="fa fa-cog"></i> Cài Đặt Chung
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="max-height: 85vh; overflow-y: auto;">
+                <form id="form_settings">
+                    <!-- SECTION 1: HIỆU ỨNG -->
+                    <div class="card mb-4 border-primary">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">
+                                <i class="fa fa-sparkles"></i> Hiệu Ứng Đặc Biệt
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <!-- Tuyết rơi -->
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch form-check-lg">
+                                        <input class="form-check-input effect-checkbox" type="checkbox" id="effect_snow" name="effect_snow" data-effect="snow" checked>
+                                        <label class="form-check-label" for="effect_snow">
+                                            <strong>❄️ Tuyết Rơi</strong>
+                                            <br>
+                                            <small class="text-muted">Hiệu ứng tuyết rơi xuống</small>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Pháo hoa -->
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch form-check-lg">
+                                        <input class="form-check-input effect-checkbox" type="checkbox" id="effect_fireworks" name="effect_fireworks" data-effect="fireworks">
+                                        <label class="form-check-label" for="effect_fireworks">
+                                            <strong>🎆 Pháo Hoa</strong>
+                                            <br>
+                                            <small class="text-muted">Hiệu ứng pháo hoa</small>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Bong bóng -->
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch form-check-lg">
+                                        <input class="form-check-input effect-checkbox" type="checkbox" id="effect_bubbles" name="effect_bubbles" data-effect="bubbles">
+                                        <label class="form-check-label" for="effect_bubbles">
+                                            <strong>🎈 Bong Bóng</strong>
+                                            <br>
+                                            <small class="text-muted">Hiệu ứng bong bóng bay lên</small>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Cầu vồng -->
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch form-check-lg">
+                                        <input class="form-check-input effect-checkbox" type="checkbox" id="effect_rainbow" name="effect_rainbow" data-effect="rainbow">
+                                        <label class="form-check-label" for="effect_rainbow">
+                                            <strong>🌈 Cầu Vồng</strong>
+                                            <br>
+                                            <small class="text-muted">Hiệu ứng nền cầu vồng</small>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Mưa sao -->
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch form-check-lg">
+                                        <input class="form-check-input effect-checkbox" type="checkbox" id="effect_stars" name="effect_stars" data-effect="stars">
+                                        <label class="form-check-label" for="effect_stars">
+                                            <strong>⭐ Mưa Sao</strong>
+                                            <br>
+                                            <small class="text-muted">Hiệu ứng sao rơi</small>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Tuyến tính -->
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch form-check-lg">
+                                        <input class="form-check-input effect-checkbox" type="checkbox" id="effect_particles" name="effect_particles" data-effect="particles">
+                                        <label class="form-check-label" for="effect_particles">
+                                            <strong>✨ Hạt Tử</strong>
+                                            <br>
+                                            <small class="text-muted">Hiệu ứng hạt tử bay lơ lửng</small>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 2: HÌNH NỀN -->
+                    <div class="card">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">
+                                <i class="fa fa-image"></i> Hình Nền
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- TAB CHỌN HÌNH NỀN -->
+                            <ul class="nav nav-tabs mb-4" id="bgTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="tab-bg-video" data-bs-toggle="tab" data-bs-target="#panel-bg-video" type="button" role="tab" aria-controls="panel-bg-video" aria-selected="true">
+                                        <i class="fa fa-video"></i> Video
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="tab-bg-image" data-bs-toggle="tab" data-bs-target="#panel-bg-image" type="button" role="tab" aria-controls="panel-bg-image" aria-selected="false">
+                                        <i class="fa fa-image"></i> Hình Ảnh
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="tab-bg-upload" data-bs-toggle="tab" data-bs-target="#panel-bg-upload" type="button" role="tab" aria-controls="panel-bg-upload" aria-selected="false">
+                                        <i class="fa fa-cloud-upload"></i> Tải Lên
+                                    </button>
+                                </li>
+                            </ul>
+
+                            <!-- PANEL 1: CHỌN VIDEO -->
+                            <div class="tab-content" id="bgTabsContent">
+                                <div class="tab-pane fade show active" id="panel-bg-video" role="tabpanel" aria-labelledby="tab-bg-video">
+                                    <div class="row g-3" id="video-list">
+                                        <!-- Video items sẽ được nạp bằng JavaScript -->
+                                    </div>
+                                </div>
+
+                                <!-- PANEL 2: CHỌN HÌNH ẢNH -->
+                                <div class="tab-pane fade" id="panel-bg-image" role="tabpanel" aria-labelledby="tab-bg-image">
+                                    <div class="row g-3" id="image-list">
+                                        <!-- Image items sẽ được nạp bằng JavaScript -->
+                                    </div>
+                                </div>
+
+                                <!-- PANEL 3: TẢI HÌNH ẢNH LÊN -->
+                                <div class="tab-pane fade" id="panel-bg-upload" role="tabpanel" aria-labelledby="tab-bg-upload">
+                                    <div class="card border-info">
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">Chọn Hình Ảnh</label>
+                                                <input type="file" class="form-control form-control-lg" id="bg_upload_file" name="bg_upload_file" accept=".jpg,.jpeg,.png,.gif,.webp" multiple>
+                                                <small class="text-muted d-block mt-2">Hỗ trợ: JPG, PNG, GIF, WebP | Kích thước tối đa: 5MB/file</small>
+                                            </div>
+                                            <div class="d-grid gap-2">
+                                                <button type="button" class="btn btn-success btn-lg" onclick="UploadBackgroundImage()">
+                                                    <i class="fa fa-upload"></i> Tải Lên
+                                                </button>
+                                            </div>
+                                            <div id="upload-progress" class="mt-3" style="display: none;">
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="progress-bar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 3: PREVIEW & SAVE -->
+                    <div class="card mt-4">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="mb-0">
+                                <i class="fa fa-save"></i> Cài Đặt
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2 d-md-flex">
+                                <button type="button" class="btn btn-primary btn-lg" onclick="SaveSettings()">
+                                    <i class="fa fa-save"></i> Lưu Cài Đặt
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-lg" onclick="ResetSettings()">
+                                    <i class="fa fa-redo"></i> Đặt Lại Mặc Định
+                                </button>
+                                <button type="button" class="btn btn-info btn-lg" data-bs-dismiss="modal">
+                                    <i class="fa fa-times"></i> Đóng
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,219 @@
+ {% load static %}
+<!-- -->
+<style>
+    /* ========== GENERAL RESET ========== */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        height: 100vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f9f9f9, #eaeaea);
+        overflow: hidden;
+    }
+
+    /* ========== MENU CONTAINER ========== */
+    .menu-container {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        margin-top: 15%;
+        position: absolute;
+        width: 100%;
+        align-items: center;
+        z-index: 10;
+        animation: slideInDown 0.8s ease-out;
+    }
+
+    /* ========== MENU BUTTONS - MODERN DESIGN ========== */
+    .menu-button {
+        position: relative;
+        padding: 0;
+        font-size: 1.3em;
+        font-weight: 600;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        width: 500px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        letter-spacing: 0.5px;
+        
+        /* Gradient Background */
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        
+        /* Shadow & Depth */
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4),
+                    0 1px 8px rgba(0, 0, 0, 0.15);
+        
+        /* Smooth Transitions */
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        
+        /* Text Effects */
+        text-transform: uppercase;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        
+        /* Overflow hidden for ripple effect */
+        overflow: hidden;
+    }
+
+    /* Ripple Effect */
+    .menu-button::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+
+    .menu-button:active::before {
+        width: 300px;
+        height: 300px;
+    }
+
+    /* Hover State */
+    .menu-button:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(102, 126, 234, 0.5),
+                    0 2px 10px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    }
+
+    /* Active/Click State */
+    .menu-button:active {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3),
+                    0 1px 5px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Focus State (Accessibility) */
+    .menu-button:focus {
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.25),
+                    0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    /* ========== BUTTON VARIANTS ========== */
+    /* Button 1 - Purple Blue */
+    .menu-button:nth-child(1) {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .menu-button:nth-child(1):hover {
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        box-shadow: 0 20px 40px rgba(102, 126, 234, 0.5),
+                    0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Button 2 - Sunset Orange */
+    .menu-button:nth-child(2) {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .menu-button:nth-child(2):hover {
+        background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+        box-shadow: 0 20px 40px rgba(245, 87, 108, 0.5),
+                    0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Button 3 - Emerald Green */
+    .menu-button:nth-child(3) {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+
+    .menu-button:nth-child(3):hover {
+        background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+        box-shadow: 0 20px 40px rgba(79, 172, 254, 0.5),
+                    0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ========== ANIMATIONS ========== */
+    @keyframes slideInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes glow {
+        0%, 100% {
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        50% {
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.6);
+        }
+    }
+
+    .menu-button:nth-child(1) {
+        animation: slideInDown 0.6s ease-out, glow 3s ease-in-out infinite;
+    }
+
+    .menu-button:nth-child(2) {
+        animation: slideInDown 0.7s ease-out, glow 3s ease-in-out 0.2s infinite;
+    }
+
+    .menu-button:nth-child(3) {
+        animation: slideInDown 0.8s ease-out, glow 3s ease-in-out 0.4s infinite;
+    }
+
+    /* ========== RESPONSIVE DESIGN ========== */
+    @media (max-width: 768px) {
+        .menu-container {
+            gap: 20px;
+            margin-top: 20%;
+        }
+
+        .menu-button {
+            font-size: 1.1em;
+            width: 420px;
+            height: 55px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .menu-container {
+            gap: 15px;
+            margin-top: 25%;
+        }
+
+        .menu-button {
+            font-size: 0.95em;
+            width: 320px;
+            height: 50px;
+        }
+    }
+</style>
+
+<div id="OtherID" style="width: 100%;height: 100%;">
+
+    <div class="menu-container" style="z-index: 2;">
+        <button class="menu-button" onclick="location.href='/home/'">Quản lý màn hình nền</button>
+        <button class="menu-button" onclick="location.href='/spin/'">Quay số trúng thưởng</button>
+        <button class="menu-button" onclick="alert('Liên hệ số điện thoại : 0966674318')">Liên hệ</button>
+    </div>
+
+    <!-- Hình nền chính  -->
+    <div class="main" style="z-index: 2;">
+        <img class="background-main" src="/static/img/bg_tet/remdo4.jpg" style=" width: 100%; height: 100%;">
+    </div>
+    <video autoplay muted loop id="background-video" style="width: 100%;height: auto;position: fixed;z-index: 1;    top: 0;    left: 0;">
+        <source src="/static/video/vd-bgtet-0.mp4" type="video/mp4">
+    </video>
+
+
+</div>

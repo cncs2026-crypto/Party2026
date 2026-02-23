@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Click Shadow Effect</title>
+
+</head>
+
+<body>
+    <div class="card-container">
+        <div class="card">Click Me</div>
+    </div>
+
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+            font-family: Arial, sans-serif;
+        }
+        
+        .card-container {
+            position: relative;
+        }
+        
+        .card {
+            position: relative;
+            width: 200px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #4bc0c0;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .shadow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100px;
+            background: rgba(75, 192, 192, 0.5);
+            border-radius: 10px;
+            z-index: 0;
+            transform: scale(1);
+            opacity: 1;
+            animation: expandAndFade 0.5s ease-out forwards;
+        }
+        
+        @keyframes expandAndFade {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+    </style>
+    <script>
+        const card = document.querySelector('.card');
+        const container = document.querySelector('.card-container');
+
+        card.addEventListener('click', () => {
+            // Tạo shadow mới
+            const shadow = document.createElement('div');
+            shadow.classList.add('shadow');
+            container.appendChild(shadow);
+
+            // Xóa shadow sau khi animation kết thúc
+            shadow.addEventListener('animationend', () => {
+                shadow.remove();
+            });
+        });
+    </script>
+</body>
+
+</html>

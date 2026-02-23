@@ -1,0 +1,50 @@
+<h1 class="glowing-text">Chữ Lung Linh</h1>
+<style>
+    /* Định dạng chữ */
+.glowing-text {
+  font-size: 50px;
+  font-weight: bold;
+  color: #fff; /* Màu chữ chính */
+  text-align: center;
+  animation: glow 1.5s infinite alternate; /* Thêm hiệu ứng animation */
+}
+
+/* Hiệu ứng lung linh (glowing) */
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000, 0 0 20px #ff0000;
+  }
+  50% {
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #ff0000;
+  }
+  100% {
+    text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000, 0 0 20px #ff0000;
+  }
+}
+
+</style>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chữ Cầu Vồng với CSS</title>
+    <style>
+        .rainbow-text {
+            font-size: 50px;
+            font-weight: bold;
+            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); /* Tạo gradient cầu vồng */
+            -webkit-background-clip: text; /* Cắt background theo chữ, chỉ hiển thị qua chữ */
+            color: transparent; /* Làm cho chữ trong suốt, để gradient lộ ra */
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="rainbow-text">Chữ Cầu Vồng</h1>
+
+</body>
+</html>

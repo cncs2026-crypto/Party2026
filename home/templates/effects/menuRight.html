@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr" class="chrome windows fontawesome-i2svg-active fontawesome-i2svg-complete">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>
+        Login Work Flow
+    </title>
+
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <style type="text/css">
+        svg:not(:root).svg-inline--fa {
+            overflow: visible
+        }
+        
+        .svg-inline--fa {
+            display: inline-block;
+            font-size: inherit;
+            height: 1em;
+            overflow: visible;
+            vertical-align: -.125em
+        }
+        
+        .svg-inline--fa.fa-lg {
+            vertical-align: -.225em
+        }
+        
+        .svg-inline--fa.fa-w-1 {
+            width: .0625em
+        }
+        
+        .svg-inline--fa.fa-w-2 {
+            width: .125em
+        }
+        
+        .svg-inline--fa.fa-w-3 {
+            width: .1875em
+        }
+        
+        .svg-inline--fa.fa-w-4 {
+            width: .25em
+        }
+        
+        .svg-inline--fa.fa-w-5 {
+            width: .3125em
+        }
+        
+        .svg-inline--fa.fa-w-6 {
+            width: .375em
+        }
+        
+        .svg-inline--fa.fa-w-7 {
+            width: .4375em
+        }
+        
+        .svg-inline--fa.fa-w-8 {
+            width: .5em
+        }
+        
+        .svg-inline--fa.fa-w-9 {
+            width: .5625em
+        }
+        
+        .svg-inline--fa.fa-w-10 {
+            width: .625em
+        }
+        
+        .svg-inline--fa.fa-w-11 {
+            width: .6875em
+        }
+        
+        .svg-inline--fa.fa-w-12 {
+            width: .75em
+        }
+        
+        .svg-inline--fa.fa-w-13 {
+            width: .8125em
+        }
+        
+        .svg-inline--fa.fa-w-14 {
+            width: .875em
+        }
+        
+        .svg-inline--fa.fa-w-15 {
+            width: .9375em
+        }
+        
+        .svg-inline--fa.fa-w-16 {
+            width: 1em
+        }
+        
+        .svg-inline--fa.fa-w-17 {
+            width: 1.0625em
+        }
+        
+        .svg-inline--fa.fa-w-18 {
+            width: 1.125em
+        }
+        
+        .svg-inline--fa.fa-w-19 {
+            width: 1.1875em
+        }
+        
+        .svg-inline--fa.fa-w-20 {
+            width: 1.25em
+        }
+        
+        .svg-inline--fa.fa-pull-left {
+            margin-right: .3em;
+            width: auto
+        }
+        
+        .svg-inline--fa.fa-pull-right {
+            margin-left: .3em;
+            width: auto
+        }
+        
+        .svg-inline--fa.fa-border {
+            height: 1.5em
+        }
+        
+        .svg-inline--fa.fa-li {
+            width: 2em
+        }
+        
+        .svg-inline--fa.fa-fw {
+            width: 1.25em
+        }
+        
+        .fa-layers svg.svg-inline--fa {
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            position: absolute;
+            right: 0;
+            top: 0
+        }
+        
+        .fa-layers {
+            display: inline-block;
+            height: 1em;
+            position: relative;
+            text-align: center;
+            vertical-align: -.125em;
+            width: 1em
+        }
+        
+        .fa-layers svg.svg-inline--fa {
+            -webkit-transform-origin: center center;
+            transform-origin: center center
+        }
+        
+        .fa-layers-counter,
+        .fa-layers-text {
+            display: inline-block;
+            position: absolute;
+            text-align: center
+        }
+        
+        .fa-layers-text {
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            -webkit-transform-origin: center center;
+            transform-origin: center center
+        }
+        
+        .fa-layers-counter {
+            background-color: #ff253a;
+            border-radius: 1em;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            color: #fff;
+            height: 1.5em;
+            line-height: 1;
+            max-width: 5em;
+            min-width: 1.5em;
+            overflow: hidden;
+            padding: .25em;
+            right: 0;
+            text-overflow: ellipsis;
+            top: 0;
+            -webkit-transform: scale(.25);
+            transform: scale(.25);
+            -webkit-transform-origin: top right;
+            transform-origin: top right
+        }
+        
+        .fa-layers-bottom-right {
+            bottom: 0;
+            right: 0;
+            top: auto;
+            -webkit-transform: scale(.25);
+            transform: scale(.25);
+            -webkit-transform-origin: bottom right;
+            transform-origin: bottom right
+        }
+        
+        .fa-layers-bottom-left {
+            bottom: 0;
+            left: 0;
+            right: auto;
+            top: auto;
+            -webkit-transform: scale(.25);
+            transform: scale(.25);
+            -webkit-transform-origin: bottom left;
+            transform-origin: bottom left
+        }
+        
+        .fa-layers-top-right {
+            right: 0;
+            top: 0;
+            -webkit-transform: scale(.25);
+            transform: scale(.25);
+            -webkit-transform-origin: top right;
+            transform-origin: top right
+        }
+        
+        .fa-layers-top-left {
+            left: 0;
+            right: auto;
+            top: 0;
+            -webkit-transform: scale(.25);
+            transform: scale(.25);
+            -webkit-transform-origin: top left;
+            transform-origin: top left
+        }
+        
+        .fa-lg {
+            font-size: 1.3333333333em;
+            line-height: .75em;
+            vertical-align: -.0667em
+        }
+        
+        .fa-xs {
+            font-size: .75em
+        }
+        
+        .fa-sm {
+            font-size: .875em
+        }
+        
+        .fa-1x {
+            font-size: 1em
+        }
+        
+        .fa-2x {
+            font-size: 2em
+        }
+        
+        .fa-3x {
+            font-size: 3em
+        }
+        
+        .fa-4x {
+            font-size: 4em
+        }
+        
+        .fa-5x {
+            font-size: 5em
+        }
+        
+        .fa-6x {
+            font-size: 6em
+        }
+        
+        .fa-7x {
+            font-size: 7em
+        }
+        
+        .fa-8x {
+            font-size: 8em
+        }
+        
+        .fa-9x {
+            font-size: 9em
+        }
+        
+        .fa-10x {
+            font-size: 10em
+        }
+        
+        .fa-fw {
+            text-align: center;
+            width: 1.25em
+        }
+        
+        .fa-ul {
+            list-style-type: none;
+            margin-left: 2.5em;
+            padding-left: 0
+        }
+        
+        .fa-ul>li {
+            position: relative
+        }
+        
+        .fa-li {
+            left: -2em;
+            position: absolute;
+            text-align: center;
+            width: 2em;
+            line-height: inherit
+        }
+        
+        .fa-border {
+            border: solid .08em #eee;
+            border-radius: .1em;
+            padding: .2em .25em .15em
+        }
+        
+        .fa-pull-left {
+            float: left
+        }
+        
+        .fa-pull-right {
+            float: right
+        }
+        
+        .fa.fa-pull-left,
+        .fab.fa-pull-left,
+        .fal.fa-pull-left,
+        .far.fa-pull-left,
+        .fas.fa-pull-left {
+            margin-right: .3em
+        }
+        
+        .fa.fa-pull-right,
+        .fab.fa-pull-right,
+        .fal.fa-pull-right,
+        .far.fa-pull-right,
+        .fas.fa-pull-right {
+            margin-left: .3em
+        }
+        
+        .fa-spin {
+            -webkit-animation: fa-spin 2s infinite linear;
+            animation: fa-spin 2s infinite linear
+        }
+        
+        .fa-pulse {
+            -webkit-animation: fa-spin 1s infinite steps(8);
+            animation: fa-spin 1s infinite steps(8)
+        }
+        
+        @-webkit-keyframes fa-spin {
+            0% {
+                -webkit-transform: rotate(0);
+                transform: rotate(0)
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg)
+            }
+        }
+        
+        @keyframes fa-spin {
+            0% {
+                -webkit-transform: rotate(0);
+                transform: rotate(0)
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg)
+            }
+        }
+        
+        .fa-rotate-90 {
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg)
+        }
+        
+        .fa-rotate-180 {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg)
+        }
+        
+        .fa-rotate-270 {
+            -webkit-transform: rotate(270deg);
+            transform: rotate(270deg)
+        }
+        
+        .fa-flip-horizontal {
+            -webkit-transform: scale(-1, 1);
+            transform: scale(-1, 1)
+        }
+        
+        .fa-flip-vertical {
+            -webkit-transform: scale(1, -1);
+            transform: scale(1, -1)
+        }
+        
+        .fa-flip-both,
+        .fa-flip-horizontal.fa-flip-vertical {
+            -webkit-transform: scale(-1, -1);
+            transform: scale(-1, -1)
+        }
+        
+         :root .fa-flip-both,
+         :root .fa-flip-horizontal,
+         :root .fa-flip-vertical,
+         :root .fa-rotate-180,
+         :root .fa-rotate-270,
+         :root .fa-rotate-90 {
+            -webkit-filter: none;
+            filter: none
+        }
+        
+        .fa-stack {
+            display: inline-block;
+            height: 2em;
+            position: relative;
+            width: 2.5em
+        }
+        
+        .fa-stack-1x,
+        .fa-stack-2x {
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            position: absolute;
+            right: 0;
+            top: 0
+        }
+        
+        .svg-inline--fa.fa-stack-1x {
+            height: 1em;
+            width: 1.25em
+        }
+        
+        .svg-inline--fa.fa-stack-2x {
+            height: 2em;
+            width: 2.5em
+        }
+        
+        .fa-inverse {
+            color: #fff
+        }
+        
+        .sr-only {
+            border: 0;
+            clip: rect(0, 0, 0, 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px
+        }
+        
+        .sr-only-focusable:active,
+        .sr-only-focusable:focus {
+            clip: auto;
+            height: auto;
+            margin: 0;
+            overflow: visible;
+            position: static;
+            width: auto
+        }
+        
+        .svg-inline--fa .fa-primary {
+            fill: var(--fa-primary-color, currentColor);
+            opacity: 1;
+            opacity: var(--fa-primary-opacity, 1)
+        }
+        
+        .svg-inline--fa .fa-secondary {
+            fill: var(--fa-secondary-color, currentColor);
+            opacity: .4;
+            opacity: var(--fa-secondary-opacity, .4)
+        }
+        
+        .svg-inline--fa.fa-swap-opacity .fa-primary {
+            opacity: .4;
+            opacity: var(--fa-secondary-opacity, .4)
+        }
+        
+        .svg-inline--fa.fa-swap-opacity .fa-secondary {
+            opacity: 1;
+            opacity: var(--fa-primary-opacity, 1)
+        }
+        
+        .svg-inline--fa mask .fa-primary,
+        .svg-inline--fa mask .fa-secondary {
+            fill: #000
+        }
+        
+        .fad.fa-inverse {
+            color: #fff
+        }
+    </style>
+
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link href="../static/spin/menu/OverlayScrollbars.min.css" rel="stylesheet">
+    <link href="../static/spin/menu/theme-rtl.min.css" rel="stylesheet" id="style-rtl" disabled="true">
+    <link href="../static/spin/menu/theme.min.css" rel="stylesheet" id="style-default">
+    <link href="../static/spin/menu/user-rtl.min.css" rel="stylesheet" id="user-style-rtl" disabled="true">
+</head>
+
+
+<body>
+
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+        <div class="container-fluid">
+
+            <div class="row min-vh-100 bg-100">
+
+                <!--Nội hình ảnh bên trái-->
+                <div class="col-6 d-none d-lg-block position-relative" style="min-height:100vh">
+                    <div class="bg-holder">
+
+
+
+                        <style>
+                            .logo-foxconn h5:hover {
+                                font-size: 22px;
+                            }
+                        </style>
+
+
+                        <div class="" style="top: 13rem; position:absolute;">
+                            <div class=" text-left " style="margin-left: 5rem;">
+                                <h1 class="fw-light">
+
+                                    <style>
+                                        .bg-holder {
+                                            background-image: url(/static/assets/img/generic/1920x1080.png);
+                                        }
+                                    </style>
+
+                                    <span class="fw-bold" style="color: #fff;font-size: 2rem !important">
+        <span class="typed-text fw-bold" style="margin-bottom: 30px;color: #ffeb3b;#ed7d31;" data-typed-text="[&quot;&quot;,&quot;主要內容 Nội dung chính&quot;]">主要內容 Nội dung </span><span class="typed-cursor" aria-hidden="true">|</span>
+                                    <hr>
+
+
+
+
+
+
+
+
+
+                                    </span>
+
+
+
+                                </h1>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!--Nội dung thôn tin-->
+
+
+
+
+            </div>
+        </div>
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+
+
+    <!-- ===============================================-->
+    <!--    Start Menu Config-->
+    <!-- ===============================================-->
+    <div class="offcanvas offcanvas-end settings-panel border-0" id="settings-offcanvas" tabindex="-1" aria-labelledby="settings-offcanvas" style="visibility: hidden;" aria-hidden="true">
+        <div class="offcanvas-header settings-panel-header bg-shape">
+            <div class="z-index-1 py-1 light">
+                <h5 class="text-white"> <svg class="svg-inline--fa fa-palette fa-w-16 me-2 fs-0" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="palette" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M204.3 5C104.9 24.4 24.8 104.3 5.2 203.4c-37 187 131.7 326.4 258.8 306.7 41.2-6.4 61.4-54.6 42.5-91.7-23.1-45.4 9.9-98.4 60.9-98.4h79.7c35.8 0 64.8-29.6 64.9-65.3C511.5 97.1 368.1-26.9 204.3 5zM96 320c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm32-128c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm128-64c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm128 64c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32z"></path></svg>
+                    <!-- <span class="fas fa-palette me-2 fs-0"></span> Font Awesome fontawesome.com --><span data-i18n="thietlapgiaodien">Cài đặt</span></h5>
+                <p class="mb-0 fs--1 text-white opacity-75" data-i18n="thietlapgiaodien">Thiết lập giao diện</p>
+            </div>
+            <button class="btn-close btn-close-white z-index-1 mt-0" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body scrollbar-overlay px-card os-host os-theme-dark os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-scrollbar-vertical-hidden os-host-transition" id="themeController">
+            <div class="os-resize-observer-host observed">
+                <div class="os-resize-observer" style="left: 0px; right: auto;"></div>
+            </div>
+            <div class="os-size-auto-observer observed" style="height: calc(100% + 1px); float: left;">
+                <div class="os-resize-observer"></div>
+            </div>
+            <div class="os-content-glue" style="margin: -16px -20px;"></div>
+            <div class="os-padding">
+                <div class="os-viewport os-viewport-native-scrollbars-invisible">
+                    <div class="os-content" style="padding: 16px 20px; height: 100%; width: 100%;">
+                        <h5 class="fs-0" data-i18n="bangmau">Bảng màu</h5>
+                        <p class="fs--1" data-i18n="chonmau">Chọn màu ưa thích</p>
+                        <div class="btn-group d-block w-100 btn-group-navbar-style">
+                            <div class="row gx-2">
+                                <div class="col-6">
+                                    <input class="btn-check" id="themeSwitcherLight" name="theme-color" type="radio" value="light" data-theme-control="theme" checked="true">
+                                    <label class="btn d-inline-block btn-navbar-style fs--1" for="themeSwitcherLight"> <span class="hover-overlay mb-2 rounded d-block"></span><span class="label-text" data-i18n="sang">Sáng</span></label>
+                                </div>
+                                <div class="col-6">
+                                    <input class="btn-check" id="themeSwitcherDark" name="theme-color" type="radio" value="dark" data-theme-control="theme">
+                                    <label class="btn d-inline-block btn-navbar-style fs--1" for="themeSwitcherDark"> <span class="hover-overlay mb-2 rounded d-block"></span><span class="label-text" data-i18n="toi"> Tối</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex align-items-start"><img class="me-2" src="/static/assets/img/icons/left-arrow-from-left.svg" width="20" alt="">
+                                <div class="flex-1">
+                                    <h5 class="fs-0" data-i18n="daonguoc">Đảo ngược</h5>
+                                    <p class="fs--1 mb-0" data-i18n="chuyenhuonggiaodien">Chuyển hướng giao diện </p>
+                                </div>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input ms-0" id="mode-rtl" type="checkbox" data-theme-control="isRTL">
+                            </div>
+                        </div>
+                        <hr>
+
+                    </div>
+                </div>
+            </div>
+            <div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden">
+                <div class="os-scrollbar-track os-scrollbar-track-off">
+                    <div class="os-scrollbar-handle" style="width: 100%; transform: translate(0px, 0px);"></div>
+                </div>
+            </div>
+            <div class="os-scrollbar os-scrollbar-vertical os-scrollbar-unusable os-scrollbar-auto-hidden">
+                <div class="os-scrollbar-track os-scrollbar-track-off">
+                    <div class="os-scrollbar-handle" style="height: 100%; transform: translate(0px, 0px);"></div>
+                </div>
+            </div>
+            <div class="os-scrollbar-corner"></div>
+        </div>
+    </div>
+
+    <a class="card setting-toggle" href="#settings-offcanvas" data-bs-toggle="offcanvas">
+        <div class="card-body d-flex align-items-center py-md-2 px-2 py-1">
+            <div class="bg-soft-primary position-relative rounded-start" style="height:34px;width:28px">
+                <div class="settings-popover"><span class="ripple"><span class="fa-spin position-absolute all-0 d-flex flex-center"><span class="icon-spin position-absolute all-0 d-flex flex-center">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.7369 12.3941L19.1989 12.1065C18.4459 11.7041 18.0843 10.8487 18.0843 9.99495C18.0843 9.14118 18.4459 8.28582 19.1989 7.88336L19.7369 7.59581C19.9474 7.47484 20.0316 7.23291 19.9474 7.03131C19.4842 5.57973 18.6843 4.28943 17.6738 3.20075C17.5053 3.03946 17.2527 2.99914 17.0422 3.12011L16.393 3.46714C15.6883 3.84379 14.8377 3.74529 14.1476 3.3427C14.0988 3.31422 14.0496 3.28621 14.0002 3.25868C13.2568 2.84453 12.7055 2.10629 12.7055 1.25525V0.70081C12.7055 0.499202 12.5371 0.297594 12.2845 0.257272C10.7266 -0.105622 9.16879 -0.0653007 7.69516 0.257272C7.44254 0.297594 7.31623 0.499202 7.31623 0.70081V1.23474C7.31623 2.09575 6.74999 2.8362 5.99824 3.25599C5.95774 3.27861 5.91747 3.30159 5.87744 3.32493C5.15643 3.74527 4.26453 3.85902 3.53534 3.45302L2.93743 3.12011C2.72691 2.99914 2.47429 3.03946 2.30587 3.20075C1.29538 4.28943 0.495411 5.57973 0.0322686 7.03131C-0.051939 7.23291 0.0322686 7.47484 0.242788 7.59581L0.784376 7.8853C1.54166 8.29007 1.92694 9.13627 1.92694 9.99495C1.92694 10.8536 1.54166 11.6998 0.784375 12.1046L0.242788 12.3941C0.0322686 12.515 -0.051939 12.757 0.0322686 12.9586C0.495411 14.4102 1.29538 15.7005 2.30587 16.7891C2.47429 16.9504 2.72691 16.9907 2.93743 16.8698L3.58669 16.5227C4.29133 16.1461 5.14131 16.2457 5.8331 16.6455C5.88713 16.6767 5.94159 16.7074 5.99648 16.7375C6.75162 17.1511 7.31623 17.8941 7.31623 18.7552V19.2891C7.31623 19.4425 7.41373 19.5959 7.55309 19.696C7.64066 19.7589 7.74815 19.7843 7.85406 19.8046C9.35884 20.0925 10.8609 20.0456 12.2845 19.7729C12.5371 19.6923 12.7055 19.4907 12.7055 19.2891V18.7346C12.7055 17.8836 13.2568 17.1454 14.0002 16.7312C14.0496 16.7037 14.0988 16.6757 14.1476 16.6472C14.8377 16.2446 15.6883 16.1461 16.393 16.5227L17.0422 16.8698C17.2527 16.9907 17.5053 16.9504 17.6738 16.7891C18.7264 15.7005 19.4842 14.4102 19.9895 12.9586C20.0316 12.757 19.9474 12.515 19.7369 12.3941ZM10.0109 13.2005C8.1162 13.2005 6.64257 11.7893 6.64257 9.97478C6.64257 8.20063 8.1162 6.74905 10.0109 6.74905C11.8634 6.74905 13.3792 8.20063 13.3792 9.97478C13.3792 11.7893 11.8634 13.2005 10.0109 13.2005Z" fill="#2A7BE4"></path>
+                  </svg></span></span>
+                    </span>
+                </div>
+            </div><small class="text-uppercase text-primary fw-bold bg-soft-primary py-2 pe-2 ps-1 rounded-end">customize</small>
+        </div>
+    </a>
+
+    <!--Show menu config-->
+    <script>
+        var isRTL = JSON.parse(localStorage.getItem('isRTL'));
+        if (isRTL) {
+            var linkDefault = document.getElementById('style-default');
+            var userLinkDefault = document.getElementById('user-style-default');
+            linkDefault.setAttribute('disabled', true);
+            userLinkDefault.setAttribute('disabled', true);
+            document.querySelector('html').setAttribute('dir', 'rtl');
+        } else {
+            var linkRTL = document.getElementById('style-rtl');
+            var userLinkRTL = document.getElementById('user-style-rtl');
+            linkRTL.setAttribute('disabled', true);
+            userLinkRTL.setAttribute('disabled', true);
+        }
+    </script>
+
+    <script>
+        var isFluid = JSON.parse(localStorage.getItem('isFluid'));
+        if (isFluid) {
+            var container = document.querySelector('[data-layout]');
+            container.classList.remove('container');
+            container.classList.add('container-fluid');
+        }
+    </script>
+
+    <!-- ===============================================-->
+    <!--    End Menu Config-->
+    <!-- ===============================================-->
+
+
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="../static/spin/menu/jquery-3.6.0.min.js"></script>
+    <script src="../static/spin/menu/popper.min.js"></script>
+    <script src="../static/spin/menu/bootstrap.min.js"></script>
+    <script src="../static/spin/menu/anchor.min.js"></script>
+    <script src="../static/spin/menu/is.min.js"></script>
+    <script src="../static/spin/menu/all.min.js"></script>
+    <script src="../static/spin/menu/lodash.min.js"></script>
+
+    <script src="../static/spin/menu/list.min.js"></script>
+    <script src="../static/spin/menu/theme.js"></script>
+    <!--Automation type text-->
+    <script src="../static/spin/menu/typed.js"></script>
+
+    <style type="text/css" data-typed-js-css="true">
+        .typed-cursor {
+            opacity: 1;
+        }
+        
+        .typed-cursor.typed-cursor--blink {
+            animation: typedjsBlink 0.7s infinite;
+            -webkit-animation: typedjsBlink 0.7s infinite;
+            animation: typedjsBlink 0.7s infinite;
+        }
+        
+        @keyframes typedjsBlink {
+            50% {
+                opacity: 0.0;
+            }
+        }
+        
+        @-webkit-keyframes typedjsBlink {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</body>
+
+</html>

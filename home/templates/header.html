@@ -1,0 +1,16 @@
+<!-- header  -->
+<div v-show="Control.Header==1" id="header" :class="Control.BgColorHeader">
+
+    <h1 class="header-text-first mt-1">[[Control.TextHeader1]]</h1>
+    <h1 class="header-text-second">[[Control.TextHeader2]]</h1>
+    <p class="header-text-third">[[Control.TextHeader3]]</p>
+
+    <div v-show="Control.LogoLeft!=''" class="navbar-logo">
+        <img class="img-logo" v-bind:src="ChangeLogoLeft()" height=45>
+    </div>
+
+    <div v-show="Control.LogoRight!=''" class="navbar-logo logo2">
+        <img class="img-tet" v-bind:src="ChangeLogoRight()" onclick="ShowModal()" style="cursor: pointer;">
+    </div>
+
+</div>

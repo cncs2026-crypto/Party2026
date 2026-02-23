@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moving Text with Collision</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="moving-div" id="movingDiv">Anh yêu</div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Column 1</th>
+                    <th>Column 2</th>
+                    <th>Column 3</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Rows will be added dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        
+        .moving-div {
+            position: absolute;
+            top: 40%;
+            left: 0;
+            padding: 20px 40px;
+            font-size: 2em;
+            color: white;
+            background: #ff6b6b;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            animation: moveAcross 3s cubic-bezier(0.42, 0, 0.58, 1) forwards;
+        }
+        
+        @keyframes moveAcross {
+            0% {
+                transform: translateX(0);
+            }
+            80% {
+                transform: translateX(calc(100vw - 300px));
+            }
+            100% {
+                transform: translateX(calc(100vw - 300px)) scale(1.2);
+                opacity: 0;
+            }
+        }
+        
+        .table-container {
+            position: absolute;
+            right: 50px;
+            bottom: 20px;
+            width: 300px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: #ff6b6b;
+            color: white;
+            font-weight: bold;
+        }
+        
+        tbody tr:last-child td {
+            border: none;
+        }
+    </style>
+
+    <script>
+        const movingDiv = document.getElementById('movingDiv');
+        const tableBody = document.getElementById('tableBody');
+
+        movingDiv.addEventListener('animationend', () => {
+            // Add a new row to the table when the animation ends
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>Data 1</td>
+                <td>Data 2</td>
+                <td>Data 3</td>
+            `;
+            tableBody.appendChild(newRow);
+
+            // Hide the moving div
+            movingDiv.style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+<!-- -->
+{% load static %}
+<!-- -->
+
+{% block content %}
+<div id="OtherID" style="width: 100%;height: 100%;">
+
+    <!--navbar header-->
+    {% include 'header.html' %}
+
+    <!-- tab videos -->
+    <div v-show="Control.VideoShow==1" class="container-video">
+        <div class="row align-items-center video-setting">
+
+        </div>
+    </div>
+
+    <!-- Hình nền chính  -->
+    <div class="main">
+        <div class="nav-menu">
+            <i class="fas fa-bars fa-2x" onclick="ShowModal()"></i>
+        </div>
+
+        <img class="background-main" src="">
+
+
+        <div class="video-main" v-show="Control.VideoShow!=''" hidden>
+            <video v-bind:src="Control.SrcVideoShow" style="width:70em; margin-top: 15em;" controls muted autoplay1 loop></video>
+        </div>
+
+    </div>
+
+    <!-- tab setting -->
+    {% include 'tablucky.html' %}
+
+    <!-- tab setting -->
+    {% include 'setting.html' %}
+
+    <!-- Modal windows -->
+    {% include 'modal.html' %}
+
+</div>
+
+
+
+
+<!---->
+{% endblock %}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Quà Tặng</title>
+    <style>
+        /* Đặt bố cục chung */
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: 'Arial', sans-serif;
+        }
+        /* Card Container */
+        
+        .card {
+            width: 400px;
+            height: 450px;
+            background: linear-gradient(135deg, #ff6a00, #ffcc00);
+            /* Gradient màu sáng */
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        /* Thêm hiệu ứng hover cho card */
+        
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        /* Tiêu đề */
+        
+        .card-title {
+            font-size: 2em;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+        }
+        /* Thông tin */
+        
+        .card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .card-info div {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2em;
+            color: #fff;
+        }
+        
+        .card-info div span {
+            font-weight: bold;
+            color: #fff;
+        }
+        /* Hiệu ứng ánh sáng cho thẻ */
+        
+        .card-info div span {
+            color: #ffcc00;
+        }
+        /* Viền sáng cho card */
+        
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 3px solid #ffcc00;
+            border-radius: 20px;
+            z-index: -1;
+            animation: glowing-border 1.5s infinite alternate;
+        }
+        /* Hiệu ứng viền sáng */
+        
+        @keyframes glowing-border {
+            0% {
+                border-color: #ffcc00;
+                box-shadow: 0 0 15px #ffcc00;
+            }
+            100% {
+                border-color: #ff6600;
+                box-shadow: 0 0 25px #ff6600;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="card-title">Quà Tặng</div>
+        <div class="card-info">
+            <div><span>Mã Giải Thưởng:</span> #G12345</div>
+            <div><span>Mã Nhân Viên:</span> #NV7890</div>
+            <div><span>Tên Nhân Viên:</span> Nguyễn Văn A</div>
+        </div>
+    </div>
+</body>
+
+</html>

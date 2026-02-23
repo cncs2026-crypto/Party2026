@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game-Style Table</title>
+
+</head>
+
+<body>
+    <div class="table-container">
+        <table class="game-table">
+            <thead>
+                <tr>
+                    <th>Mã vé</th>
+                    <th>Mã nhân viên</th>
+                    <th>Họ tên</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>MV001</td>
+                    <td>NV101</td>
+                    <td>Nguyễn Văn A</td>
+                </tr>
+                <tr>
+                    <td>MV002</td>
+                    <td>NV102</td>
+                    <td>Trần Thị B</td>
+                </tr>
+                <tr>
+                    <td>MV003</td>
+                    <td>NV103</td>
+                    <td>Lê Văn C</td>
+                </tr>
+                <tr>
+                    <td>MV004</td>
+                    <td>NV104</td>
+                    <td>Phạm Thị D</td>
+                </tr>
+                <tr>
+                    <td>MV005</td>
+                    <td>NV105</td>
+                    <td>Hoàng Văn E</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .table-container {
+            width: 80%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            overflow-x: auto;
+        }
+        
+        .game-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            overflow: hidden;
+        }
+        
+        .game-table thead {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            text-transform: uppercase;
+        }
+        
+        .game-table thead th {
+            padding: 15px;
+            font-size: 1em;
+            text-align: center;
+            border-bottom: 3px solid #333;
+        }
+        
+        .game-table tbody tr {
+            transition: all 0.3s ease;
+        }
+        
+        .game-table tbody tr:nth-child(odd) {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .game-table tbody tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .game-table tbody tr:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .game-table td {
+            padding: 15px;
+            font-size: 1.1em;
+            color: #e1e1e1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        .game-table td:first-child {
+            font-weight: bold;
+            color: #ff7675;
+        }
+    </style>
+</body>
+
+</html>

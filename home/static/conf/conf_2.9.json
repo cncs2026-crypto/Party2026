@@ -1,0 +1,30 @@
+[{
+        "ConfVal": "Màn hình sinh nhật",
+        "LogoLeft":"Foxconn.png",
+        "LogoRight": "Tet.png",
+        "Header": 1,
+        "VideoShow": "HappyBirthDay.mp4",
+        "BgColorHeader": "",
+        "TextHeader1": "CHÚC MỪNG SINH NHẬT TỚI CÁC BẠN  SINH THÁNG 01",
+        "TextHeader2": "HAPPY BIRTH DAY",
+        "TextHeader3": "TẾT SUM VẦY - GẮN KẾT YÊU THƯƠNG",
+        "BgMain": "sinh_nhat-5.png",
+        "BgMainMgTop": 345,
+        "BgMainMgLeft": 0,
+        "BgMainWidth": 100,
+        "BgMainHeight": 100,
+        "TabLucky": "0",
+
+        "LeafEffect_1": true,
+        "LeafEffect_2": false,
+        "LeafEffect_3": false,
+        "LeafEffect_4": false,
+        "FireWorkEffect_1": false,
+        "FireWorkEffect_2": true,
+        "FireWorkEffect_3": true,
+        "FireWorkEffect_4": false,
+        "FireWorkEffect_5": false,
+        "FireWorkEffect_6": false,
+        "FireWorkEffect_7": false
+
+    }]

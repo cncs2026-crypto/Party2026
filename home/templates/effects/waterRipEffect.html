@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ripple Effect</title>
+
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+            font-family: Arial, sans-serif;
+        }
+        
+        .image-container {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .ripple-image {
+            width: 300px;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+        
+        .ripple-image:hover {
+            transform: scale(1.05);
+        }
+        
+        .ripple {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            transform: scale(1);
+            animation: ripple-multi 3s ease-out forwards;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        
+        @keyframes ripple-multi {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(15);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="image-container">
+        <img src="https://via.placeholder.com/300" alt="Sample Image" class="ripple-image">
+    </div>
+
+    <script>
+        document.querySelector('.ripple-image').addEventListener('click', function(e) {
+            const container = e.target.parentElement;
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    createRipple(container, x, y);
+                }, i * 300); // Delay between each wave
+            }
+        });
+
+        function createRipple(container, x, y) {
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            container.appendChild(ripple);
+
+            // Remove ripple after animation
+            ripple.addEventListener('animationend', () => {
+                ripple.remove();
+            });
+        }
+    </script>
+</body>
+
+</html>

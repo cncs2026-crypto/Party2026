@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://user.xspin.vn/Account/DangNhap.aspx?utm= -->
+<html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>
+        ĐĂNG NHẬP | PHẦN MỀM QUAY SỐ NGẪU NHIÊN XSPIN
+    </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" href="../static/spin/images/lucky-wheel.png?v=20241128" />
+
+    <meta name="viewport" content="user-scalable=no">
+
+    <!-- JS framwork -->
+    <script src="../static/myjs/jquery-3.7.1.min.js"></script>
+    <script src="../static/spin/vanilla-tilt.min.js"></script>
+
+    <!-- <link href="../static/spin/sweetalert2.min.css" rel="stylesheet"> -->
+    <link href="../static/spin/Xepcss.css" rel="stylesheet">
+
+    <!-- <script type="text/javascript" async="" src="../static/spin/js"></script> -->
+    <!-- <script src="../static/spin/jquery211.js.download"></script>
+    <script src="../static/spin/jquery-ui.js.download"></script>
+    <script src="../static/spin/notify.js.download"></script> -->
+    <style>
+        .notifyjs-bootstrap-base {
+            font-weight: bold;
+            padding: 8px 15px 8px 14px;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+            background-color: #fcf8e3;
+            border: 1px solid #fbeed5;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            white-space: nowrap;
+            padding-left: 25px;
+            background-repeat: no-repeat;
+            background-position: 3px 7px;
+        }
+        
+        .notifyjs-bootstrap-error {
+            color: #B94A48;
+            background-color: #F2DEDE;
+            border-color: #EED3D7;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAtRJREFUeNqkVc1u00AQHq+dOD+0poIQfkIjalW0SEGqRMuRnHos3DjwAH0ArlyQeANOOSMeAA5VjyBxKBQhgSpVUKKQNGloFdw4cWw2jtfMOna6JOUArDTazXi/b3dm55socPqQhFka++aHBsI8GsopRJERNFlY88FCEk9Yiwf8RhgRyaHFQpPHCDmZG5oX2ui2yilkcTT1AcDsbYC1NMAyOi7zTX2Agx7A9luAl88BauiiQ/cJaZQfIpAlngDcvZZMrl8vFPK5+XktrWlx3/ehZ5r9+t6e+WVnp1pxnNIjgBe4/6dAysQc8dsmHwPcW9C0h3fW1hans1ltwJhy0GxK7XZbUlMp5Ww2eyan6+ft/f2FAqXGK4CvQk5HueFz7D6GOZtIrK+srupdx1GRBBqNBtzc2AiMr7nPplRdKhb1q6q6zjFhrklEFOUutoQ50xcX86ZlqaZpQrfbBdu2R6/G19zX6XSgh6RX5ubyHCM8nqSID6ICrGiZjGYYxojEsiw4PDwMSL5VKsC8Yf4VRYFzMzMaxwjlJSlCyAQ9l0CW44PBADzXhe7xMdi9HtTrdYjFYkDQL0cn4Xdq2/EAE+InCnvADTf2eah4Sx9vExQjkqXT6aAERICMewd/UAp/IeYANM2joxt+q5VI+ieq2i0Wg3l6DNzHwTERPgo1ko7XBXj3vdlsT2F+UuhIhYkp7u7CarkcrFOCtR3H5JiwbAIeImjT/YQKKBtGjRFCU5IUgFRe7fF4cCNVIPMYo3VKqxwjyNAXNepuopyqnld602qVsfRpEkkz+GFL1wPj6ySXBpJtWVa5xlhpcyhBNwpZHmtX8AGgfIExo0ZpzkWVTBGiXCSEaHh62/PoR0p/vHaczxXGnj4bSo+G78lELU80h1uogBwWLf5YlsPmgDEd4M236xjm+8nm4IuE/9u+/PH2JXZfbwz4zw1WbO+SQPpXfwG/BBgAhCNZiSb/pOQAAAAASUVORK5CYII=);
+        }
+        
+        .notifyjs-bootstrap-success {
+            color: #468847;
+            background-color: #DFF0D8;
+            border-color: #D6E9C6;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAutJREFUeNq0lctPE0Ecx38zu/RFS1EryqtgJFA08YCiMZIAQQ4eRG8eDGdPJiYeTIwHTfwPiAcvXIwXLwoXPaDxkWgQ6islKlJLSQWLUraPLTv7Gme32zoF9KSTfLO7v53vZ3d/M7/fIth+IO6INt2jjoA7bjHCJoAlzCRw59YwHYjBnfMPqAKWQYKjGkfCJqAF0xwZjipQtA3MxeSG87VhOOYegVrUCy7UZM9S6TLIdAamySTclZdYhFhRHloGYg7mgZv1Zzztvgud7V1tbQ2twYA34LJmF4p5dXF1KTufnE+SxeJtuCZNsLDCQU0+RyKTF27Unw101l8e6hns3u0PBalORVVVkcaEKBJDgV3+cGM4tKKmI+ohlIGnygKX00rSBfszz/n2uXv81wd6+rt1orsZCHRdr1Imk2F2Kob3hutSxW8thsd8AXNaln9D7CTfA6O+0UgkMuwVvEFFUbbAcrkcTA8+AtOk8E6KiQiDmMFSDqZItAzEVQviRkdDdaFgPp8HSZKAEAL5Qh7Sq2lIJBJwv2scUqkUnKoZgNhcDKhKg5aH+1IkcouCAdFGAQsuWZYhOjwFHQ96oagWgRoUov1T9kRBEODAwxM2QtEUl+Wp+Ln9VRo6BcMw4ErHRYjH4/B26AlQoQQTRdHWwcd9AH57+UAXddvDD37DmrBBV34WfqiXPl61g+vr6xA9zsGeM9gOdsNXkgpEtTwVvwOklXLKm6+/p5ezwk4B+j6droBs2CsGa/gNs6RIxazl4Tc25mpTgw/apPR1LYlNRFAzgsOxkyXYLIM1V8NMwyAkJSctD1eGVKiq5wWjSPdjmeTkiKvVW4f2YPHWl3GAVq6ymcyCTgovM3FzyRiDe2TaKcEKsLpJvNHjZgPNqEtyi6mZIm4SRFyLMUsONSSdkPeFtY1n0mczoY3BHTLhwPRy9/lzcziCw9ACI+yql0VLzcGAZbYSM5CCSZg1/9oc/nn7+i8N9p/8An4JMADxhH+xHfuiKwAAAABJRU5ErkJggg==);
+        }
+        
+        .notifyjs-bootstrap-info {
+            color: #3A87AD;
+            background-color: #D9EDF7;
+            border-color: #BCE8F1;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QYFAhkSsdes/QAAA8dJREFUOMvVlGtMW2UYx//POaWHXg6lLaW0ypAtw1UCgbniNOLcVOLmAjHZolOYlxmTGXVZdAnRfXQm+7SoU4mXaOaiZsEpC9FkiQs6Z6bdCnNYruM6KNBw6YWewzl9z+sHImEWv+vz7XmT95f/+3/+7wP814v+efDOV3/SoX3lHAA+6ODeUFfMfjOWMADgdk+eEKz0pF7aQdMAcOKLLjrcVMVX3xdWN29/GhYP7SvnP0cWfS8caSkfHZsPE9Fgnt02JNutQ0QYHB2dDz9/pKX8QjjuO9xUxd/66HdxTeCHZ3rojQObGQBcuNjfplkD3b19Y/6MrimSaKgSMmpGU5WevmE/swa6Oy73tQHA0Rdr2Mmv/6A1n9w9suQ7097Z9lM4FlTgTDrzZTu4StXVfpiI48rVcUDM5cmEksrFnHxfpTtU/3BFQzCQF/2bYVoNbH7zmItbSoMj40JSzmMyX5qDvriA7QdrIIpA+3cdsMpu0nXI8cV0MtKXCPZev+gCEM1S2NHPvWfP/hL+7FSr3+0p5RBEyhEN5JCKYr8XnASMT0xBNyzQGQeI8fjsGD39RMPk7se2bd5ZtTyoFYXftF6y37gx7NeUtJJOTFlAHDZLDuILU3j3+H5oOrD3yWbIztugaAzgnBKJuBLpGfQrS8wO4FZgV+c1IxaLgWVU0tMLEETCos4xMzEIv9cJXQcyagIwigDGwJgOAtHAwAhisQUjy0ORGERiELgG4iakkzo4MYAxcM5hAMi1WWG1yYCJIcMUaBkVRLdGeSU2995TLWzcUAzONJ7J6FBVBYIggMzmFbvdBV44Corg8vjhzC+EJEl8U1kJtgYrhCzgc/vvTwXKSib1paRFVRVORDAJAsw5FuTaJEhWM2SHB3mOAlhkNxwuLzeJsGwqWzf5TFNdKgtY5qHp6ZFf67Y/sAVadCaVY5YACDDb3Oi4NIjLnWMw2QthCBIsVhsUTU9tvXsjeq9+X1d75/KEs4LNOfcdf/+HthMnvwxOD0wmHaXr7ZItn2wuH2SnBzbZAbPJwpPx+VQuzcm7dgRCB57a1uBzUDRL4bfnI0RE0eaXd9W89mpjqHZnUI5Hh2l2dkZZUhOqpi2qSmpOmZ64Tuu9qlz/SEXo6MEHa3wOip46F1n7633eekV8ds8Wxjn37Wl63VVa+ej5oeEZ/82ZBETJjpJ1Rbij2D3Z/1trXUvLsblCK0XfOx0SX2kMsn9dX+d+7Kf6h8o4AIykuffjT8L20LU+w4AZd5VvEPY+XpWqLV327HR7DzXuDnD8r+ovkBehJ8i+y8YAAAAASUVORK5CYII=);
+        }
+        
+        .notifyjs-bootstrap-warn {
+            color: #C09853;
+            background-color: #FCF8E3;
+            border-color: #FBEED5;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAABJlBMVEXr6eb/2oD/wi7/xjr/0mP/ykf/tQD/vBj/3o7/uQ//vyL/twebhgD/4pzX1K3z8e349vK6tHCilCWbiQymn0jGworr6dXQza3HxcKkn1vWvV/5uRfk4dXZ1bD18+/52YebiAmyr5S9mhCzrWq5t6ufjRH54aLs0oS+qD751XqPhAybhwXsujG3sm+Zk0PTwG6Shg+PhhObhwOPgQL4zV2nlyrf27uLfgCPhRHu7OmLgAafkyiWkD3l49ibiAfTs0C+lgCniwD4sgDJxqOilzDWowWFfAH08uebig6qpFHBvH/aw26FfQTQzsvy8OyEfz20r3jAvaKbhgG9q0nc2LbZxXanoUu/u5WSggCtp1anpJKdmFz/zlX/1nGJiYmuq5Dx7+sAAADoPUZSAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfdBgUBGhh4aah5AAAAlklEQVQY02NgoBIIE8EUcwn1FkIXM1Tj5dDUQhPU502Mi7XXQxGz5uVIjGOJUUUW81HnYEyMi2HVcUOICQZzMMYmxrEyMylJwgUt5BljWRLjmJm4pI1hYp5SQLGYxDgmLnZOVxuooClIDKgXKMbN5ggV1ACLJcaBxNgcoiGCBiZwdWxOETBDrTyEFey0jYJ4eHjMGWgEAIpRFRCUt08qAAAAAElFTkSuQmCC);
+        }
+    </style>
+
+    <script src="../static/spin/sweetalert2.all.min.js"></script>
+
+    <link href="../static/spin/xspi.css" rel="stylesheet">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="../static/spin/js(1)"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-74657772-18');
+    </script>
+
+
+    <!-- Your Chat Plugin code -->
+    <style type="text/css" id="core-notify">
+        .notifyjs-corner {
+            position: fixed;
+            margin: 5px;
+            z-index: 1050;
+        }
+        
+        .notifyjs-corner .notifyjs-wrapper,
+        .notifyjs-corner .notifyjs-container {
+            position: relative;
+            display: block;
+            height: inherit;
+            width: inherit;
+            margin: 3px;
+        }
+        
+        .notifyjs-wrapper {
+            z-index: 1;
+            position: absolute;
+            display: inline-block;
+            height: 0;
+            width: 0;
+        }
+        
+        .notifyjs-container {
+            display: none;
+            z-index: 1;
+            position: absolute;
+        }
+        
+        .notifyjs-hidable {
+            cursor: pointer;
+        }
+        
+        [data-notify-text],
+        [data-notify-html] {
+            position: relative;
+        }
+        
+        .notifyjs-arrow {
+            position: absolute;
+            z-index: 2;
+            width: 0;
+            height: 0;
+        }
+    </style>
+</head>
+
+<body style="height: 100%; overflow: hidden; overflow-y: hidden; margin: 0;    width: 100% !important;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: hidden;
+    max-width: none;" class="lang-en">
+    <div class="fb-customerchat" attribution="setup_tool" page_id="112029099717536" theme_color="#CF0204">
+    </div>
+
+
+    <script>
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) // If Internet Explorer, return version number
+        {
+            var aaa = "Trình duyệt web IE không tương thích với hệ thống quay số ngẫu nhiên, bạn vui lòng dùng trình duyệt web khác như chrome, cốc cốc, firefox ... để thực hiện";
+            alert(aaa);
+            setInterval(function() {
+                window.close();
+            }, 3000)
+        } else // If another browser, return 0
+        {
+
+        }
+    </script>
+    <div class="page-wrapper">
+        <div id="top-bar" style="border-bottom: 1px solid #eee; padding: 10px 0; background-color: rgba(250,250,250,.82);" class="hidden-xs">
+            <div class="containerXEP" style="opacity: 1; transition: all 800ms ease-in-out 0s; padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;">
+
+                <div class="top-right text-right">
+                    <div class="header-info">
+                        <div id="dvLienHe" class="header-info-content">
+
+                            <span id="spHotline_TieuDe" class="info-title"><i id="iconHotline" class="fa fa-phone" style="margin-right: 4px;margin-top: -2px;font-size: 17px;"></i> Hotline:</span>
+                            <span id="spHotline" class="info-sub" style="margin-right:20px">0966674318 </span>
+
+                            <span class="info-title" style="padding-left: 5px; display: none">Tổng đài:</span>
+                            <span class="info-sub" style="display: none">1800 7292</span>
+
+
+                            <span id="spEmail_TieuDe" class="info-title"><i id="iconEmail" class="fa fa-envelope-o" style="margin-right: 4px;margin-top: -2px;font-size: 17px;"></i> Email:</span>
+                            <span id="spEmail" class="info-sub" style="margin-right: 20px;margin-top: 3px;">chien04mmt@gmail.com </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <span style="clear: both"></span>
+        <nav class="navbar" role="navigation" style="height: 61px; transition: all 100ms ease-in-out 0s; opacity: 1; display:none">
+
+            <div class="container" style="padding: 0px; margin: 0px; width: 100%">
+                <div class="navbar-header" style="margin-right: 0px !important">
+                    <button type="button" class="navbar-toggle collapsed" id="navbar-toggle" data-toggle="collapse" data-target="#aa-main-nav" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="https://user.xspin.vn/Account/DangNhap.aspx">
+                        <div style="padding: 0 15px; padding-top: 8px; -webkit-transform: skew(20deg); -moz-transform: skew(20deg); -o-transform: skew(20deg); transform: skew(20deg); text-align: center; font-size: 12px;">
+                            <img src="../static/spin/x-spin.png" alt="Xep Logo">
+                            <br> PHẦN MỀM QUAY SỐ X-SPIN
+                        </div>
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="aa-main-nav" style="overflow: hidden; width: 100%; height: 1px !important; margin: 0px !important; top: 61px !important; background: white">
+                    <ul class="nav navbar-nav" id="main-menu-1">
+                        <li class="">
+                            <a href="https://user.xspin.vn/Account/DangNhap.aspx">
+                                <span class="nav-label">TRANG CHỦ</span>
+                            </a>
+                        </li>
+
+                        <li class="dropdown" id="qsnn_">
+                            <a class="dropdown-toggle" id="qs_dr_m" data-toggle="dropdown" role="button" href="https://user.xspin.vn/Account/DangNhap.aspx?utm=#" aria-haspopup="true" aria-expanded="false">
+                                <span class="nav-label">SẢN PHẨM</span>
+                            </a>
+                            <ul id="ul2" class="dropdown-menu" style="top: 45px;">
+                                <li><a href="https://user.xspin.vn/GioiThieuPhanMem.aspx"><span class="nav-label" style="text-transform: uppercase;">QUAY SỐ NGẪU NHIÊN</span></a></li>
+                                <li><a href="https://user.xspin.vn/GioiThieuPhanMemVongQuay.aspx"><span class="nav-label" style="text-transform: uppercase;">VÒNG QUAY MAY MẮN</span></a></li>
+                            </ul>
+                        </li>
+
+
+                        <li class="dropdown" id="vqmm_">
+                            <a class="dropdown-toggle" href="https://user.xspin.vn/Account/DangNhap.aspx?utm=#" id="vq_dr_m" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="nav-label">PHÍ DỊCH VỤ</span>
+                            </a>
+                            <ul id="ul1" class="dropdown-menu" style="top: 45px;">
+                                <li><a href="https://user.xspin.vn/PhiDichVu.aspx"><span class="nav-label" style="text-transform: uppercase;">QUAY SỐ NGẪU NHIÊN</span></a></li>
+                                <li><a href="https://user.xspin.vn/PhiDichVuVongQuay.aspx"><span class="nav-label" style="text-transform: uppercase;">VÒNG QUAY MAY MẮN</span></a></li>
+                            </ul>
+                        </li>
+
+                        <li class="">
+                            <a href="https://user.xspin.vn/LienHe.aspx">
+                                <span class="nav-label">LIÊN HỆ</span>
+                            </a>
+                        </li>
+
+                        <li class="">
+                            <a href="https://user.xspin.vn/HuongDan.aspx">
+                                <span class="nav-label">HƯỚNG DẪN</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right" style="margin-left: 0px !important; float: right !important;">
+                        <div class="mobile-separator"></div>
+                        <li class="dropdown-user-item visible-logged-out">
+                            <a class="register-link" href="tel:1900 6333 80">
+                                <span class="nav-label">Hotline: 1900 6333 80</span>
+                            </a>
+                        </li>
+                        <li class="dropdown-user-item visible-logged-out">
+                            <a class="register-link" href="tel:0968 99 68 77">
+                                <span class="nav-label">Mobile: 0968 99 68 77</span>
+                            </a>
+                        </li>
+
+                        <li class="dropdown-user-item visible-logged-out">
+                            <a href="https://xspin.vn/dang-ky-tai-khoan-user?id=7=1" class="register-link">
+                                <span class="nav-label">Đăng ký tư vấn</span>
+                            </a>
+                        </li>
+                        <li class="dropdown-user-item visible-logged-out">
+                            <a href="http://user.xspin.vn/Account/DangNhap.aspx" class="register-link">
+
+                                <span class="nav-label">DÙNG THỬ MIỄN PHÍ</span>
+                            </a>
+                        </li>
+                        <li class="dropdown-user-item visible-logged-out">
+                            <a href="https://xspin.vn/chon-loai-phan-mem?id=3" class="register-link">
+
+                                <span class="nav-label">Bảng giá</span>
+                            </a>
+                        </li>
+
+                        <li class="dropdown-user-item visible-logged-out">
+                            <a href="https://xspin.vn/gop-y" class="register-link">
+
+                                <span class="nav-label">Góp ý</span>
+                            </a>
+                        </li>
+                        <li class="user-menu">
+                            <div id="user-menu-item" style="opacity: 1; transition: all 100ms ease-in-out 0s;">
+                                <div class="menu-logged-out">
+                                    <a style="color: transparent" id="register-button" href="https://user.xspin.vn/Account/DangNhap.aspx" class="login-button">
+                                        <button style="background:#18AD1E; border-color: #18AD1E" class="btn-aa_blue-standard secondary1 small">Đăng nhập</button>
+                                    </a>
+                                    <a style="color: transparent" id="register-button" href="http://user.xspin.vn/Account/DangNhap.aspx" class="login-button">
+                                        <button class="btn-aa_blue-standard small">Tạo tài khoản miễn phí</button>
+                                    </a>
+
+                                    <a style="color: transparent; " id="login-button-1" href="https://xworkerbee.vn/" class="login-button">
+                                        <button style="background: #FB9300;border-color: #FB9300" class="btn-aa_blue-standard secondary small">App chấm công</button>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <style type="text/css">
+            .hides {
+                display: none;
+            }
+            
+            .shows {
+                display: block !important;
+            }
+        </style>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var t = '';
+                if (t == "DN") {
+                    $(".signIn").addClass("active-dx");
+                    $(".signUp").addClass("inactive-sx");
+                    $(".signUp").removeClass("active-sx");
+                    $(".signIn").removeClass("inactive-dx");
+                }
+            });
+
+            //GET PARAMS TRÊN URL
+            function getUrlVars() {
+                var vars = {};
+                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+                    vars[key] = value;
+                });
+                return vars;
+            }
+
+            function dongDialog() {
+                $('.mdialogs').css("display", "none")
+            }
+
+            function MoDialogDangKy() {
+                $('.mdialogs').css("display", "block");
+            }
+
+
+            //$(document).ready(function () {
+            //	$('#input-soDienThoai').keyup(function () {
+            //		$(this).val($('#input-soDienThoai').val().replace(/e/g, ''))
+            //	})    
+            //})
+
+            function validate(evt) {
+                var theEvent = evt || window.event;
+
+                // Handle paste
+                if (theEvent.type === 'paste') {
+                    key = event.clipboardData.getData('text/plain');
+                } else {
+                    // Handle key press
+                    var key = theEvent.keyCode || theEvent.which;
+                    key = String.fromCharCode(key);
+                }
+                var regex = /[0-9]|\./;
+                if (!regex.test(key)) {
+                    theEvent.returnValue = false;
+                    if (theEvent.preventDefault) theEvent.preventDefault();
+                }
+            }
+
+            //TẠO THÔNG BÁO LỖI
+            function CreateNotify(input, parent, info, type) {
+                $(input).focus();
+                $(input).notify(
+                    "" + info, {
+                        position: "top",
+                        className: "" + type,
+                        autoHideDelay: 5000,
+                    }
+                );
+                if (screen.width <= 768) {
+                    $(".notifyjs-bootstrap-base > span").css("font-size", "35px");
+                }
+                //alert("size:" + size);
+                $(parent).effect("shake", "slow");
+                $(parent).css('border', '1px solid #E2280B');
+            }
+
+            function PushNoti(Ten, SDT, Email) {
+                const apiKey = 'abthg7tzvt8oop6s6yhxks99m7yq34';
+                const userKey = 'uiimfm6vx1mhojkyb3kapz2fvgkeep';
+                const title = "XSPIN Dang Ky";
+                const message = Ten + ' - ' + SDT + ' - ' + Email + ' - ' + '16/01/2025 16:38';
+
+                fetch('https://api.pushover.net/1/messages.json', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `token=${apiKey}&user=${userKey}&title=${title}&message=${message}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Notification sent:', data);
+                    })
+                    .catch(error => {
+                        console.error('Error sending notification:', error);
+                    });
+            }
+
+            function ThemUser() {
+                alert("Cần liên hệ :0966674318 để được hỗ trợ !");
+                return;
+                var UTM = '';
+                //alert(UTM);
+                var checkTenDN = "áàạảãâấầậẩẫăắằặẳẵÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴéèẹẻẽêếềệểễÉÈẸẺẼÊẾỀỆỂỄóòọ ỏõôốồộổỗơớờợởỡÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠúùụủũưứừựửữÚÙỤỦŨƯỨỪỰỬỮíìịỉĩÍÌỊỈĨđĐýỳỵỷỹÝỲỴỶỸ";
+                var tenDangNhap = $('#input_tenDangNhap').val();
+                var isnotvalid = false;
+                for (var i = 0; i < tenDangNhap.length; i++) {
+                    if (checkTenDN.includes(tenDangNhap[i])) {
+                        isnotvalid = true;
+                    }
+                }
+                var hoTen = $('#input-hoTen').val();
+                var soDienThoai = $('#input-soDienThoai').val();
+                var diaChi = "";
+                var tenCongTy = "";
+                var matKhau = $('#input-matKhau').val();
+                var email = $('#input-email').val();
+
+
+                if (soDienThoai.trim() == "") {
+                    CreateNotify("#input-soDienThoai", ".form-item:nth-child(2)", "Bạn chưa nhập số điện thoại", "error");
+                    return;
+                }
+
+                if (soDienThoai.toString().trim().length < 10 || soDienThoai.toString().trim().length > 11) {
+                    CreateNotify("#input-soDienThoai", ".form-item:nth-child(2)", "Số điện thoại bạn nhập không hợp lệ", "error");
+                    return;
+                }
+
+                if (matKhau.trim() == "") {
+                    CreateNotify("#input-matKhau", ".form-item:nth-child(2)", "Bạn chưa nhập mật khẩu", "error");
+                    return;
+                }
+                if (matKhau != $('#input-XacmatKhau').val()) {
+                    CreateNotify("#input-XacmatKhau", ".form-item:nth-child(2)", "Xác nhận mật khẩu chưa đúng", "error");
+                    return;
+                }
+
+                if (isnotvalid) {
+                    CreateNotify("#input_tenDangNhap", ".form-item:nth-child(2)", "Tên đăng nhập không bao gồm khoảng trắng và dấu tiếng việt", "error");
+                } else {
+                    var xmlhttp;
+                    if (window.XMLHttpRequest) {
+                        xmlhttp = new XMLHttpRequest();
+                    } else {
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    xmlhttp.onreadystatechange = function() {
+                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                            var errorType = xmlhttp.responseText.toString().toLowerCase().substring(0, 6);
+                            if (!errorType.includes("false")) {
+                                Swal({
+                                    type: 'success',
+                                    title: 'Chúc mừng bạn đã đăng ký thành công'
+                                }).then(function() {
+
+
+
+                                    var SoDienThoai = soDienThoai.trim().replaceAll("~~~@@@Thang~~~!!!", "#");
+                                    var MatKhau = matKhau.trim().replaceAll("~~~@@@Thang~~~!!!", "#");
+                                    //alert(SoDienThoai + "," + MatKhau);
+                                    $('#edit-name').val("" + SoDienThoai);
+                                    $("#edit-pass").val("" + MatKhau);
+                                    $('#button-login').trigger('click');
+                                });
+                                //alert('đktc 1111');
+                                PushNoti(hoTen, soDienThoai, email);
+                            } else if (errorType == "false1") {
+                                CreateNotify("#input_tenDangNhap", ".form-item:nth-child(2)", "Tên đăng nhập đã tồn tại", "error");
+
+                            } else if (errorType == "false3") {
+                                CreateNotify("#input-soDienThoai", ".form-item:nth-child(2)", "Số điện thoại đã tồn tại", "error");
+
+                            } else if (errorType == "false2") {
+                                Swal({
+                                    type: 'error',
+                                    title: 'Lỗi',
+                                    text: 'Lỗi cú pháp SQL: ' + xmlhttp.responseText.toString().substring(6, xmlhttp.responseText.toString().length),
+                                });
+                            } else if (errorType == "falsee") {
+                                Swal({
+                                    type: 'error',
+                                    title: 'Ngoại lệ',
+                                    text: xmlhttp.responseText.toString().substring(6, xmlhttp.responseText.toString().length),
+                                });
+                            }
+                        }
+                    }
+                    xmlhttp.open("GET", "../Ajax.aspx?Action=ThemUser" + "&hoTen=" + hoTen + "&soDienThoai=" + soDienThoai + "&diaChi=" + diaChi +
+                        "&tenCongTy=" + tenCongTy + "&tenDangNhap=" + tenDangNhap + "&matKhau=" + matKhau + "&email=" + email + "&UTM=" + UTM, true);
+                    xmlhttp.send();
+                }
+            }
+
+            if ($(window).width() < 768) {
+                $('#vq_dr_m').click(function() {
+                    if ($('#ul1').hasClass('active-1')) {
+                        $('#vq_dr_m').parent().css('margin-bottom', '0px');
+                        $('#ul1').removeClass('active-1');
+                        $('#ul1').css('display', 'none');
+                    } else {
+                        $('#vq_dr_m').parent().css('margin-bottom', '75px');
+
+                        $('#ul1').addClass('active-1');
+                        $('#ul1').css('display', 'block');
+                    }
+                })
+            }
+
+            if ($(window).width() < 768) {
+                $('#qs_dr_m').click(function() {
+                    if ($('#ul2').hasClass('active-1')) {
+                        $('#qs_dr_m').parent().css('margin-bottom', '0px');
+
+                        $('#ul2').removeClass('active-1');
+                        $('#ul2').css('display', 'none');
+                    } else {
+                        $('#qs_dr_m').parent().css('margin-bottom', '75px');
+
+                        $('#ul2').addClass('active-1');
+                        $('#ul2').css('display', 'block');
+                    }
+                })
+            }
+
+            $("#navbar-toggle").click(function() {
+                if ($("#aa-main-nav").hasClass("in")) {
+                    $(".lang-en .navbar").css("cssText", "height: 61px !important;");
+                    $("#aa-main-nav").css("cssText", "height: 1px !important;")
+                    $("#aa-main-nav").removeClass("in");
+                    $(".navbar-nav").css("cssText", "display: none !important;");
+                    $("#vqmm_").css("cssText", "padding-bottom: 0px")
+                    $("#qsnn_").css("cssText", "padding-bottom: 0px ")
+                    $("#qs_dr").removeClass("drop_r");
+                    $("#vq_dr").css("display", "none");
+                    $("#qs_dr").css("display", "none");
+                    $("#vq_dr").removeClass("drop_r");
+                } else {
+                    $(".lang-en .navbar").css("cssText", "height: 730px !important;");
+                    $("#aa-main-nav").css("cssText", "width: 100% !important; height: 600px !important")
+                    $("#aa-main-nav").addClass("in");
+                    $(".navbar-nav").css("cssText", "display: block !important;")
+                }
+            });
+
+            function OpenAll() {
+                if ($(window).width() > 768) {
+                    window.location.href = "/all-tin-tuc-page=1";
+                } else {
+                    $('#box_tin_tuc').toggleClass('hides');
+                    if ($('#box_tin_tuc').hasClass('hides')) {
+                        $('#box_tin_tuc').removeClass('shows');
+                        $('#myshi').css('margin-bottom', '0');
+                    } else {
+                        $('#box_tin_tuc').addClass('shows');
+                        $('#myshi').css('margin-bottom', '170px');
+                    }
+                }
+            }
+            var pageVal = {
+                'bingMapsKey': 'Agyg_xg-FzgQDY8U0A4Pmcc6MNQssLuv72-wKJaNrIePPCovvP6k5QW5nSGXvZjG',
+                'languages': {
+                    "en": {
+                        "default": true,
+                        "label": "english",
+                        "label_en": "English",
+                        "locale": "en_EN",
+                        "translation_code": "en",
+                        "smartling_locale_code": "en-US",
+                        "country_code": "us",
+                        "format": "%b %e, %Y"
+                    },
+                    "jp": {
+                        "default": false,
+                        "label": "\u65e5\u672c\u8a9e",
+                        "label_en": "Japanese",
+                        "locale": "ja_JP",
+                        "translation_code": "ja",
+                        "smartling_locale_code": "ja-JP",
+                        "country_code": "jp",
+                        "format": "%Y\u5e74%m\u6708%d\u65e5"
+                    },
+                    "kr": {
+                        "default": false,
+                        "label": "\ud55c\uad6d\uc5b4",
+                        "label_en": "Korean",
+                        "locale": "ko_KR",
+                        "translation_code": "ko",
+                        "smartling_locale_code": "ko-KR",
+                        "country_code": "kr",
+                        "format": "%Y\ub144 %m\uc6d4 %d\uc77c"
+                    },
+                    "cn": {
+                        "default": false,
+                        "label": "\u4e2d\u6587(\u7b80\u4f53)",
+                        "label_en": "Chinese",
+                        "locale": "zh_CN",
+                        "translation_code": "zh-Hans",
+                        "smartling_locale_code": "zh-CN",
+                        "country_code": "cn",
+                        "format": "%Y\u5e74%m\u6708%d\u65e5"
+                    },
+                    "ru": {
+                        "default": false,
+                        "label": "p\u0443\u0441\u0441\u043a\u0438\u0439",
+                        "label_en": "Russian",
+                        "locale": "ru_RU",
+                        "translation_code": "ru",
+                        "smartling_locale_code": "ru-RU",
+                        "country_code": "ru",
+                        "format": "%b %e, %Y"
+                    },
+                    "fr": {
+                        "default": false,
+                        "label": "fran\u00e7ais",
+                        "label_en": "French",
+                        "locale": "fr_FR",
+                        "translation_code": "fr",
+                        "smartling_locale_code": "fr-FR",
+                        "country_code": "fr",
+                        "format": "%b %e, %Y"
+                    },
+                    "de": {
+                        "default": false,
+                        "label": "deutsch",
+                        "label_en": "German",
+                        "locale": "de_DE",
+                        "translation_code": "de",
+                        "smartling_locale_code": "de-DE",
+                        "country_code": "de",
+                        "format": "%b %e, %Y"
+                    }
+                },
+                'cache_stamp': '79e46167a3d4b787b9076a00b92d19a1',
+                'aaLanguage': 'en',
+                'mktoHash': '0pOP6o3n7U9yvqkv',
+                'urlPrefix': '/en',
+                'assetsUrl': 'https://static-t.aa-cdn.net/mkt/assets',
+                'user_state': 0,
+                'searchType': '',
+                'reactPage': true,
+                'gtmContainerId': 'GTM-D44H'
+            };
+            setTimeout(function() {
+                $("#user-menu-item").css("opacity", "1");
+                $(".navbar").css("opacity", "1");
+                $(".containerXEP").css("opacity", "1")
+            }, 10)
+        </script>
+    </div>
+    <div style="background-image: url('../static/spin/images/BgXSpin2.jpg');
+                background-position: center;
+                background-size: cover;
+                width: 100%;
+                height: 100%;
+                filter: brightness(90%);">
+    </div>
+
+    <!--Form đăng nhập-->
+    <form method="post" action="/login_user/" id="formLogin">
+        <div class="aspNetHidden">
+            <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwNTk2NjcwMjZkZPqWsuIg1ZL6huUBgNKHbFjfuLQFig9b/sRAH8+B3XEK">
+        </div>
+
+        <div class="aspNetHidden">
+
+            <input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="F2ABADE6">
+            <input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAALWg/6BF/QrjsZgTfKa8/J2SyMtP1c0uliUlai7KxeONILYA0IeJJ1eAwczlPVAPabn1wAWEftlgk2pnNT52ZEA">
+        </div>
+        <div id="ConLoginMobile">
+            <div id="dvContainerSS" class="container-ss">
+
+                <div id="dvSignupForm" class="signUp form inactive-sx">
+                    <h3 id="dvTextDangKy" style="font-size:20px;MARGIN: 0;color: #b63434;">ĐĂNG KÝ
+                    </h3>
+                    <br>
+
+                    <div style="display:none">
+                        <input name="input_tenDangNhap" type="text" id="input_tenDangNhap" style="display:none" class="" placeholder="Tên đăng nhập (*)" value="366671c86fe749bdab1bcd94e21ac5cd">
+                    </div>
+
+                    <input id="input-soDienThoai" onkeypress="validate(event)" type="text" placeholder="Số điện thoại (*)">
+                    <input id="input-matKhau" type="password" placeholder="Mật khẩu (*)">
+                    <input id="input-XacmatKhau" type="password" placeholder="Xác nhận mật khẩu (*)">
+                    <div style="display:none">
+                        <input id="input-email" type="text" placeholder="Email">
+                    </div>
+                    <input id="input-hoTen" type="text" placeholder="Họ tên">
+                    <button id="btDangKy" class="btChinh form-btn dx" style="font-weight: bold;" onclick="ThemUser()" type="button">
+                        Đăng ký</button>
+
+
+                    <h1 id="dvBanDaCoTaiKhoan" style="margin-top: 30px; font-size: 15px; margin-bottom: 0px;">Bạn đã có tài khoản?</h1>
+                    <button id="btDangNhap" class="btPhu form-btn sx log-in" style="font-weight: bold;" type="button">
+                        Đăng nhập</button>
+
+                    <div id="dvBannerDK" style="display:none"><img src="../static/spin/BannerDK.png" style="width:100%;margin-top: -20px;opacity: 0.8;"></div>
+                </div>
+
+                <div id="dvSigninForm" class="signIn form active-dx">
+                    <h3>ĐĂNG NHẬP<br></h3>
+                    <input type="text" id="edit-name" name="UserName" placeholder="Nhập vào số điện thoại" autocomplete="off">
+                    <input id="edit-pass" type="password" name="Password" placeholder="Nhập vào mật khẩu" autocomplete="off">
+                    <button id="button-login" class="btChinh form-btn dx" style="font-weight: bold;" type="button">Đăng nhập</button>
+                    <div id="dvQuenMatKhau" style="margin-top:10px; text-decoration:underline"><a onclick="alert(&#39;Vui lòng liên hệ hotline: 0966674318 để cấp lại mật khẩu&#39;)">Quên mật khẩu?</a></div>
+                    <h1 id="dvBanChuaCoTaiKhoan" style="margin-top: 50px; font-size: 15px; margin-bottom: 0px;">Bạn chưa có tài khoản?</h1>
+                    <button id="btDangKy1" class="btPhu form-btn sx back" style="font-weight: bold;" type="button">Đăng ký</button>
+                </div>
+
+            </div>
+        </div>
+        <script>
+        </script>
+
+        <style>
+            .btChinh {
+                background: #267E2A!important;
+                font-size: 18px!important;
+                width: 200px!important;
+                margin-top: 30px!important;
+                position: relative!important;
+                border-radius: 6px!important;
+                padding: 0px!important;
+                height: 45px!important;
+            }
+            
+            .btPhu {
+                left: 0;
+                margin-bottom: 30px;
+                border-radius: 0 0 0 5px;
+                background-color: #9E1616!important;
+                color: #fff;
+                font-size: 15px!important;
+                height: 30px;
+                width: 100%;
+                border-radius: 5px!important;
+                transition: all 0.3s linear;
+                position: relative!important;
+                width: 210px!important;
+                margin-top: 10px;
+                padding: 10px;
+                height: 34px!important;
+            }
+        </style>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var isMobile = false; //initiate as false
+                // device detection
+                if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) ||
+                    /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0, 4))) {
+                    isMobile = true;
+                }
+                if (isMobile) {
+                    $('body').append("<style>\
+				body{overflow: hidden !important;}\
+				.container-ss {\
+                position: absolute;\
+                width: auto;\
+                height: auto;\
+                top: 80px;\
+                left: 0;\
+                width: 100vw;\
+                z-index: 1059;\
+                height: 100vh;\
+                background: #949494;\
+            }\
+\
+            .form {\
+                position: absolute;\
+                text-align: center;\
+                background: #fff;\
+                width: fit-content;\
+                display: table;\
+                height: fit-content;\
+                border-radius: 5px;\
+                   height: calc(100vh - 200px);\
+                margin: auto !important;\
+                padding: 20px 20px 0 20px;\
+                position: absolute;\
+                width: 100vw;\
+                top: -40px;\
+                box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.25);\
+                box-sizing: border-box;\
+                right: 0;\
+                left: 0;\
+            }\
+\
+            p {\
+                font-weight: 100;\
+                text-transform: uppercase;\
+                font-size: 12px;\
+                color: #87613d;\
+                margin-bottom: 15px;\
+            }\
+            \
+            p > span {\
+                padding-top: 3px;\
+                display: block;\
+                font-weight: 400;\
+                font-size: 9px;\
+            }\
+            \
+            h3 {\
+                font-size: 2.5em!important;\
+                text-transform: uppercase;\
+						font-family: inherit;\
+                color: #87613d;\
+                margin: 1em!important;\
+            }\
+\
+            input,\
+            button {\
+                outline: none !important;\
+            }\
+\
+            button.fb {\
+                border: none;\
+                background: #3b5998;\
+                width: 160px;\
+                height: 25px;\
+                font-size: 12px;\
+                color: #fff;\
+                text-transform: uppercase;\
+                border-radius: 4px;\
+                border: 1px solid #29487d;\
+                cursor: pointer;\
+                margin-bottom: 20px;\
+                transition: all 0.3s linear;\
+            }\
+\
+            button.fb:hover {\
+                background: #fff;\
+                color: #3b5998;\
+            }\
+            \
+            button.form-btn {\
+                position: absolute;\
+                width: 50%;\
+                height: 70px!important;\
+                bottom: 0;\
+                border: 0;\
+                font-size: 24px!important;\
+                text-transform: uppercase;\
+                cursor: pointer;\
+            }\
+\
+            button.form-btn.sx {\
+                left: 0;\
+                border-radius: 50px!important;\
+                background-color: #9E1616;\
+                color: #fff;\
+                transition: all 0.3s linear;\
+            }\
+\
+            button.form-btn.sx:hover {\
+                background-color: #bd3030;\
+                color: #fff;\
+            }\
+            \
+            button.form-btn.sx.back {\
+                background-color: rgb(38, 126, 42);\
+                transition: all 0.3s linear;\
+            }\
+\
+            button.form-btn.sx.back:hover {\
+                background-color: rgb(50, 160, 26);\
+            }\
+            \
+            button.form-btn.dx {\
+                right: 0;\
+                border-radius: 0 0 5px 0;\
+                background-color: #9E1616;\
+                color: #fff;\
+                padding: 1em !important;\
+                width: 3em;\
+            }\
+\
+            input {\
+                border: 1px solid #d41515e6;\
+                width: 85%;\
+                color: #9E1616;\
+                text-align: left;\
+                border-radius: 20px;\
+                padding: 9px;\
+                font-size: 2.1em;\
+                font-weight: 100;\
+                margin-bottom: 1em;\
+                padding-left: 10px;\
+                padding: 1em;\
+            }\
+\
+						.form-btn.sx.back,.form-btn.sx.log-in{height: 2em !important;}\
+        ::-webkit-input-placeholder {\
+                color: #b71c1ccc;\
+            font-weight: 100;\
+        }\
+\
+            :-moz-placeholder {\
+                color: #b71c1ccc;\
+                font-weight: 100;\
+            }\
+            \
+        ::-moz-placeholder {\
+                color: #b71c1ccc;\
+            font-weight: 100;\
+        }\
+\
+            :-ms-input-placeholder {\
+                color: #b71c1ccc;\
+                font-weight: 100;\
+            }\
+                    \
+            .signIn input,\
+            .signUp .w100 {\
+                width: 90%;\
+            }\
+\
+            .signIn {\
+                z-index: 1;\
+                transform: perspective(100px) translate3d(100px, 0px, -30px);\
+                opacity: 0.5;\
+            }\
+\
+            .signUp {\
+                z-index: 2;\
+            }\
+\
+            .active-dx {\
+                animation-name: foregrounding-dx;\
+                animation-duration: 0.9s;\
+                animation-fill-mode: forwards;\
+            }\
+\
+            .active-sx {\
+                animation-name: foregrounding-sx;\
+                animation-duration: 0.9s;\
+                animation-fill-mode: forwards;\
+            }\
+\
+            .inactive-dx {\
+                animation-name: overshadowing-dx;\
+                animation-duration: 0.9s;\
+                animation-fill-mode: forwards;\
+            }\
+\
+            .inactive-sx {\
+                animation-name: overshadowing-sx;\
+                animation-duration: 0.9s;\
+                animation-fill-mode: forwards;\
+            }\
+\
+						.sdfadfasd{    position: absolute;\
+    bottom: calc(2em + 35px);\
+    left: 0;\
+    right: 0;}\
+        @keyframes overshadowing-dx {\
+            0% {\
+                z-index: 2;\
+            transform: perspective(100px) translate3d(0px, 0px, 0px);\
+            opacity: 1;\
+            box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.25);\
+        }\
+\
+            100% {\
+                z-index: 1;\
+            transform: perspective(100px) translate3d(100px, 0px, -30px);\
+            opacity: 0.5;\
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.25);\
+        }\
+        }\
+\
+        @keyframes overshadowing-sx {\
+            0% {\
+                z-index: 2;\
+            transform: perspective(100px) translate3d(0px, 0px, 0px);\
+            opacity: 1;\
+            box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.25);\
+        }\
+\
+        100% {\
+            z-index: 1;\
+        transform: perspective(100px) translate3d(-100px, 0px, -30px);\
+        opacity: 0.5;\
+        box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.25);\
+        }\
+        }\
+\
+        @keyframes foregrounding-dx {\
+            0% {\
+                z-index: 1;\
+            transform: perspective(100px) translate3d(100px, 0px, -30px);\
+            opacity: 0.5;\
+        }\
+\
+        50% {\
+            z-index: 2;\
+        transform: perspective(100px) translate3d(400px, 0px, -30px);\
+        }\
+\
+        100% {\
+            z-index: 2;\
+        transform: perspective(100px) translate3d(0px, 0px, 0px);\
+        opacity: 1;\
+        }\
+        }\
+        \
+        form {\
+            margin-bottom: 0 !important;\
+        }\
+        btPhu{\
+                        left: 0; margin-bottom: 30px; border-radius: 0 0 0 5px; background-color: #9E1616!important; color: #fff; font-size: 15px!important; height: 30px; width: 100%; border-radius: 5px!important; transition: all 0.3s linear;position: relative!important;width: 210px!important;margin-top: 10px;padding: 10px;height: 64px!important;\
+                }\
+       btChinh{\
+                        background: #267E2A!important;\
+                    font-size: 30px!important;\
+                    width: 220px!important;\
+                    margin-top: 30px!important;\
+                    position: relative!important;\
+                    border-radius: 6px!important;\
+                    padding: 5px!important;\
+                    height: 80px!important;\
+                }\
+        </style>");
+
+                }
+
+                //ĐĂNG NHẬP
+                $('#button-login').on('click', function() {
+                    var matKhau = $('#edit-pass').val().trim();
+                    var tenDangNhap = $('#edit-name').val().trim();
+
+                    if (tenDangNhap == "") {
+                        alert("Bạn chưa nhập số điện thoại!");
+                        return
+                    }
+                    if (matKhau == "") {
+                        alert("Bạn chưa nhập mật khẩu!");
+                        return
+                    }
+                    document.getElementById("formLogin").submit();
+
+                });
+
+                window.onload = function() {
+                    //alert(screen.width);
+                    if (screen.width > 768) {
+
+                    } else {
+
+                        //Mobile
+                        //$("#dvContainerSS").css("overflow","auto");
+                        //$("#dvContainerSS").css("margin-top","-22px");
+                        $('body').attr('style', 'overflow: auto !important;margin: 0px;');
+                        $("#top-bar").attr('style', 'padding: 20px 0!important');
+                        $("#dvTextDangKy").attr('style', 'font-size: 50px!important;color: #b63434;');
+                        $("input").attr('style', 'font-size: 37px!important;font-weight: bold;border: 2px solid #d41515e6');
+
+                        //$('.[data-notify-text]').attr('style', 'font-size: 37px!important');
+
+                        $("#dvEmail").css("font-size", "27px");
+                        $("#dvLienHe").css("font-size", "33px");
+                        $("#spHotline_TieuDe").css("font-size", "33px");
+                        $("#spHotline").css("font-size", "33px");
+                        $("#iconHotline").attr('style', 'margin-top: -4px;font-size: 40px;');
+
+                        $("#spEmail_TieuDe").css("font-size", "33px");
+                        $("#spEmail").css("font-size", "33px");
+                        $("#iconEmail").attr('style', 'margin-top: -4px;font-size: 40px;');
+
+                        $("#dvSignupForm").attr('style', 'top:0px;background-image:url(/images/bgDangKy.png?v=1.5);background-size: contain;');
+                        $("#dvSigninForm").css("top", "0px");
+                        $("#dvBanDaCoTaiKhoan").css("font-size", "35px");
+
+                        $("#dvQuenMatKhau").css("font-size", "35px");
+                        $("#dvBanChuaCoTaiKhoan").css("font-size", "35px");
+
+                        $('#btDangKy').attr('style', 'font-size: 30px!important;line-height: 0px;padding: 1.5em!important;width: 12em!important;font-weight: bold;');
+                        $('#btDangNhap').attr('style', 'font-size: 30px!important;line-height: 0px;padding: 1.3em!important;width: 9em!important;font-weight: bold;');
+
+                        $('#button-login').attr('style', 'font-size: 30px!important;line-height: 0px;padding: 1.5em!important;width: 12em!important;font-weight: bold;');
+                        $('#btDangKy1').attr('style', 'font-size: 30px!important;line-height: 0px;padding: 1.3em!important;width: 9em!important;font-weight: bold;');
+                        $('#imgZalo').attr('style', 'width:180px');
+
+                        $("#dvBannerDK").css("display", "");
+                    }
+
+                    newuser = getUrlVars()["NewUser"];
+                    if (newuser == "true") {
+                        MoDialogDangKy();
+                    }
+                }
+
+                $(".log-in").click(function() {
+                    $(".signIn").addClass("active-dx");
+                    $(".signUp").addClass("inactive-sx");
+                    $(".signUp").removeClass("active-sx");
+                    $(".signIn").removeClass("inactive-dx");
+                });
+
+                $(".back").click(function() {
+                    $(".signUp").addClass("active-sx");
+                    $(".signIn").addClass("inactive-dx");
+                    $(".signIn").removeClass("active-dx");
+                    $(".signUp").removeClass("inactive-sx");
+                });
+
+
+
+
+
+                //HIỆU ỨNG INPUT FORM
+                $("#edit-name").val("");
+                $('#label_name').css('cssText', 'transform: translateX(250px); font-size: 11px;');
+                $("#edit-name").focus();
+                $("#edit-pass").val("");
+
+                $("#edit-name").focus(function() {
+                    $('#label_name').css('cssText', 'transform: translateX(250px); font-size: 11px;');
+                }).focusout(function() {
+                    if ($("#edit-name").val().trim() != "") {
+
+                    } else {
+                        $('#label_name').css('cssText', 'transform: translateX(0px); font-size: 15px;');
+
+                    }
+                });
+                $("#edit-pass").focus(function() {
+                    $('#label_pass').css('cssText', 'transform: translateX(260px); font-size: 11px;');
+                }).focusout(function() {
+                    if ($("#edit-pass").val().trim() == "")
+                        $('#label_pass').css('cssText', 'transform: translateX(0px); font-size: 15px;');
+                });
+
+
+                //LIÊN HỆ HOTLINE
+                $('#dialog_hotline').hover(function() {
+                    $('#box_qmk').css('cssText', 'transition:0 ease-in-out all; transform: translateY(-10px); z-index: 1; opacity: 1;position: absolute; top: -90px; background: #616161; left: -145px; box-shadow: -1px 1px 1px #00000045; width: 245px; color: white; border-radius: 5px; padding: 9px;')
+                }).mouseout(function() {
+                    $('#box_qmk').css('cssText', 'transition:0 ease-in-out all; transform: translateY(10px); z-index: -1; opacity: 0;position: absolute; top: -90px; background: #616161; left: -145px; box-shadow: -1px 1px 1px #00000045; width: 245px; color: white; border-radius: 5px; padding: 9px;')
+                });
+
+            })
+        </script>
+    </form>
+
+
+    <style>
+        .container-ss {
+            position: absolute;
+            width: auto;
+            height: auto;
+            top: calc(50% - 240px);
+            left: calc(75% - 160px);
+        }
+        
+        .form {
+            position: absolute;
+            text-align: center;
+            background: #f8f8f8;
+            width: 340px;
+            height: 527px;
+            border-radius: 5px;
+            padding: 20px 20px 0 20px;
+            /* box-shadow: 0 10px 50px 0 rgb(0 0 0 / 25%); */
+            box-sizing: border-box;
+            /* border: 1px solid yellow; */
+            box-shadow: #ffe500 0px 1px 4px;
+        }
+        
+        p {
+            font-weight: 100;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: #87613d;
+            margin-bottom: 15px;
+        }
+        
+        p>span {
+            padding-top: 3px;
+            display: block;
+            font-weight: 400;
+            font-size: 9px;
+        }
+        
+        h3 {
+            font-size: 30px;
+            text-transform: uppercase;
+            color: #87613d;
+            margin-bottom: 15px;
+        }
+        
+        input,
+        button {
+            outline: none !important;
+        }
+        
+        button.fb {
+            border: none;
+            background: #3b5998;
+            width: 160px;
+            height: 25px;
+            font-size: 12px;
+            color: #fff;
+            text-transform: uppercase;
+            border-radius: 4px;
+            border: 1px solid #29487d;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s linear;
+        }
+        
+        button.fb:hover {
+            background: #fff;
+            color: #3b5998;
+        }
+        
+        button.form-btn {
+            position: absolute;
+            width: 50%;
+            height: 60px;
+            bottom: 0;
+            border: 0;
+            font-size: 24px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        
+        button.form-btn.sx {
+            left: 0;
+            border-radius: 50px!important;
+            background-color: #9E1616;
+            color: #fff;
+            transition: all 0.3s linear;
+        }
+        
+        button.form-btn.sx:hover {
+            background-color: #bd3030;
+            color: #fff;
+        }
+        
+        button.form-btn.sx.back {
+            background-color: rgb(38, 126, 42);
+            transition: all 0.3s linear;
+        }
+        
+        button.form-btn.sx.back:hover {
+            background-color: rgb(50, 160, 26);
+        }
+        
+        button.form-btn.dx {
+            right: 0;
+            border-radius: 50px!important;
+            background-color: #9E1616;
+            color: #fff;
+        }
+        
+        input {
+            border: 1px solid #d4151599;
+            width: 85%;
+            color: #c64646;
+            text-align: left;
+            border-radius: 3px;
+            padding: 9px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 9px;
+            padding-left: 10px;
+        }
+        
+         ::-webkit-input-placeholder {
+            color: #b71c1ccc;
+            font-weight: 100;
+        }
+        
+         :-moz-placeholder {
+            color: #b71c1ccc;
+            font-weight: 100;
+        }
+        
+         ::-moz-placeholder {
+            color: #b71c1ccc;
+            font-weight: 100;
+        }
+        
+         :-ms-input-placeholder {
+            color: #b71c1ccc;
+            font-weight: 100;
+        }
+        
+        .signIn input,
+        .signUp .w100 {
+            width: 90%;
+        }
+        
+        .signIn {
+            z-index: 1;
+            transform: perspective(100px) translate3d(100px, 0px, -30px);
+            opacity: 0.5;
+        }
+        
+        .signUp {
+            z-index: 2;
+        }
+        
+        .active-dx {
+            animation-name: foregrounding-dx;
+            animation-duration: 0.9s;
+            animation-fill-mode: forwards;
+        }
+        
+        .active-sx {
+            animation-name: foregrounding-sx;
+            animation-duration: 0.9s;
+            animation-fill-mode: forwards;
+        }
+        
+        .inactive-dx {
+            animation-name: overshadowing-dx;
+            animation-duration: 0.9s;
+            animation-fill-mode: forwards;
+        }
+        
+        .inactive-sx {
+            animation-name: overshadowing-sx;
+            animation-duration: 0.9s;
+            animation-fill-mode: forwards;
+        }
+        
+        @keyframes overshadowing-dx {
+            0% {
+                z-index: 2;
+                transform: perspective(100px) translate3d(0px, 0px, 0px);
+                opacity: 1;
+                box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.25);
+            }
+            100% {
+                z-index: 1;
+                transform: perspective(100px) translate3d(100px, 0px, -30px);
+                opacity: 0.5;
+                box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.25);
+            }
+        }
+        
+        @keyframes overshadowing-sx {
+            0% {
+                z-index: 2;
+                transform: perspective(100px) translate3d(0px, 0px, 0px);
+                opacity: 1;
+                box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.25);
+            }
+            100% {
+                z-index: 1;
+                transform: perspective(100px) translate3d(-100px, 0px, -30px);
+                opacity: 0.5;
+                box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.25);
+            }
+        }
+        
+        @keyframes foregrounding-dx {
+            0% {
+                z-index: 1;
+                transform: perspective(100px) translate3d(100px, 0px, -30px);
+                opacity: 0.5;
+            }
+            50% {
+                z-index: 2;
+                transform: perspective(100px) translate3d(400px, 0px, -30px);
+            }
+            100% {
+                z-index: 2;
+                transform: perspective(100px) translate3d(0px, 0px, 0px);
+                opacity: 1;
+            }
+        }
+        
+        form {
+            margin-bottom: 0 !important;
+        }
+    </style>
+    <a href="https://zalo.me/0966674318" target="_blank" rel="nofollow" style="position: fixed;bottom: 5px;right: 20px;z-index:9999"><img id="imgZalo" src="../static/spin/Zalo.gif" style="width: 75px;"></a>
+    <footer id="dvFooter" class="myfooter" style="    background: #c7c6c6;
+    padding: 15px;
+    color: #423c34;
+    border-top: 1px solid #c5c5c5;
+    font-family: -webkit-body;
+    margin-bottom: 0px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 13px;
+    z-index: 90;">
+        <!-- To the right -->
+        <div class="pull-right hidden-xs">
+        </div>
+        <!-- Default to the left -->
+        <strong>@ Được phát triển bởi <a href="#" style="color: #ce2626;">lập trình viên chien04mmt@gmail.com</a></strong>
+    </footer>
+
+
+
+</body>
+<chatgpt-sidebar data-gpts-theme="light">
+    <template shadowrootmode="open">
+        
+        <div class="chat-gpt-quick-query-container" style="position: relative; z-index: 2147483647;">
+            <div class="css-xwws3d ant-app">
+                <div><span></span><span class="ant-dropdown-trigger"></span></div>
+            </div>
+        </div>
+    </template>
+    </chatgpt-sidebar-popups>
+
+</html>

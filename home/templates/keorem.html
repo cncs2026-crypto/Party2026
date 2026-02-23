@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kéo Rèm Đỏ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        
+        .curtain-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .curtain {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            background-color: red;
+            transition: transform 1s ease-out;
+            z-index: 10;
+        }
+        
+        .left {
+            left: 0;
+            transform: translateX(0);
+        }
+        
+        .right {
+            right: 0;
+            transform: translateX(0);
+        }
+        
+        button {
+            position: absolute;
+            bottom: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 20;
+        }
+        
+        button:hover {
+            background-color: #555;
+        }
+        /* Kéo rèm hiệu ứng */
+        
+        .curtain.open-left {
+            transform: translateX(-100%);
+        }
+        
+        .curtain.open-right {
+            transform: translateX(100%);
+        }
+        
+        .left {
+            background-image: url('../static/img/bg_tet/remdo3.jpg');
+            background-position: left;
+            /* Căn ảnh từ bên phải */
+            background-size: cover;
+            /* Tùy chọn: Điều chỉnh kích thước ảnh */
+        }
+        
+        .right {
+            background-image: url('../static/img/bg_tet/remdo3.jpg');
+            background-position: right;
+            /* Căn ảnh từ bên phải */
+            background-size: cover;
+            /* Tùy chọn: Điều chỉnh kích thước ảnh */
+        }
+    </style>>
+</head>
+
+<body>
+    <div class="curtain-wrapper">
+        <div class="curtain left"></div>
+        <div class="curtain right"></div>
+    </div>
+
+    <button class="toggle-button">Kéo Rèm</button>
+
+    <script>
+        const leftCurtain = document.querySelector('.curtain.left');
+        const rightCurtain = document.querySelector('.curtain.right');
+        const button = document.querySelector('.toggle-button');
+
+        let isOpen = false;
+
+        button.addEventListener('click', () => {
+            if (isOpen) {
+                leftCurtain.classList.remove('open-left');
+                rightCurtain.classList.remove('open-right');
+            } else {
+                leftCurtain.classList.add('open-left');
+                rightCurtain.classList.add('open-right');
+            }
+            isOpen = !isOpen;
+        });
+    </script>
+</body>
+
+</html>

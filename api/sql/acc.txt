@@ -1,0 +1,16 @@
+gamer123/G@mer123123123!
+admin/vanchien123
+
+
+
+SELECT A.MaSanChoi,B.TenSanChoi,A.MaGiai,D.TenGiai,A.MaQuaTang,C.TenQuaTang,C.HinhAnh,C.GiaTien
+,A.SoLanQuay,A.SoLuongGiai
+,(SELECT COUNT(*) FROM TabTrungThuong WHERE MaSanChoi=A.MaSanChoi AND MaGiai=A.MaGiai AND VangMat=0) SoLuongDaQuay
+,(A.SoLuongGiai- (SELECT COUNT(*) FROM TabTrungThuong WHERE MaSanChoi=A.MaSanChoi AND MaGiai=A.MaGiai AND VangMat=0)) SoLuongConLai
+,(SELECT COUNT(*) FROM TabTrungThuong WHERE MaSanChoi=A.MaSanChoi AND MaGiai=A.MaGiai AND VangMat=0)/(A.SoLuongGiai/A.SoLanQuay) LanQuayThu
+,A.TrangThai
+FROM TabSanChoi A 
+LEFT JOIN TabDsSanChoi B ON A.MaSanChoi=B.MaSanChoi
+INNER JOIN TabGiaiThuong C ON A.MaQuaTang=C.MaQuaTang
+LEFT JOIN TabDsGiai D ON A.MaGiai=D.MaGiai
+WHERE  B.TrangThai=1

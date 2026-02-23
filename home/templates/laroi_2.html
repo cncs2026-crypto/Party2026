@@ -1,0 +1,84 @@
+<div id="LeafEffect_2">
+
+</div>
+<style>
+    .dot {
+        width: 35px;
+        height: 35px;
+        position: absolute;
+        background: url(/static/img/icon/red-lobed-fall-clipart-leaf.png);
+        background: url(/static/img/icon/hoamaivang.png);
+        background-size: 100% 100%;
+    }
+    
+    #LeafEffect_2 {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0px;
+        left: 0;
+        opacity: 0.5;
+    }
+</style>
+
+<script>
+    function laroi_2() {
+        var falling = true;
+        var id_laroi_2 = 'LeafEffect_2';
+        TweenLite.set("#" + id_laroi_2, {
+                perspective: 600
+            })
+            // TweenLite.set("span", {
+            //     xPercent: "-50%",
+            //     yPercent: "-50%"
+            // })
+
+        var total = 30;
+        var laroi_2 = document.getElementById(id_laroi_2),
+            w = window.innerWidth,
+            h = window.innerHeight;
+
+        for (i = 0; i < total; i++) {
+            var Div = document.createElement('span');
+            TweenLite.set(Div, {
+                attr: {
+                    class: 'dot'
+                },
+                x: R(0, w),
+                y: R(-200, -150),
+                z: R(-200, 200)
+            });
+            laroi_2.appendChild(Div);
+            animm(Div);
+        }
+
+        function animm(elm) {
+            TweenMax.to(elm, R(6, 15), {
+                y: h + 100,
+                ease: Linear.easeNone,
+                repeat: -1,
+                delay: -15
+            });
+            TweenMax.to(elm, R(4, 8), {
+                x: '+=100',
+                rotationZ: R(0, 180),
+                repeat: -1,
+                yoyo: true,
+                ease: Sine.easeInOut
+            });
+            TweenMax.to(elm, R(2, 8), {
+                rotationX: R(0, 360),
+                rotationY: R(0, 360),
+                repeat: -1,
+                yoyo: true,
+                ease: Sine.easeInOut,
+                delay: -5
+            });
+        };
+
+        function R(min, max) {
+            return min + Math.random() * (max - min)
+        };
+    }
+    laroi_2();
+</script>

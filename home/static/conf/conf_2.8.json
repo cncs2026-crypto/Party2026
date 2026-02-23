@@ -1,0 +1,29 @@
+[{
+        "ConfVal": "Màn hình bốc thăm",
+        "LogoLeft":"Foxconn.png",
+        "LogoRight": "Tet.png",
+        "Header": 1,
+        "VideoShow": "3.0- Bốc thăm trúng thưởng.mp4",
+        "BgColorHeader": "",
+        "TextHeader1": "IT TỔNG BỘ VIỆT NAM ",
+        "TextHeader2": "越南資訊",
+        "TextHeader3": "TẾT SUM VẦY - GẮN KẾT YÊU THƯƠNG",
+        "BgMain": "remdo4.jpg",
+        "BgMainMgTop": 274,
+        "BgMainMgLeft": 0,
+        "BgMainWidth": 100,
+        "BgMainHeight": 100,
+        
+        "LeafEffect_1": false,
+        "LeafEffect_2": false,
+        "LeafEffect_3": false,
+        "LeafEffect_4": false,
+        "FireWorkEffect_1": false,
+        "FireWorkEffect_2": false,
+        "FireWorkEffect_3": false,
+        "FireWorkEffect_4": false,
+        "FireWorkEffect_5": false,
+        "FireWorkEffect_6": false,
+        "FireWorkEffect_7": false
+
+    }]

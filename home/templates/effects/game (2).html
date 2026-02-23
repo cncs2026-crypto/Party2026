@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Quay Số</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin-top: 50px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .slot-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .slot {
+            font-size: 5em;
+            font-weight: bold;
+            width: 1.5em;
+            height: 1.5em;
+            padding: 10px;
+            border: 3px solid #333;
+            border-radius: 10px;
+            background: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .rolling {
+            animation: slide 0.1s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translateY(100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100%); opacity: 0; }
+        }
+
+        button {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: none;
+            background: #007BFF;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="slot-container">
+            <div class="slot"><span>-</span></div>
+            <div class="slot"><span>-</span></div>
+            <div class="slot"><span>-</span></div>
+            <div class="slot"><span>-</span></div>
+            <div class="slot"><span>-</span></div>
+        </div>
+        <button onclick="startGame()">Chơi Game</button>
+        <button onclick="stopGame()">Dừng Quay</button>
+    </div>
+
+    <script>
+        let slots = document.querySelectorAll(".slot span");
+        let intervals = [];
+        let isSpinning = false;
+
+        // Danh sách mã trúng thưởng
+        const winningCodes = [
+            "A1B2C", "X9Y8Z", "K3L4M", "P5Q6R", "T7U8V"
+        ];
+
+        let winningCode = "";
+
+        function getRandomChar() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+
+        function startGame() {
+            if (isSpinning) return;
+            isSpinning = true;
+
+            // Chọn một mã trúng thưởng từ danh sách
+            winningCode = winningCodes[Math.floor(Math.random() * winningCodes.length)];
+
+            slots.forEach((slot, index) => {
+                let speed = 50; // Quay nhanh ban đầu
+
+                let interval = setInterval(() => {
+                    slot.textContent = getRandomChar();
+                    slot.style.animation = "slide " + speed / 500 + "s linear infinite";
+                }, speed);
+
+                intervals.push({ id: interval, speed: speed });
+            });
+
+            // Tăng tốc độ quay dần đến mức ổn định
+            let increaseSpeed = setInterval(() => {
+                let allStable = true;
+                intervals.forEach((obj, index) => {
+                    if (obj.speed > 100) {
+                        clearInterval(increaseSpeed);
+                    } else {
+                        obj.speed += 10;
+                        clearInterval(obj.id);
+                        obj.id = setInterval(() => {
+                            slots[index].textContent = getRandomChar();
+                            slots[index].style.animation = "slide " + obj.speed / 500 + "s linear infinite";
+                        }, obj.speed);
+                        allStable = false;
+                    }
+                });
+
+                if (allStable) clearInterval(increaseSpeed);
+            }, 1000);
+        }
+
+        function stopGame() {
+            if (!isSpinning) return;
+            isSpinning = false;
+
+            slots.forEach((slot, index) => {
+                setTimeout(() => {
+                    clearInterval(intervals[index].id);
+                    slot.textContent = winningCode[index];
+                    slot.style.animation = "none";
+                }, index * 5000); // Dừng từng ô theo thứ tự
+            });
+
+            intervals = [];
+        }
+    </script>
+
+</body>
+</html>

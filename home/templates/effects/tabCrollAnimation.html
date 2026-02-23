@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll to Top with Animation</title>
+    <style>
+        .table-container {
+            width: 400px;
+            /* Chiều rộng bảng */
+            height: 200px;
+            /* Chiều cao vùng hiển thị */
+            overflow-y: auto;
+            /* Cho phép cuộn dọc */
+            border: 1px solid #ccc;
+            position: relative;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        .scroll-button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .scroll-button:hover {
+            background-color: #0056b3;
+        }
+        /* Hiệu ứng cuộn */
+        
+        .table-container.scrolling {
+            scroll-behavior: smooth;
+            /* Tạo cuộn mượt */
+            animation: scroll-animation 1s ease-in-out;
+        }
+        /* Hiệu ứng animation */
+        
+        @keyframes scroll-animation {
+            0% {
+                transform: translateY(-10px);
+            }
+            50% {
+                transform: translateY(0px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="table-container" id="scrollableTable">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>John</td>
+                    <td>25</td>
+                    <td>USA</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Anna</td>
+                    <td>22</td>
+                    <td>Canada</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Peter</td>
+                    <td>30</td>
+                    <td>UK</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Linda</td>
+                    <td>28</td>
+                    <td>Germany</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>David</td>
+                    <td>35</td>
+                    <td>France</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Susan</td>
+                    <td>27</td>
+                    <td>Italy</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Michael</td>
+                    <td>32</td>
+                    <td>Australia</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Sarah</td>
+                    <td>29</td>
+                    <td>India</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Chris</td>
+                    <td>31</td>
+                    <td>Japan</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Emma</td>
+                    <td>26</td>
+                    <td>Brazil</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="scroll-button" onclick="scrollToTop()">Scroll to Top</button>
+
+    <script>
+        function scrollToTop() {
+            const tableContainer = document.getElementById('scrollableTable');
+
+            // Thêm class để kích hoạt hiệu ứng
+            tableContainer.classList.add('scrolling');
+            tableContainer.scrollTop = 0; // Cuộn về đầu
+
+            // Xóa class sau khi hoàn tất hiệu ứng (1 giây)
+            setTimeout(() => {
+                tableContainer.classList.remove('scrolling');
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+ {% load static %}
+
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoạt động sự kiện</title>
+
+    <link rel="icon" type="image/png" href="/static/img/icon/logo/favicon.ico" />
+
+    <!-- bootstrap Fremwork -->
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/bootstrap/css/bootstrap.min.css">
+
+    <!-- font-awesome-n -->
+    <link rel="stylesheet" type="text/css" href="/static/FontAwesome.Pro.5.15.4.Web/css/all.min.css">
+    <!-- Required Jquery -->
+    <script type="text/javascript" src="/static/assets/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/assets/js/jquery-ui/jquery-ui.min.js "></script>
+    <script type="text/javascript" src="/static/assets/js/popper.js/popper.min.js"></script>
+    <script type="text/javascript" src="/static/assets/js/bootstrap/js/bootstrap.min.js "></script>
+    <script src="/static/myjs/vue/vue2.7.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css?v=001">
+    <link rel="stylesheet" type="text/css" href="/static/css/color.css?v=002">
+    <script src="/static/myjs/TweenMax.min.js"></script>
+
+</head>
+
+<body style="background-color: #90061f;">
+    {% block content %}
+    <!--  -->
+    {% endblock %}
+
+
+
+
+    <div id="DivEffects">
+        <!--1 Tuyết rơi -->
+        {% include 'laroi_1.html' %}
+
+        <!--2 lá bay -->
+        {% include 'laroi_2.html' %}
+
+        <!--3 hoa mai-->
+        {% include 'laroi_3.html' %}
+
+        <!--4 Bong bóng bay -->
+        {% include 'bubbles.html' %}
+
+        <!-- pháo hoa 1-->
+        {% include 'phaohoa_1.html' %}
+
+        <!-- pháo hoa 2 nổ bắn liên hoàn-->
+        {% include 'phaohoa_2.html' %}
+
+        <!-- pháo hoa 3 nổ chạy tên lửa-->
+        {% include 'phaohoa_3.html' %}
+
+        <!-- pháo hoa 4 nổ tỏa đom đóm-->
+        <!-- {% include 'phaohoa_4.html' %} -->
+
+        <!-- pháo hoa 5 nổ bắn tung tóa-->
+        {% include 'phaohoa_5.html' %}
+
+        <!-- pháo hoa 6 nổ bắn tỉa-->
+        <!-- {% include 'phaohoa_6.html' %} -->
+
+        <!-- pháo hoa 6 nổ bắn tung tóa-->
+        {% include 'phaohoa_7.html' %}
+    </div>
+
+
+    <script type="text/javascript" src="/static/myjs/myjs.js?v=20241205"></script>
+    <script type="text/javascript" src="/static/myjs/sanChoi.js?v=001"></script>
+    <script src="/static/myjs/start.js?v=001"></script>
+
+
+</body>
+
+</html>

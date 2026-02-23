@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassmorphism Cards</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            min-height: 100vh;
+        }
+        
+        h1 {
+            margin: 20px 0;
+            color: #333;
+        }
+        
+        .card-list {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .card {
+            width: 200px;
+            height: 300px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .main-card {
+            margin-top: 40px;
+            width: 400px;
+            height: 500px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .main-card h2 {
+            margin-bottom: 10px;
+        }
+        
+        .main-card p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Glassmorphism Card List</h1>
+    <div class="card-list" id="cardList">
+        <!-- Card items will be inserted dynamically -->
+    </div>
+    <div class="main-card" id="mainCard">
+        <h2 id="mainCardTitle"></h2>
+        <p id="mainCardContent"></p>
+    </div>
+
+    <script>
+        const cardData = [{
+            title: "Card 1",
+            content: "This is the detailed content of Card 1."
+        }, {
+            title: "Card 2",
+            content: "This is the detailed content of Card 2."
+        }, {
+            title: "Card 3",
+            content: "This is the detailed content of Card 3."
+        }, {
+            title: "Card 4",
+            content: "This is the detailed content of Card 4."
+        }, ];
+
+        const cardList = document.getElementById('cardList');
+        const mainCard = document.getElementById('mainCard');
+        const mainCardTitle = document.getElementById('mainCardTitle');
+        const mainCardContent = document.getElementById('mainCardContent');
+
+        // Render cards
+        cardData.forEach((card, index) => {
+            const cardElement = document.createElement('div');
+            cardElement.className = 'card';
+            cardElement.textContent = card.title;
+
+            // Add click event
+            cardElement.addEventListener('click', () => {
+                mainCardTitle.textContent = card.title;
+                mainCardContent.textContent = card.content;
+                mainCard.style.display = 'flex';
+            });
+
+            cardList.appendChild(cardElement);
+        });
+    </script>
+</body>
+
+</html>

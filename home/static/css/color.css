@@ -1,0 +1,82 @@
+/* Vàng cam */
+
+.yearlow_1 {
+    background: linear-gradient(45deg, #ff4500, #ffd700);
+}
+
+
+/* Vàng gorl #ffff00*/
+
+.yearlow_2 {
+    background: linear-gradient(45deg, #ffac00, #ffd700);
+}
+
+
+/* Gradient hình elip (Elliptical Gradient) */
+
+.yearlow_3 {
+    background: radial-gradient(ellipse at center, #FFD700, #FF4500);
+}
+
+
+/* 4. Gradient với hiệu ứng bóng mờ */
+
+.yearlow_4 {
+    background: linear-gradient(90deg, #FFD700, #FFA500, #FF4500);
+}
+
+
+/* 5. Gradient với hiệu ứng bóng mờ */
+
+.yearlow_5 {
+    background: linear-gradient(90deg, #FFECB3, #FFAB91, #FF7043);
+}
+
+
+/* 6. Gradient với hiệu ứng xuyên tâm */
+
+.yearlow_6 {
+    background: radial-gradient(circle, #FFD700, #FFA500, #FF4500);
+}
+
+
+/* 7. Đỏ vàng */
+
+.yearlow_7 {
+    background: linear-gradient(to right, #ff0000, #ff4500, #ff8c00, #ffd700, #ffff00)
+}
+
+
+/* 7.  vàng cam*/
+
+.yearlow_8 {
+    background: #ff8c00;
+}
+
+
+/* 8. Đỏ tươi */
+
+.red_8 {
+    background: #ff0000;
+}
+
+
+/* 9. Đỏ tươi */
+
+.red_9 {
+    background: #ff0000;
+}
+
+
+/*10 đỏ đậm */
+
+.red_10 {
+    background: linear-gradient(45deg, #83081e, #ff0000);
+}
+
+
+/*0 Hồng nhạt*/
+
+.pink_0 {
+    background: #ff149385;
+}

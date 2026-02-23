@@ -1,0 +1,77 @@
+<div v-show="Control.TabLucky=='1'" id="TabLucky" style="position: absolute;top: 10em;width: 100%;height: 100%;" hidden>
+
+    <div class="table-container row">
+        <div class="col-6">
+            <table id="tab_ticket">
+                <thead>
+                    <tr>
+                        <th style="width:110px;">
+                            <button class="btn-header ml-2" onclick="$('.btn-add,.form-add').show(); $('.btn-save,.btn-del').hide();" style="background-color: #0048ff;height: 35px;">
+                              <i class="fa fa-plus"></i>
+                            </button>
+                        </th>
+                        <th>Mã Vé</th>
+                        <th>Số tiền</th>
+                        <th>Tên Người Trúng Giải</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6">
+            <table id="tab_ticket2">
+                <thead>
+                    <tr>
+                        <th style="width:110px;">
+                        </th>
+                        <th>Mã Vé</th>
+                        <th>Số tiền</th>
+                        <th>Tên Người Trúng Giải</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+    <div class="form-container form-add" style="position: absolute;;right: 2em;width: 32em;    top: 5em">
+        <h2>Thêm Thông Tin</h2>
+        <form action="/other_page/" method="POST" id="form_ticket">
+            <div class="form-group" hidden>
+                <label for="id">ID</label>
+                <input type="text" id="id" name="id">
+            </div>
+            <div class="form-group">
+                <label for="Ticket">Số vé</label>
+                <input type="text" id="Ticket" name="Ticket" placeholder="Nhập mã số..." required>
+            </div>
+            <div class="form-group">
+                <label for="Money">Số tiền</label>
+                <input type="number" id="Money" name="Money" placeholder="Nhập thông tin..." required>
+            </div>
+            <div class="form-group">
+                <label for="Recipient">Tên người trúng giải</label>
+                <input type="text" id="Recipient" name="Recipient" placeholder="Nhập thông tin...">
+            </div>
+            <div class="form-group">
+                <label for="Status">Tình trạng</label>
+                <select id="Status" name="Status" placeholder="Chọn..">
+                    <option value="">Chưa sử dụng</option>
+                    <option value="Đã nhận">Đã nhận</option>                   
+                </select>
+            </div>
+            <div class="form-group text-center">
+                <button type="button" class="btn-add mr-4" onclick="SaveTicket(1)">Thêm</button>
+                <button type="button" class="btn-save mr-4" onclick="SaveTicket(2)">Lưu</button>
+                <button type="button" class="btn-del mr-4" onclick="SaveTicket(3)">Xóa</button>
+                <button type="button" onclick="$('.form-add').hide()">Thoát</button>
+            </div>
+        </form>
+    </div>
+
+
+</div>

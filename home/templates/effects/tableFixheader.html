@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Table Header</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .table-container {
+            max-height: 200px;
+            /* Độ cao hiển thị tối đa (hiển thị 5 dòng) */
+            overflow-y: auto;
+            /* Thêm cuộn dọc */
+            border: 1px solid #ccc;
+            /* Viền bảng */
+        }
+        
+        table {
+            border-collapse: collapse;
+            /* Gộp các đường viền */
+            width: 100%;
+        }
+        
+        thead {
+            position: sticky;
+            /* Cố định phần đầu bảng */
+            top: 0;
+            /* Dính vào đỉnh bảng */
+            background-color: #f9f9f9;
+            /* Màu nền cho header */
+            z-index: 1;
+            /* Đảm bảo header nằm trên các nội dung khác */
+        }
+        
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+            /* Đường viền ô */
+        }
+        
+        tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+            /* Màu nền xen kẽ */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>John</td>
+                    <td>25</td>
+                    <td>USA</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Anna</td>
+                    <td>22</td>
+                    <td>Canada</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Peter</td>
+                    <td>30</td>
+                    <td>UK</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Linda</td>
+                    <td>28</td>
+                    <td>Germany</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>David</td>
+                    <td>35</td>
+                    <td>France</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Susan</td>
+                    <td>27</td>
+                    <td>Italy</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Michael</td>
+                    <td>32</td>
+                    <td>Australia</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Sarah</td>
+                    <td>29</td>
+                    <td>India</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Chris</td>
+                    <td>31</td>
+                    <td>Japan</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Emma</td>
+                    <td>26</td>
+                    <td>Brazil</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

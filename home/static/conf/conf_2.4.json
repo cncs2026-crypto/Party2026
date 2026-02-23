@@ -1,0 +1,30 @@
+[{
+    "ConfVal": "Thi văn nghệ QV",
+    "LogoLeft": "Foxconn.png",
+    "LogoRight": "Tet.png",
+    "Header": 1,
+    "VideoShow": "0.1- Nụ Cười Xuân (Quế Võ).mp4",
+    "BgColorHeader": "red_1",
+    "TextHeader1": "DANCE NỤ CƯỜI XUÂN",
+    "TextHeader2": "FAMILY TEAM ",
+    "TextHeader3": "",
+    "BgMain": "remdo.jpeg",
+    "BgMainMgTop": 278,
+    "BgMainMgLeft": 0,
+    "BgMainWidth": 100,
+    "BgMainHeight": 100,
+    "TabLucky": "0",
+
+    "LeafEffect_1": false,
+    "LeafEffect_2": false,
+    "LeafEffect_3": false,
+    "LeafEffect_4": false,
+    "FireWorkEffect_1": false,
+    "FireWorkEffect_2": false,
+    "FireWorkEffect_3": false,
+    "FireWorkEffect_4": false,
+    "FireWorkEffect_5": false,
+    "FireWorkEffect_6": false,
+    "FireWorkEffect_7": false
+
+}]
