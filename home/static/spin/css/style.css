@@ -517,6 +517,12 @@ body,
         background-size: inherit !important;
         background-repeat: no-repeat !important;
         background-position: center center;
+        .glass-card-title {
+            text-align: left;
+        }
+        .tags a pre {
+            text-align: left;
+        }
         &:hover {
             transform: translateY(-1rem) rotate(3deg);
             cursor: pointer;

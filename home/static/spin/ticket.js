@@ -102,6 +102,12 @@ function setParamesLucky(item) {
 
 //Khởi tạo thẻ giải thưởng:lấy danh sách trúng và danh sách vé quay mới,Khởi tạo giao diện
 function _init_ticket(res) {
+    function getPrizeOrderValue(maGiai) {
+        const match = String(maGiai || '').match(/(\d+)/);
+        if (!match) return -1;
+        return parseInt(match[1], 10);
+    }
+
     function normalizeGiftNameForDisplay(value) {
         return String(value ?? '')
             .replace(/\\r\\n/g, '\n')
@@ -160,7 +166,11 @@ function _init_ticket(res) {
     html = '';
     html2 = '';
     i = 0;
-    res['data'].forEach(function(item) {
+    const sortedData = (res['data'] || []).slice().sort(function(a, b) {
+        return getPrizeOrderValue(b['MaGiai']) - getPrizeOrderValue(a['MaGiai']);
+    });
+
+    sortedData.forEach(function(item) {
         i += 1;
         html += get_cardTicket(item, 1, i);
         html2 += get_cardTicket(item, 0, i);
