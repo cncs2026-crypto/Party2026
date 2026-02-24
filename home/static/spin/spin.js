@@ -556,16 +556,37 @@ function stopSpin() {
     }, 6000);
 }
 //-----------------------------------------------------------------CÁC FUNCTION XỬ LÝ AUDIO
+let USER_INTERACTED_FOR_AUDIO = false;
+
+function markUserInteractedForAudio() {
+    USER_INTERACTED_FOR_AUDIO = true;
+}
+
+window.addEventListener('pointerdown', markUserInteractedForAudio, { once: true });
+window.addEventListener('keydown', markUserInteractedForAudio, { once: true });
+window.addEventListener('touchstart', markUserInteractedForAudio, { once: true });
+
+function safePlayMedia(el) {
+    if (!el || !USER_INTERACTED_FOR_AUDIO) return;
+    const playPromise = el.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(function() {});
+    }
+}
+
 function playAudio(x, y) {
+    const media = document.getElementById(x);
+    if (!media) return;
+
     if (y) {
         window.myInterval = setInterval(function() {
-            document.getElementById(x).pause();
-            document.getElementById(x).currentTime = 240;
-            document.getElementById(x).play();
+            media.pause();
+            media.currentTime = 240;
+            safePlayMedia(media);
         }, 50);
     } else {
-        document.getElementById(x).currentTime = 0;
-        document.getElementById(x).play();
+        media.currentTime = 0;
+        safePlayMedia(media);
     }
 }
 

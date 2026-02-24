@@ -34,6 +34,7 @@
 
 
     <script src="../static/myjs/myjs.js"></script>
+    <script src="/static/myjs/TweenMax.min.js"></script>
     <script src="../static/spin/sweetalert2.all.min.js"></script>
 
     <!-- DataTable -->
@@ -182,12 +183,12 @@
             font-size: 27px;
             cursor: pointer;
             .svg-inline--fa:hover {
-                scale(1.3);
+                transform: scale(1.3);
             }
         }
         
         svg:hover {
-            scale(1.3);
+            transform: scale(1.3);
         }
         /* Áp dụng hiệu ứng nhấp nháy cho dòng đầu tiên */
         
@@ -211,7 +212,7 @@
 
     <!-- Bảng danh dách hiển thị người trúng giải tạm thời -->
     <div class="table-container" id="tabResult">
-        <div class="control-more" style="">
+        <div class="control-more">
             <i class="far fa-angle-double-up" onclick="ShowMoreTab(0)"></i>
             <i class="far fa-angle-double-down" onclick="ShowMoreTab(1)"></i>
         </div>
@@ -284,10 +285,39 @@
 
     </table>
 
+    <style>
+        #LeafEffect_1,
+        #LeafEffect_2,
+        #LeafEffect_3,
+        #LeafEffect_4,
+        #FireWorkEffect_1,
+        #FireWorkEffect_2,
+        #FireWorkEffect_3,
+        #FireWorkEffect_4,
+        #FireWorkEffect_5,
+        #FireWorkEffect_6,
+        #FireWorkEffect_7 {
+            display: none;
+        }
+    </style>
+
     <!--1 Tuyết rơi -->
-    {% comment %} {% include 'laroi_1.html' %} {% endcomment %}
+    {% include 'laroi_1.html' %}
+    {% include 'laroi_2.html' %}
+    {% include 'laroi_3.html' %}
+    {% include 'bubbles.html' %}
+    {% include 'phaohoa_1.html' %}
+    {% include 'phaohoa_2.html' %}
+    {% include 'phaohoa_3.html' %}
+    {% include 'phaohoa_4.html' %}
+    {% include 'phaohoa_5.html' %}
+    {% include 'phaohoa_6.html' %}
+    {% include 'phaohoa_7.html' %}
     <video class="video-bg" autoplay muted loop id="background_video">
         <source src1="/static/video/vd-bgtet-1.mp4" type="video/mp4" id="source_background_video">
+    </video>
+    <video class="video-bg" autoplay muted loop id="background_video_alt" style="display:none;">
+        <source type="video/mp4" id="source_background_video_alt">
     </video>
 </body>
 

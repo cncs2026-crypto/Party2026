@@ -437,7 +437,12 @@ function ApplyVideoBackground(videoPath) {
         video.src = videoPath;
         const videoElement = document.getElementById('background_video');
         if (videoElement) {
+            videoElement.muted = true;
+            videoElement.defaultMuted = true;
+            videoElement.volume = 0;
+            videoElement.setAttribute('muted', 'muted');
             videoElement.load();
+            videoElement.play().catch(() => {});
         }
     }
 
@@ -595,19 +600,150 @@ function SaveSettingsToStorage(settings) {
     console.log('💾 Settings saved to storage:', settings);
 }
 
+let SPIN_EFFECTS_BOOTSTRAPPED = {};
+
+function ToggleEffectElement(effectId, enabled) {
+    const el = document.getElementById(effectId);
+    if (!el) return;
+    if (enabled) {
+        el.style.display = '';
+    } else {
+        el.style.display = 'none';
+    }
+}
+
+function StartEffectOnce(effectKey, fnName) {
+    if (!SPIN_EFFECTS_BOOTSTRAPPED[effectKey] && typeof window[fnName] === 'function') {
+        SPIN_EFFECTS_BOOTSTRAPPED[effectKey] = true;
+        try {
+            window[fnName]();
+        } catch (e) {
+            console.warn(`Không thể khởi tạo hiệu ứng ${effectKey}:`, e);
+        }
+    }
+}
+
+function ApplyCommonEffectsConfig(conf) {
+    const c = conf || {};
+
+    function toBool(value) {
+        if (value === true || value === false) return value;
+        if (typeof value === 'number') return value === 1;
+        if (typeof value === 'string') {
+            const v = value.trim().toLowerCase();
+            return v === 'true' || v === '1' || v === 'yes' || v === 'on';
+        }
+        return false;
+    }
+
+    const isLeaf1 = toBool(c.LeafEffect_1);
+    const isLeaf2 = toBool(c.LeafEffect_2);
+    const isLeaf3 = toBool(c.LeafEffect_3);
+    const isLeaf4 = toBool(c.LeafEffect_4);
+    const isFW1 = toBool(c.FireWorkEffect_1);
+    const isFW2 = toBool(c.FireWorkEffect_2);
+    const isFW3 = toBool(c.FireWorkEffect_3);
+    const isFW4 = toBool(c.FireWorkEffect_4);
+    const isFW5 = toBool(c.FireWorkEffect_5);
+    const isFW6 = toBool(c.FireWorkEffect_6);
+    const isFW7 = toBool(c.FireWorkEffect_7);
+
+    console.log('🎛️ Effect flags from config:', {
+        LeafEffect_1: c.LeafEffect_1,
+        LeafEffect_2: c.LeafEffect_2,
+        LeafEffect_3: c.LeafEffect_3,
+        LeafEffect_4: c.LeafEffect_4,
+        FireWorkEffect_1: c.FireWorkEffect_1,
+        FireWorkEffect_2: c.FireWorkEffect_2,
+        FireWorkEffect_3: c.FireWorkEffect_3,
+        FireWorkEffect_4: c.FireWorkEffect_4,
+        FireWorkEffect_5: c.FireWorkEffect_5,
+        FireWorkEffect_6: c.FireWorkEffect_6,
+        FireWorkEffect_7: c.FireWorkEffect_7,
+    });
+
+    ToggleEffectElement('LeafEffect_1', isLeaf1);
+
+    ToggleEffectElement('LeafEffect_2', isLeaf2);
+    if (isLeaf2) StartEffectOnce('LeafEffect_2', 'laroi_2');
+
+    ToggleEffectElement('LeafEffect_3', isLeaf3);
+    if (isLeaf3) StartEffectOnce('LeafEffect_3', 'canvas_laroi_2');
+
+    ToggleEffectElement('LeafEffect_4', isLeaf4);
+
+    ToggleEffectElement('FireWorkEffect_1', isFW1);
+    if (isFW1) StartEffectOnce('FireWorkEffect_1', 'FireWorkEffect_1');
+
+    ToggleEffectElement('FireWorkEffect_2', isFW2);
+    if (isFW2) StartEffectOnce('FireWorkEffect_2', 'FireWorkEffect_2');
+
+    ToggleEffectElement('FireWorkEffect_3', isFW3);
+    if (isFW3) StartEffectOnce('FireWorkEffect_3', 'FireWorkEffect_3');
+
+    ToggleEffectElement('FireWorkEffect_4', isFW4);
+    if (isFW4) StartEffectOnce('FireWorkEffect_4', 'FireWorkEffect_4');
+
+    ToggleEffectElement('FireWorkEffect_5', isFW5);
+    if (isFW5) StartEffectOnce('FireWorkEffect_5', 'FireWorkEffect_5');
+
+    ToggleEffectElement('FireWorkEffect_6', isFW6);
+    if (isFW6) StartEffectOnce('FireWorkEffect_6', 'FireWorkEffect_6');
+
+    ToggleEffectElement('FireWorkEffect_7', isFW7);
+    if (isFW7) StartEffectOnce('FireWorkEffect_7', 'FireWorkEffect_7');
+}
+
+function LoadCommonEffectsForSpinPage() {
+    $.ajax({
+        url: '/load_conf/',
+        type: 'GET',
+        data: {},
+        success: function(res) {
+            const d = (res && res.data) ? res.data : {};
+            const confList = d.conf || [];
+            const conf = confList.length > 0 ? confList[0] : {};
+            ApplyCommonEffectsConfig(conf);
+        },
+        error: function(err) {
+            console.warn('Không tải được cài đặt hiệu ứng chung:', err);
+        }
+    });
+}
+
+function HideAllSpinEffects() {
+    [
+        'LeafEffect_1', 'LeafEffect_2', 'LeafEffect_3', 'LeafEffect_4',
+        'FireWorkEffect_1', 'FireWorkEffect_2', 'FireWorkEffect_3', 'FireWorkEffect_4',
+        'FireWorkEffect_5', 'FireWorkEffect_6', 'FireWorkEffect_7'
+    ].forEach(function(id) {
+        ToggleEffectElement(id, false);
+    });
+}
+
 /**
  * Khởi tạo cài đặt khi trang load
  */
 $(document).ready(function() {
     console.log('🚀 Initializing Settings on page load');
 
-    // Load và áp dụng cài đặt hiện tại
-    const settings = GetSettingsFromStorage();
-    ApplySettings(settings);
+    const isSpinPage = window.location.pathname.indexOf('/spin') === 0;
+
+    if (isSpinPage) {
+        // Vào trang quay: mặc định tắt toàn bộ hiệu ứng, chỉ bật theo cấu hình đã lưu trên server
+        HideAllSpinEffects();
+        LoadCommonEffectsForSpinPage();
+    } else {
+        // Các trang settings khác vẫn giữ hành vi localStorage cũ
+        const settings = GetSettingsFromStorage();
+        ApplySettings(settings);
+    }
 
     // Khi modal Settings mở
     $('#Modal_Setting').on('shown.bs.modal', function() {
         console.log('📭 Modal Settings opened');
         InitializeSettings();
     });
+
+    // Spin page đã được xử lý ở block trên
 });

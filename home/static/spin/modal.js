@@ -31,6 +31,7 @@ let gameSpinBackgrounds = [];
 const DEFAULT_GAME_BG_IMAGE = 'bg_1.jpg';
 const DEFAULT_SPIN_WHEEL_BG = 'spin3.png';
 let gameVideoLoadRequestId = 0;
+let activeBgVideoId = 'background_video';
 
 function extractFileNameFromPath(path = '') {
     if (!path) return '';
@@ -1416,6 +1417,75 @@ function setCheckBox(el) {
     }
 }
 
+function showVideoBgSmooth() {
+    const tagVideo = $('.video-bg');
+    tagVideo.show();
+    requestAnimationFrame(function() {
+        tagVideo.addClass('is-visible');
+    });
+}
+
+function hideVideoBgSmooth() {
+    const tagVideo = $('.video-bg');
+    tagVideo.removeClass('is-visible');
+    setTimeout(function() {
+        tagVideo.hide();
+    }, 460);
+}
+
+function getBgVideoLayers() {
+    return [
+        { id: 'background_video', sourceId: 'source_background_video' },
+        { id: 'background_video_alt', sourceId: 'source_background_video_alt' }
+    ];
+}
+
+function getVideoLayerById(id) {
+    const map = getBgVideoLayers();
+    return map.find(function(item) { return item.id === id; }) || map[0];
+}
+
+function getInactiveVideoLayer() {
+    const map = getBgVideoLayers();
+    return map.find(function(item) { return item.id !== activeBgVideoId; }) || map[0];
+}
+
+function smoothApplyBackgroundImage(url, duration = 420) {
+    const layerId = 'bg-transition-layer';
+    let layer = document.getElementById(layerId);
+    if (!layer) {
+        layer = document.createElement('div');
+        layer.id = layerId;
+        layer.style.position = 'fixed';
+        layer.style.top = '0';
+        layer.style.left = '0';
+        layer.style.width = '100vw';
+        layer.style.height = '100vh';
+        layer.style.zIndex = '0';
+        layer.style.pointerEvents = 'none';
+        layer.style.backgroundSize = 'cover';
+        layer.style.backgroundPosition = 'center center';
+        layer.style.backgroundRepeat = 'no-repeat';
+        layer.style.opacity = '0';
+        layer.style.transition = `opacity ${duration}ms ease-in-out`;
+        document.body.appendChild(layer);
+    }
+
+    layer.style.backgroundImage = `url('${url}')`;
+    layer.style.opacity = '0';
+
+    requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+            layer.style.opacity = '1';
+        });
+    });
+
+    setTimeout(function() {
+        $('html,body,.modal,.body-modal,#Modal_ChonSanChoi').css('background-image', `url('${url}')`);
+        layer.style.opacity = '0';
+    }, duration);
+}
+
 function ChangeBackgr(el = '', image = 'bg_1.jpg') {
     if (el == '') {
         img = image;
@@ -1427,21 +1497,29 @@ function ChangeBackgr(el = '', image = 'bg_1.jpg') {
     let timestamp = date.getTime(); // Hoặc date.valueOf()
 
     //$('.glass-card,.table-container').css('background-color', "#9b0006");
-    $('html,body,.modal,.body-modal,#Modal_ChonSanChoi').css('background-image', "url('/static/img/bg_tet/" + img + "?v=" + timestamp + "')");
+    const bgUrl = '/static/img/bg_tet/' + img + '?v=' + timestamp;
+    smoothApplyBackgroundImage(bgUrl, 420);
 
 }
 
 function changeVideo(newSrc, idVideo, idSource, onSuccess = null, onError = null) {
     if (!newSrc || String(newSrc).trim() === '') {
-        $('.video-bg').hide();
+        hideVideoBgSmooth();
+        const currentLayer = getVideoLayerById(activeBgVideoId);
+        const currentVideo = document.getElementById(currentLayer.id);
+        if (currentVideo) currentVideo.pause();
         if (typeof onError === 'function') onError();
         return;
     }
 
-    let video = document.getElementById(idVideo);
-    let source = document.getElementById(idSource);
+    const currentLayer = getVideoLayerById(activeBgVideoId);
+    const nextLayer = getInactiveVideoLayer();
+
+    const currentVideo = document.getElementById(currentLayer.id);
+    let video = document.getElementById(nextLayer.id);
+    let source = document.getElementById(nextLayer.sourceId);
     if (!video || !source) {
-        $('.video-bg').hide();
+        hideVideoBgSmooth();
         if (typeof onError === 'function') onError();
         return;
     }
@@ -1466,7 +1544,7 @@ function changeVideo(newSrc, idVideo, idSource, onSuccess = null, onError = null
         const support = video.canPlayType(mimeType);
         if (!support) {
             console.warn(`⚠️ Trình duyệt không hỗ trợ định dạng video: ${ext} (${mimeType})`);
-            $('.video-bg').hide();
+            hideVideoBgSmooth();
             if (typeof onError === 'function') onError();
             return;
         }
@@ -1496,8 +1574,20 @@ function changeVideo(newSrc, idVideo, idSource, onSuccess = null, onError = null
         if (handled || !isLatestRequest()) return;
         handled = true;
         clearHandlers();
-        $('.video-bg').show();
+        video.muted = true;
+        video.defaultMuted = true;
+        video.volume = 0;
+        video.setAttribute('muted', 'muted');
+        if (currentVideo) {
+            currentVideo.style.zIndex = '0';
+            currentVideo.classList.remove('is-visible');
+            currentVideo.pause();
+        }
+        video.style.zIndex = '0';
+        $(video).show();
+        video.classList.add('is-visible');
         video.play().catch(function() {});
+        activeBgVideoId = nextLayer.id;
         console.log("Đã đổi video nền", src_old, newSrc);
         if (typeof onSuccess === 'function') onSuccess();
     };
@@ -1509,7 +1599,7 @@ function changeVideo(newSrc, idVideo, idSource, onSuccess = null, onError = null
         if (handled || !isLatestRequest()) return;
         handled = true;
         clearHandlers();
-        $('.video-bg').hide();
+        if (video) video.classList.remove('is-visible');
         if (typeof onError === 'function') onError();
     };
 
@@ -1519,6 +1609,12 @@ function changeVideo(newSrc, idVideo, idSource, onSuccess = null, onError = null
     }, 5000);
 
     source.src = url_video + fileName;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.volume = 0;
+    video.setAttribute('muted', 'muted');
+    video.classList.remove('is-visible');
+    $(video).show();
     video.load();
 }
 

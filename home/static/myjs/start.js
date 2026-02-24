@@ -329,7 +329,12 @@ var app = new Vue({
         SetShowVideo: function() {
             this.SrcVideoShow = "/static/video/" + this.Control.VideoShow;
             console.log("Đổi src video: " + this.SrcVideoShow);
-            $('.video-main video').attr('src', this.SrcVideoShow)
+            const tagVideo = $('.video-main video');
+            tagVideo.attr('src', this.SrcVideoShow);
+            tagVideo.prop('muted', true);
+            tagVideo.prop('defaultMuted', true);
+            tagVideo.prop('volume', 0);
+            tagVideo.removeAttr('controls');
         },
 
         ApplyEffect: function(action) {
