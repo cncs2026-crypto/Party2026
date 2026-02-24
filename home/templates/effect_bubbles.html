@@ -1,4 +1,4 @@
-<div id="LeafEffect_4" class="bubbles-container">
+<div id="LeafEffect_4" class="bubbles-container" style="display:none;">
     <svg class="bubbles" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 701 1024" style="overflow: visible;">
                 <g class="bubbles-large" stroke-width="7">
                     <g>
@@ -431,6 +431,8 @@
         /* max-width: 15rem; */
         transform: translateX(-50%);
         opacity: 0.3;
+        z-index: 1;
+        pointer-events: none;
         /* background-color: cadetblue; */
         overflow: hidden;
     }
@@ -680,3 +682,15 @@
         }
     }
 </style>
+
+<script>
+    window.SPIN_EFFECT_FLAGS = window.SPIN_EFFECT_FLAGS || {};
+
+    window.Stop_LeafEffect_4 = function() {
+        window.SPIN_EFFECT_FLAGS['LeafEffect_4'] = false;
+        const el = document.getElementById('LeafEffect_4');
+        if (el) {
+            el.style.display = 'none';
+        }
+    };
+</script>

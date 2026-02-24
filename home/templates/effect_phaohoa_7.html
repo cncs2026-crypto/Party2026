@@ -1,12 +1,20 @@
 <div class="FireWorkEffect_6">
     <canvas id='FireWorkEffect_7'></canvas>
-    <style>
+    <!-- <style>
         #FireWorkEffect_7 {}
-    </style>
+    </style> -->
     <script>
+        window.SPIN_EFFECT_FLAGS = window.SPIN_EFFECT_FLAGS || {};
+        window.SPIN_EFFECT_RUNTIME = window.SPIN_EFFECT_RUNTIME || {};
+
         function FireWorkEffect_7() {
+            const effectId = 'FireWorkEffect_7';
+            if (window.SPIN_EFFECT_FLAGS[effectId] === false) return;
+            if (window.SPIN_EFFECT_RUNTIME[effectId] && window.SPIN_EFFECT_RUNTIME[effectId].running) return;
+            window.SPIN_EFFECT_RUNTIME[effectId] = window.SPIN_EFFECT_RUNTIME[effectId] || {};
+            window.SPIN_EFFECT_RUNTIME[effectId].running = true;
+
             window.addEventListener("resize", resizeCanvas, false);
-            window.addEventListener("DOMContentLoaded", onLoad, false);
 
             window.requestAnimationFrame =
                 window.requestAnimationFrame ||
@@ -42,6 +50,13 @@
             }
 
             function updateWorld() {
+                if (window.SPIN_EFFECT_FLAGS[effectId] === false) {
+                    window.SPIN_EFFECT_RUNTIME[effectId].running = false;
+                    if (ctx && canvas) {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    }
+                    return;
+                }
                 update();
                 paint();
                 window.requestAnimationFrame(updateWorld);
@@ -130,7 +145,23 @@
                     c.restore();
                 }
             }
+
+            // chạy ngay khi hàm được gọi (không phụ thuộc DOMContentLoaded)
+            onLoad();
         }
-        FireWorkEffect_7();
+
+        window.Stop_FireWorkEffect_7 = function() {
+            window.SPIN_EFFECT_FLAGS['FireWorkEffect_7'] = false;
+            if (window.SPIN_EFFECT_RUNTIME['FireWorkEffect_7']) {
+                window.SPIN_EFFECT_RUNTIME['FireWorkEffect_7'].running = false;
+            }
+            const canvas = document.getElementById('FireWorkEffect_7');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        };
+
+        // FireWorkEffect_7(); // không tự chạy khi load trang
     </script>
 </div>

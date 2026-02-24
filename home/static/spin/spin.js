@@ -550,6 +550,10 @@ function startSpin() {
 //dừng quay
 function stopSpin() {
     DungQuay = 1;
+    const resultDisplay = document.getElementById('result');
+    if (resultDisplay) {
+        resultDisplay.textContent = 'Đang xuất vé...';
+    }
     setTimeout(() => {
         $('.circle-button').attr('onclick', "startSpin()");
         $('.circle-button').addClass('prepare-round');

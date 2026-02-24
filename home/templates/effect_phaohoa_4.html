@@ -4,8 +4,17 @@
 
     </style>
     <script>
+        window.SPIN_EFFECT_FLAGS = window.SPIN_EFFECT_FLAGS || {};
+        window.SPIN_EFFECT_RUNTIME = window.SPIN_EFFECT_RUNTIME || {};
+
         function FireWorkEffect_4() {
-            window.onload = function(argument) {
+            const effectId = 'FireWorkEffect_4';
+            if (window.SPIN_EFFECT_FLAGS[effectId] === false) return;
+            if (window.SPIN_EFFECT_RUNTIME[effectId] && window.SPIN_EFFECT_RUNTIME[effectId].running) return;
+            window.SPIN_EFFECT_RUNTIME[effectId] = window.SPIN_EFFECT_RUNTIME[effectId] || {};
+            window.SPIN_EFFECT_RUNTIME[effectId].running = true;
+
+            (function(argument) {
                 var request = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || function(cb) {
                     return setTimeout(cb, 30)
                 };
@@ -120,6 +129,11 @@
                 var first_run = 0;
 
                 function loop() {
+                    if (window.SPIN_EFFECT_FLAGS[effectId] === false) {
+                        window.SPIN_EFFECT_RUNTIME[effectId].running = false;
+                        clearCanvas();
+                        return;
+                    }
                     c.fillStyle = 'rgba(0,0,0,2)';
                     c.fillRect(0, 0, w, h);
                     c.clearRect(0, 0, canvas.width, canvas.height);
@@ -140,8 +154,21 @@
                 init(pointsNumber);
                 loop();
 
-            }
+            })();
         }
+
+        window.Stop_FireWorkEffect_4 = function() {
+            window.SPIN_EFFECT_FLAGS['FireWorkEffect_4'] = false;
+            if (window.SPIN_EFFECT_RUNTIME['FireWorkEffect_4']) {
+                window.SPIN_EFFECT_RUNTIME['FireWorkEffect_4'].running = false;
+            }
+            const canvas = document.getElementById('FireWorkEffect_4');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        };
+
         // FireWorkEffect_4();
     </script>
 </div>

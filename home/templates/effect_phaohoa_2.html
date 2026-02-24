@@ -1,14 +1,23 @@
 <div class="FireWorkEffect_2">
     <canvas id='FireWorkEffect_2'></canvas>
     <style>
-        #FireWorkEffect_2 {
-            /* opacity: 0.2; */
-            /* height: 8em;
-        width: 100%; */
-        }
+        /* #FireWorkEffect_2 {
+            opacity: 0.2; 
+            height: 8em;
+            width: 100%; 
+        } */
     </style>
     <script>
+        window.SPIN_EFFECT_FLAGS = window.SPIN_EFFECT_FLAGS || {};
+        window.SPIN_EFFECT_RUNTIME = window.SPIN_EFFECT_RUNTIME || {};
+
         function FireWorkEffect_2() {
+            const effectId = 'FireWorkEffect_2';
+            if (window.SPIN_EFFECT_FLAGS[effectId] === false) return;
+            if (window.SPIN_EFFECT_RUNTIME[effectId] && window.SPIN_EFFECT_RUNTIME[effectId].running) return;
+            window.SPIN_EFFECT_RUNTIME[effectId] = window.SPIN_EFFECT_RUNTIME[effectId] || {};
+            window.SPIN_EFFECT_RUNTIME[effectId].running = true;
+
             function randomInt(min, max) {
                 return Math.floor(Math.random() * (max - min + 1) + min);
             }
@@ -53,6 +62,11 @@
             /* ---------------- */
 
             function loop() {
+                if (window.SPIN_EFFECT_FLAGS[effectId] === false) {
+                    window.SPIN_EFFECT_RUNTIME[effectId].running = false;
+                    clearCanvas();
+                    return;
+                }
 
                 clearCanvas();
 
@@ -192,6 +206,19 @@
                 clearCanvas();
             });
         }
+
+        window.Stop_FireWorkEffect_2 = function() {
+            window.SPIN_EFFECT_FLAGS['FireWorkEffect_2'] = false;
+            if (window.SPIN_EFFECT_RUNTIME['FireWorkEffect_2']) {
+                window.SPIN_EFFECT_RUNTIME['FireWorkEffect_2'].running = false;
+            }
+            const canvas = document.getElementById('FireWorkEffect_2');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        };
+
         // FireWorkEffect_2();
     </script>
 </div>

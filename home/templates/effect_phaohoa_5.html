@@ -1,16 +1,25 @@
 <div class="FireWorkEffect_2">
     <canvas id='FireWorkEffect_5'></canvas>
     <style>
-        #FireWorkEffect_5 {
-            /* background: #000;
-        margin: 0;
-        padding: 0;
-        width: 1024px;
-        height: 768px; */
-        }
+        /* #FireWorkEffect_5 {
+            background: #000;
+            margin: 0;
+            padding: 0;
+            width: 1024px;
+            height: 768px;
+        } */
     </style>
     <script>
+        window.SPIN_EFFECT_FLAGS = window.SPIN_EFFECT_FLAGS || {};
+        window.SPIN_EFFECT_RUNTIME = window.SPIN_EFFECT_RUNTIME || {};
+
         function FireWorkEffect_5() {
+            const effectId = 'FireWorkEffect_5';
+            if (window.SPIN_EFFECT_FLAGS[effectId] === false) return;
+            if (window.SPIN_EFFECT_RUNTIME[effectId] && window.SPIN_EFFECT_RUNTIME[effectId].running) return;
+            window.SPIN_EFFECT_RUNTIME[effectId] = window.SPIN_EFFECT_RUNTIME[effectId] || {};
+            window.SPIN_EFFECT_RUNTIME[effectId].running = true;
+
             var canvas = document.getElementById('FireWorkEffect_5');
             var ctx = canvas.getContext("2d");
             var w = document.body.clientWidth;
@@ -22,6 +31,11 @@
 
 
             function draw() {
+                if (window.SPIN_EFFECT_FLAGS[effectId] === false) {
+                    window.SPIN_EFFECT_RUNTIME[effectId].running = false;
+                    ctx.clearRect(0, 0, w, h);
+                    return;
+                }
                 requestAnimationFrame(draw);
 
                 ctx.globalCompositeOperation = "destination-out";
@@ -137,6 +151,19 @@
 
             draw();
         }
+
+        window.Stop_FireWorkEffect_5 = function() {
+            window.SPIN_EFFECT_FLAGS['FireWorkEffect_5'] = false;
+            if (window.SPIN_EFFECT_RUNTIME['FireWorkEffect_5']) {
+                window.SPIN_EFFECT_RUNTIME['FireWorkEffect_5'].running = false;
+            }
+            const canvas = document.getElementById('FireWorkEffect_5');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        };
+
         //FireWorkEffect_5();
     </script>
 </div>

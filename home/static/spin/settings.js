@@ -13,7 +13,7 @@ let AVAILABLE_IMAGES = [];
 const AVAILABLE_EFFECTS = {
     snow: {
         name: 'Tuyết Rơi',
-        element: '#laroi_1 .laroi_1',
+        element: '#LeafEffect_1',
         icon: '❄️'
     },
     fireworks: {
@@ -211,12 +211,25 @@ function LoadCurrentSettings() {
 
     const settings = GetSettingsFromStorage();
 
-    // Restore effect checkboxes
-    Object.keys(settings.effects).forEach(effect => {
+    // Restore effect checkboxes từ trạng thái runtime (DB đã apply khi vào trang)
+    const effectState = {
+        snow: !!window.SPIN_EFFECT_FLAGS?.LeafEffect_1,
+        fireworks_1: !!window.SPIN_EFFECT_FLAGS?.FireWorkEffect_1,
+        fireworks_2: !!window.SPIN_EFFECT_FLAGS?.FireWorkEffect_2,
+        fireworks_3: !!window.SPIN_EFFECT_FLAGS?.FireWorkEffect_3,
+        fireworks_4: !!window.SPIN_EFFECT_FLAGS?.FireWorkEffect_4,
+        fireworks_5: !!window.SPIN_EFFECT_FLAGS?.FireWorkEffect_5,
+        fireworks_6: !!window.SPIN_EFFECT_FLAGS?.FireWorkEffect_6,
+        fireworks_7: !!window.SPIN_EFFECT_FLAGS?.FireWorkEffect_7,
+        bubbles: !!window.SPIN_EFFECT_FLAGS?.LeafEffect_4,
+        rainbow: document.body.classList.contains('effect-rainbow'),
+        stars: !!window.SPIN_EFFECT_FLAGS?.LeafEffect_3,
+        particles: !!window.SPIN_EFFECT_FLAGS?.LeafEffect_2
+    };
+
+    Object.keys(effectState).forEach(effect => {
         const checkbox = document.getElementById(`effect_${effect}`);
-        if (checkbox) {
-            checkbox.checked = settings.effects[effect];
-        }
+        if (checkbox) checkbox.checked = !!effectState[effect];
     });
 
     // Restore background selection
@@ -231,6 +244,94 @@ function LoadCurrentSettings() {
             imageItem.classList.add('active');
         }
     }
+}
+
+function GetEffectStateFromUI() {
+    const effectState = {
+        snow: false,
+        fireworks_1: false,
+        fireworks_2: false,
+        fireworks_3: false,
+        fireworks_4: false,
+        fireworks_5: false,
+        fireworks_6: false,
+        fireworks_7: false,
+        bubbles: false,
+        rainbow: false,
+        stars: false,
+        particles: false
+    };
+
+    document.querySelectorAll('.effect-checkbox').forEach(checkbox => {
+        const effect = checkbox.getAttribute('data-effect');
+        if (effect && Object.prototype.hasOwnProperty.call(effectState, effect)) {
+            effectState[effect] = !!checkbox.checked;
+        }
+    });
+
+    return effectState;
+}
+
+function SaveEffectsToDatabase(done) {
+    $.ajax({
+        url: '/load_conf/',
+        type: 'GET',
+        data: {},
+        success: function(res) {
+            const d = (res && res.data) ? res.data : {};
+            const confList = d.conf || [];
+            const confBase = confList.length > 0 ? confList[0] : {};
+            const effectState = GetEffectStateFromUI();
+
+            const payload = {
+                ConfName: d.ConfName || confBase.ConfName || 'conf_1.1',
+                ConfVal: confBase.ConfVal || 'Cấu hình mặc định',
+                LogoLeft: confBase.LogoLeft || '',
+                LogoRight: confBase.LogoRight || '',
+                Header: confBase.Header ?? 1,
+                VideoShow: confBase.VideoShow || '',
+                BgColorHeader: confBase.BgColorHeader || '',
+                TextHeader1: confBase.TextHeader1 || '',
+                TextHeader2: confBase.TextHeader2 || '',
+                TextHeader3: confBase.TextHeader3 || '',
+                BgMain: confBase.BgMain || '',
+                BgMainMgTop: confBase.BgMainMgTop ?? 0,
+                BgMainMgLeft: confBase.BgMainMgLeft ?? 0,
+                BgMainWidth: confBase.BgMainWidth ?? 1,
+                BgMainHeight: confBase.BgMainHeight ?? 1,
+                TabLucky: confBase.TabLucky ?? '0',
+
+                LeafEffect_1: !!effectState.snow,
+                LeafEffect_2: !!effectState.particles,
+                LeafEffect_3: !!effectState.stars,
+                LeafEffect_4: !!effectState.bubbles,
+                FireWorkEffect_1: !!effectState.fireworks_1,
+                FireWorkEffect_2: !!effectState.fireworks_2,
+                FireWorkEffect_3: !!effectState.fireworks_3,
+                FireWorkEffect_4: !!effectState.fireworks_4,
+                FireWorkEffect_5: !!effectState.fireworks_5,
+                FireWorkEffect_6: !!effectState.fireworks_6,
+                FireWorkEffect_7: !!effectState.fireworks_7
+            };
+
+            $.ajax({
+                url: '/save_conf/',
+                type: 'GET',
+                data: payload,
+                success: function(saveRes) {
+                    if (typeof done === 'function') done(true, saveRes);
+                },
+                error: function(err) {
+                    console.error('❌ Lưu hiệu ứng vào DB thất bại:', err);
+                    if (typeof done === 'function') done(false, err);
+                }
+            });
+        },
+        error: function(err) {
+            console.error('❌ Không load được cấu hình để lưu effect:', err);
+            if (typeof done === 'function') done(false, err);
+        }
+    });
 }
 
 /**
@@ -360,20 +461,19 @@ function SaveSettings() {
     console.log('💾 Save Settings');
 
     const settings = GetSettingsFromStorage();
-
-    // Lấy trạng thái các checkbox hiệu ứng
-    document.querySelectorAll('.effect-checkbox').forEach(checkbox => {
-        const effect = checkbox.getAttribute('data-effect');
-        settings.effects[effect] = checkbox.checked;
-    });
-
-    // Lưu vào localStorage
-    SaveSettingsToStorage(settings);
+    settings.effects = GetEffectStateFromUI();
 
     // Áp dụng cài đặt
     ApplySettings(settings);
 
-    Swal.fire('Thành công', 'Cài đặt đã được lưu!', 'success');
+    // Effect chỉ lưu vào DB (không lưu local)
+    SaveEffectsToDatabase(function(ok) {
+        if (ok) {
+            Swal.fire('Thành công', 'Đã lưu hiệu ứng vào DB!', 'success');
+        } else {
+            Swal.fire('Lỗi', 'Không thể lưu hiệu ứng vào DB', 'error');
+        }
+    });
 }
 
 /**
@@ -394,11 +494,26 @@ function ResetSettings() {
     }).then((result) => {
         if (result.isConfirmed) {
             const defaultSettings = GetDefaultSettings();
-            SaveSettingsToStorage(defaultSettings);
+            // Chỉ giữ local cho background, effect sẽ lưu DB
+            const localSettings = GetSettingsFromStorage();
+            localSettings.background = defaultSettings.background;
+            SaveSettingsToStorage(localSettings);
+
+            Object.keys(defaultSettings.effects).forEach(effect => {
+                const checkbox = document.getElementById(`effect_${effect}`);
+                if (checkbox) checkbox.checked = !!defaultSettings.effects[effect];
+            });
+
             ApplySettings(defaultSettings);
             LoadCurrentSettings();
 
-            Swal.fire('Thành công', 'Cài đặt đã được đặt lại về mặc định!', 'success');
+            SaveEffectsToDatabase(function(ok) {
+                if (ok) {
+                    Swal.fire('Thành công', 'Đã đặt lại và lưu effect vào DB!', 'success');
+                } else {
+                    Swal.fire('Lỗi', 'Đặt lại local xong nhưng lưu DB thất bại', 'error');
+                }
+            });
         }
     });
 }
@@ -493,32 +608,57 @@ function EnableEffect(effect) {
 
     switch (effect) {
         case 'snow':
-            // Show tuyết
-            const snowElement = document.querySelector('#laroi_1 .laroi_1');
-            if (snowElement) snowElement.style.display = 'block';
+            ToggleEffectElement('LeafEffect_1', true);
             break;
-        case 'fireworks':
-            // Kích hoạt pháo hoa - thêm class
+        case 'fireworks_1':
+            ToggleEffectElement('FireWorkEffect_1', true);
+            StartEffectOnce('FireWorkEffect_1', 'FireWorkEffect_1');
+            document.body.classList.add('effect-fireworks');
+            break;
+        case 'fireworks_2':
+            ToggleEffectElement('FireWorkEffect_2', true);
+            StartEffectOnce('FireWorkEffect_2', 'FireWorkEffect_2');
+            document.body.classList.add('effect-fireworks');
+            break;
+        case 'fireworks_3':
+            ToggleEffectElement('FireWorkEffect_3', true);
+            StartEffectOnce('FireWorkEffect_3', 'FireWorkEffect_3');
+            document.body.classList.add('effect-fireworks');
+            break;
+        case 'fireworks_4':
+            ToggleEffectElement('FireWorkEffect_4', true);
+            StartEffectOnce('FireWorkEffect_4', 'FireWorkEffect_4');
+            document.body.classList.add('effect-fireworks');
+            break;
+        case 'fireworks_5':
+            ToggleEffectElement('FireWorkEffect_5', true);
+            StartEffectOnce('FireWorkEffect_5', 'FireWorkEffect_5');
+            document.body.classList.add('effect-fireworks');
+            break;
+        case 'fireworks_6':
+            ToggleEffectElement('FireWorkEffect_6', true);
+            StartEffectOnce('FireWorkEffect_6', 'FireWorkEffect_6');
+            document.body.classList.add('effect-fireworks');
+            break;
+        case 'fireworks_7':
+            ToggleEffectElement('FireWorkEffect_7', true);
+            StartEffectOnce('FireWorkEffect_7', 'FireWorkEffect_7');
             document.body.classList.add('effect-fireworks');
             break;
         case 'bubbles':
-            // Show bong bóng
-            const bubblesElement = document.getElementById('bubbles');
-            if (bubblesElement) bubblesElement.style.display = 'block';
+            ToggleBubblesEffect(true);
             break;
         case 'rainbow':
             // Áp dụng cầu vồng
             document.body.classList.add('effect-rainbow');
             break;
         case 'stars':
-            // Show sao rơi
-            const starsElement = document.getElementById('stars');
-            if (starsElement) starsElement.style.display = 'block';
+            ToggleEffectElement('LeafEffect_3', true);
+            StartEffectOnce('LeafEffect_3', 'canvas_laroi_2');
             break;
         case 'particles':
-            // Show hạt tử
-            const particlesElement = document.getElementById('particles');
-            if (particlesElement) particlesElement.style.display = 'block';
+            ToggleEffectElement('LeafEffect_2', true);
+            StartEffectOnce('LeafEffect_2', 'laroi_2');
             break;
     }
 }
@@ -531,26 +671,75 @@ function DisableEffect(effect) {
 
     switch (effect) {
         case 'snow':
-            const snowElement = document.querySelector('#laroi_1 .laroi_1');
-            if (snowElement) snowElement.style.display = 'none';
+            ToggleEffectElement('LeafEffect_1', false);
             break;
-        case 'fireworks':
-            document.body.classList.remove('effect-fireworks');
+        case 'fireworks_1':
+            ToggleEffectElement('FireWorkEffect_1', false);
+            if (!window.SPIN_EFFECT_FLAGS.FireWorkEffect_2 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_3 &&
+                !window.SPIN_EFFECT_FLAGS.FireWorkEffect_4 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_5 &&
+                !window.SPIN_EFFECT_FLAGS.FireWorkEffect_6 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_7) {
+                document.body.classList.remove('effect-fireworks');
+            }
+            break;
+        case 'fireworks_2':
+            ToggleEffectElement('FireWorkEffect_2', false);
+            if (!window.SPIN_EFFECT_FLAGS.FireWorkEffect_1 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_3 &&
+                !window.SPIN_EFFECT_FLAGS.FireWorkEffect_4 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_5 &&
+                !window.SPIN_EFFECT_FLAGS.FireWorkEffect_6 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_7) {
+                document.body.classList.remove('effect-fireworks');
+            }
+            break;
+        case 'fireworks_3':
+            ToggleEffectElement('FireWorkEffect_3', false);
+            if (!window.SPIN_EFFECT_FLAGS.FireWorkEffect_1 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_2 &&
+                !window.SPIN_EFFECT_FLAGS.FireWorkEffect_4 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_5 &&
+                !window.SPIN_EFFECT_FLAGS.FireWorkEffect_6 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_7) {
+                document.body.classList.remove('effect-fireworks');
+            }
+            break;
+        case 'fireworks_4':
+            ToggleEffectElement('FireWorkEffect_4', false);
+            if (!window.SPIN_EFFECT_FLAGS.FireWorkEffect_1 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_2 &&
+                !window.SPIN_EFFECT_FLAGS.FireWorkEffect_3 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_5 &&
+                !window.SPIN_EFFECT_FLAGS.FireWorkEffect_6 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_7) {
+                document.body.classList.remove('effect-fireworks');
+            }
+            break;
+        case 'fireworks_5':
+            ToggleEffectElement('FireWorkEffect_5', false);
+            if (!window.SPIN_EFFECT_FLAGS.FireWorkEffect_1 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_2 &&
+                !window.SPIN_EFFECT_FLAGS.FireWorkEffect_3 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_4 &&
+                !window.SPIN_EFFECT_FLAGS.FireWorkEffect_6 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_7) {
+                document.body.classList.remove('effect-fireworks');
+            }
+            break;
+        case 'fireworks_6':
+            ToggleEffectElement('FireWorkEffect_6', false);
+            if (!window.SPIN_EFFECT_FLAGS.FireWorkEffect_1 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_2 &&
+                !window.SPIN_EFFECT_FLAGS.FireWorkEffect_3 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_4 &&
+                !window.SPIN_EFFECT_FLAGS.FireWorkEffect_5 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_7) {
+                document.body.classList.remove('effect-fireworks');
+            }
+            break;
+        case 'fireworks_7':
+            ToggleEffectElement('FireWorkEffect_7', false);
+            if (!window.SPIN_EFFECT_FLAGS.FireWorkEffect_1 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_2 &&
+                !window.SPIN_EFFECT_FLAGS.FireWorkEffect_3 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_4 &&
+                !window.SPIN_EFFECT_FLAGS.FireWorkEffect_5 && !window.SPIN_EFFECT_FLAGS.FireWorkEffect_6) {
+                document.body.classList.remove('effect-fireworks');
+            }
             break;
         case 'bubbles':
-            const bubblesElement = document.getElementById('bubbles');
-            if (bubblesElement) bubblesElement.style.display = 'none';
+            ToggleBubblesEffect(false);
             break;
         case 'rainbow':
             document.body.classList.remove('effect-rainbow');
             break;
         case 'stars':
-            const starsElement = document.getElementById('stars');
-            if (starsElement) starsElement.style.display = 'none';
+            ToggleEffectElement('LeafEffect_3', false);
             break;
         case 'particles':
-            const particlesElement = document.getElementById('particles');
-            if (particlesElement) particlesElement.style.display = 'none';
+            ToggleEffectElement('LeafEffect_2', false);
             break;
     }
 }
@@ -561,8 +750,14 @@ function DisableEffect(effect) {
 function GetDefaultSettings() {
     return {
         effects: {
-            snow: true,
-            fireworks: false,
+            snow: false,
+            fireworks_1: false,
+            fireworks_2: false,
+            fireworks_3: false,
+            fireworks_4: false,
+            fireworks_5: false,
+            fireworks_6: false,
+            fireworks_7: false,
             bubbles: false,
             rainbow: false,
             stars: false,
@@ -602,21 +797,58 @@ function SaveSettingsToStorage(settings) {
 
 let SPIN_EFFECTS_BOOTSTRAPPED = {};
 
+window.SPIN_EFFECT_FLAGS = window.SPIN_EFFECT_FLAGS || {};
+
+const SPIN_EFFECT_IDS = [
+    'LeafEffect_1', 'LeafEffect_2', 'LeafEffect_3', 'LeafEffect_4',
+    'FireWorkEffect_1', 'FireWorkEffect_2', 'FireWorkEffect_3', 'FireWorkEffect_4',
+    'FireWorkEffect_5', 'FireWorkEffect_6', 'FireWorkEffect_7'
+];
+
+SPIN_EFFECT_IDS.forEach(function(id) {
+    if (typeof window.SPIN_EFFECT_FLAGS[id] === 'undefined') {
+        window.SPIN_EFFECT_FLAGS[id] = false;
+    }
+});
+
+function SetEffectRunFlag(effectId, enabled) {
+    window.SPIN_EFFECT_FLAGS[effectId] = !!enabled;
+    if (!enabled) {
+        const stopFnName = `Stop_${effectId}`;
+        if (typeof window[stopFnName] === 'function') {
+            try {
+                window[stopFnName]();
+            } catch (e) {
+                console.warn(`Không thể dừng hiệu ứng ${effectId}:`, e);
+            }
+        }
+    }
+}
+
 function ToggleEffectElement(effectId, enabled) {
+    SetEffectRunFlag(effectId, enabled);
     const el = document.getElementById(effectId);
     if (!el) return;
     if (enabled) {
-        el.style.display = '';
+        el.style.display = 'block';
     } else {
         el.style.display = 'none';
     }
 }
 
+function ToggleBubblesEffect(enabled) {
+    const isOn = !!enabled;
+    SetEffectRunFlag('LeafEffect_4', isOn);
+    const el = document.getElementById('LeafEffect_4');
+    if (!el) return;
+    el.style.display = isOn ? 'block' : 'none';
+}
+
 function StartEffectOnce(effectKey, fnName) {
-    if (!SPIN_EFFECTS_BOOTSTRAPPED[effectKey] && typeof window[fnName] === 'function') {
-        SPIN_EFFECTS_BOOTSTRAPPED[effectKey] = true;
+    if (typeof window[fnName] === 'function') {
         try {
             window[fnName]();
+            SPIN_EFFECTS_BOOTSTRAPPED[effectKey] = true;
         } catch (e) {
             console.warn(`Không thể khởi tạo hiệu ứng ${effectKey}:`, e);
         }
@@ -670,7 +902,7 @@ function ApplyCommonEffectsConfig(conf) {
     ToggleEffectElement('LeafEffect_3', isLeaf3);
     if (isLeaf3) StartEffectOnce('LeafEffect_3', 'canvas_laroi_2');
 
-    ToggleEffectElement('LeafEffect_4', isLeaf4);
+    ToggleBubblesEffect(isLeaf4);
 
     ToggleEffectElement('FireWorkEffect_1', isFW1);
     if (isFW1) StartEffectOnce('FireWorkEffect_1', 'FireWorkEffect_1');
@@ -712,11 +944,7 @@ function LoadCommonEffectsForSpinPage() {
 }
 
 function HideAllSpinEffects() {
-    [
-        'LeafEffect_1', 'LeafEffect_2', 'LeafEffect_3', 'LeafEffect_4',
-        'FireWorkEffect_1', 'FireWorkEffect_2', 'FireWorkEffect_3', 'FireWorkEffect_4',
-        'FireWorkEffect_5', 'FireWorkEffect_6', 'FireWorkEffect_7'
-    ].forEach(function(id) {
+    SPIN_EFFECT_IDS.forEach(function(id) {
         ToggleEffectElement(id, false);
     });
 }
@@ -743,6 +971,18 @@ $(document).ready(function() {
     $('#Modal_Setting').on('shown.bs.modal', function() {
         console.log('📭 Modal Settings opened');
         InitializeSettings();
+    });
+
+    // Bật/tắt hiệu ứng trực tiếp ngay khi đổi switch trong modal
+    $(document).on('change', '.effect-checkbox', function(e) {
+        if (!e.originalEvent) return;
+        const settings = GetSettingsFromStorage();
+        settings.effects = GetEffectStateFromUI();
+        const changedEffect = $(this).attr('data-effect');
+        if (changedEffect === 'bubbles') {
+            ToggleBubblesEffect(this.checked);
+        }
+        ApplySettings(settings);
     });
 
     // Spin page đã được xử lý ở block trên

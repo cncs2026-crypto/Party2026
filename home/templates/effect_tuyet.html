@@ -154,3 +154,14 @@
         animation-delay: 4s, 2.5s
     }
 </style>
+
+<script>
+    window.SPIN_EFFECT_FLAGS = window.SPIN_EFFECT_FLAGS || {};
+    window.Stop_LeafEffect_1 = function() {
+        window.SPIN_EFFECT_FLAGS['LeafEffect_1'] = false;
+        const el = document.getElementById('LeafEffect_1');
+        if (el) {
+            el.style.display = 'none';
+        }
+    };
+</script>

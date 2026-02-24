@@ -1,4 +1,4 @@
-<div id="LeafEffect_2">
+<div id="LeafEffect_2" style="display:none;">
 
 </div>
 <style>
@@ -22,9 +22,17 @@
 </style>
 
 <script>
+    window.SPIN_EFFECT_FLAGS = window.SPIN_EFFECT_FLAGS || {};
+
     function laroi_2() {
+        const effectId = 'LeafEffect_2';
+        if (window.SPIN_EFFECT_FLAGS[effectId] === false) return;
         var falling = true;
-        var id_laroi_2 = 'LeafEffect_2';
+        var id_laroi_2 = effectId;
+        var root = document.getElementById(id_laroi_2);
+        if (!root) return;
+        if (root.dataset.initialized === '1') return;
+        root.dataset.initialized = '1';
         TweenLite.set("#" + id_laroi_2, {
                 perspective: 600
             })
@@ -34,7 +42,7 @@
             // })
 
         var total = 30;
-        var laroi_2 = document.getElementById(id_laroi_2),
+        var laroi_2 = root,
             w = window.innerWidth,
             h = window.innerHeight;
 
@@ -80,5 +88,16 @@
             return min + Math.random() * (max - min)
         };
     }
-    laroi_2();
+
+    window.Stop_LeafEffect_2 = function() {
+        const root = document.getElementById('LeafEffect_2');
+        if (!root) return;
+        root.dataset.initialized = '0';
+        if (typeof TweenMax !== 'undefined') {
+            TweenMax.killTweensOf(root.querySelectorAll('*'));
+        }
+        root.innerHTML = '';
+    };
+
+    // laroi_2(); // không tự chạy khi load trang, sẽ bật theo cấu hình
 </script>

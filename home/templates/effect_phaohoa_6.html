@@ -1,10 +1,19 @@
 <div class="FireWorkEffect_6">
     <canvas id='FireWorkEffect_6' />
-    <style>
+    <!-- <style>
         #FireWorkEffect_6 {}
-    </style>
+    </style> -->
     <script>
+        window.SPIN_EFFECT_FLAGS = window.SPIN_EFFECT_FLAGS || {};
+        window.SPIN_EFFECT_RUNTIME = window.SPIN_EFFECT_RUNTIME || {};
+
         function FireWorkEffect_6() {
+            const effectId = 'FireWorkEffect_6';
+            if (window.SPIN_EFFECT_FLAGS[effectId] === false) return;
+            if (window.SPIN_EFFECT_RUNTIME[effectId] && window.SPIN_EFFECT_RUNTIME[effectId].running) return;
+            window.SPIN_EFFECT_RUNTIME[effectId] = window.SPIN_EFFECT_RUNTIME[effectId] || {};
+            window.SPIN_EFFECT_RUNTIME[effectId].running = true;
+
             // when animating on canvas, it is best to use requestAnimationFrame instead of setTimeout or setInterval
             // not supported in all browsers though and sometimes needs a prefix, so we need a shim
             window.requestAnimFrame = (function() {
@@ -203,6 +212,11 @@
 
             // main demo loop
             function loop() {
+                if (window.SPIN_EFFECT_FLAGS[effectId] === false) {
+                    window.SPIN_EFFECT_RUNTIME[effectId].running = false;
+                    ctx.clearRect(0, 0, cw, ch);
+                    return;
+                }
                 // this function will run endlessly with requestAnimationFrame
                 requestAnimFrame(loop);
 
@@ -275,9 +289,22 @@
                 mousedown = false;
             });
 
-            // once the window loads, we are ready for some fireworks!
-            window.onload = loop;
+            // chạy ngay khi hàm được gọi (không phụ thuộc onload)
+            loop();
         }
-        FireWorkEffect_6();
+
+        window.Stop_FireWorkEffect_6 = function() {
+            window.SPIN_EFFECT_FLAGS['FireWorkEffect_6'] = false;
+            if (window.SPIN_EFFECT_RUNTIME['FireWorkEffect_6']) {
+                window.SPIN_EFFECT_RUNTIME['FireWorkEffect_6'].running = false;
+            }
+            const canvas = document.getElementById('FireWorkEffect_6');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        };
+
+        // FireWorkEffect_6(); // không tự chạy khi load trang
     </script>
 </div>

@@ -4,7 +4,16 @@
 
     </style>
     <script>
+        window.SPIN_EFFECT_FLAGS = window.SPIN_EFFECT_FLAGS || {};
+        window.SPIN_EFFECT_RUNTIME = window.SPIN_EFFECT_RUNTIME || {};
+
         function FireWorkEffect_3() {
+            const effectId = 'FireWorkEffect_3';
+            if (window.SPIN_EFFECT_FLAGS[effectId] === false) return;
+            if (window.SPIN_EFFECT_RUNTIME[effectId] && window.SPIN_EFFECT_RUNTIME[effectId].running) return;
+            window.SPIN_EFFECT_RUNTIME[effectId] = window.SPIN_EFFECT_RUNTIME[effectId] || {};
+            window.SPIN_EFFECT_RUNTIME[effectId].running = true;
+
             let canvas = document.getElementById('FireWorkEffect_3')
             canvas.height = window.innerHeight
             canvas.width = window.innerWidth
@@ -54,6 +63,11 @@
             }
 
             function loop() {
+                if (window.SPIN_EFFECT_FLAGS[effectId] === false) {
+                    window.SPIN_EFFECT_RUNTIME[effectId].running = false;
+                    clearCanvas();
+                    return;
+                }
                 requestAnimationFrame(loop)
                 clearWorld()
                 for (let sand of sands) {
@@ -89,6 +103,9 @@
             let direction = Math.random() * 2 * Math.PI
 
             function moveOrigin() {
+                if (window.SPIN_EFFECT_FLAGS[effectId] === false) {
+                    return;
+                }
                 requestAnimationFrame(moveOrigin)
                 startX += Math.cos(direction) * 10
                 startY += Math.sin(direction) * 10
@@ -103,6 +120,19 @@
 
             requestAnimationFrame(moveOrigin)
         };
+
+        window.Stop_FireWorkEffect_3 = function() {
+            window.SPIN_EFFECT_FLAGS['FireWorkEffect_3'] = false;
+            if (window.SPIN_EFFECT_RUNTIME['FireWorkEffect_3']) {
+                window.SPIN_EFFECT_RUNTIME['FireWorkEffect_3'].running = false;
+            }
+            const canvas = document.getElementById('FireWorkEffect_3');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        };
+
         //FireWorkEffect_3();
     </script>
 </div>

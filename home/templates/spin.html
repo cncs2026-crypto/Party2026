@@ -299,20 +299,36 @@
         #FireWorkEffect_7 {
             display: none;
         }
+
+        #FireWorkEffect_1,
+        #FireWorkEffect_2,
+        #FireWorkEffect_3,
+        #FireWorkEffect_4,
+        #FireWorkEffect_5,
+        #FireWorkEffect_6,
+        #FireWorkEffect_7 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
     </style>
 
     <!--1 Tuyết rơi -->
-    {% include 'laroi_1.html' %}
-    {% include 'laroi_2.html' %}
-    {% include 'laroi_3.html' %}
-    {% include 'bubbles.html' %}
-    {% include 'phaohoa_1.html' %}
-    {% include 'phaohoa_2.html' %}
-    {% include 'phaohoa_3.html' %}
-    {% include 'phaohoa_4.html' %}
-    {% include 'phaohoa_5.html' %}
-    {% include 'phaohoa_6.html' %}
-    {% include 'phaohoa_7.html' %}
+    {% include 'effect_tuyet.html' %}
+    {% include 'effect_laroi_2.html' %}
+    {% include 'effect_laroi_3.html' %}
+    {% include 'effect_bubbles.html' %}
+    {% include 'effect_phaohoa_1.html' %}
+    {% include 'effect_phaohoa_2.html' %}
+    {% include 'effect_phaohoa_3.html' %}
+    {% include 'effect_phaohoa_4.html' %}
+    {% include 'effect_phaohoa_5.html' %}
+    {% include 'effect_phaohoa_6.html' %}
+    {% include 'effect_phaohoa_7.html' %}
     <video class="video-bg" autoplay muted loop id="background_video">
         <source src1="/static/video/vd-bgtet-1.mp4" type="video/mp4" id="source_background_video">
     </video>

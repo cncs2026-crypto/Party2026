@@ -1,4 +1,4 @@
-<canvas id="LeafEffect_3"></canvas>
+<canvas id="LeafEffect_3" style="display:none;"></canvas>
 <style>
     canvas {
         position: absolute;
@@ -8,7 +8,16 @@
 </style>
 
 <script>
+    window.SPIN_EFFECT_FLAGS = window.SPIN_EFFECT_FLAGS || {};
+    window.SPIN_EFFECT_RUNTIME = window.SPIN_EFFECT_RUNTIME || {};
+
     function canvas_laroi_2() {
+        const effectId = 'LeafEffect_3';
+        if (window.SPIN_EFFECT_FLAGS[effectId] === false) return;
+        if (window.SPIN_EFFECT_RUNTIME[effectId] && window.SPIN_EFFECT_RUNTIME[effectId].running) return;
+        window.SPIN_EFFECT_RUNTIME[effectId] = window.SPIN_EFFECT_RUNTIME[effectId] || {};
+        window.SPIN_EFFECT_RUNTIME[effectId].running = true;
+
         var canvas_laroi_2 = document.getElementById("LeafEffect_3"),
             ctx_canvas_laroi_2 = canvas_laroi_2.getContext("2d"),
             things = [],
@@ -144,6 +153,11 @@
         });
 
         function tick() {
+            if (window.SPIN_EFFECT_FLAGS[effectId] === false) {
+                window.SPIN_EFFECT_RUNTIME[effectId].running = false;
+                ctx_canvas_laroi_2.clearRect(0, 0, canvas_laroi_2.width, canvas_laroi_2.height);
+                return;
+            }
             draw();
             update();
             requestAnimationFrame(tick);
@@ -151,5 +165,18 @@
 
         tick();
     }
-    canvas_laroi_2();
+
+    window.Stop_LeafEffect_3 = function() {
+        window.SPIN_EFFECT_FLAGS['LeafEffect_3'] = false;
+        if (window.SPIN_EFFECT_RUNTIME['LeafEffect_3']) {
+            window.SPIN_EFFECT_RUNTIME['LeafEffect_3'].running = false;
+        }
+        const canvas = document.getElementById('LeafEffect_3');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    };
+
+    // canvas_laroi_2(); // không tự chạy khi load trang, sẽ bật theo cấu hình
 </script>
