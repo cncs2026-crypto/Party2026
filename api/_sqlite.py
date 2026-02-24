@@ -42,8 +42,6 @@ class SQLITE3(object):
             return [{'error':str(ex)}]
 
     def QuerySqlite(self,query,type='select'):
-        # BYPASS check_limit vì nó chặn tất cả queries
-        if self.check_limit():return [{'error':'Hết hạn dùng thử'}]
         try:
             if type=='select':
                 return self.SelectSqlite(query)
@@ -54,14 +52,116 @@ class SQLITE3(object):
             return [{'error':str(ex)}]
         # return []
 
-    def check_limit(self):
-        query=f"SELECT * from _limit_ where actived=1 and times > counts "
-        dt=self.SelectSqlite(query)
-        if len(dt)>0:
-            lm=datetime.strptime(dt[0]['times'], '%Y-%m-%d %H:%M:%S') 
-            if lm>datetime.now(): return True
-        self.ExcuteSqlite(query='UPDATE _limit_ SET actived=0;')
-        return False
+    def _parse_limit_time(self, value):
+        if value is None:
+            return None
+        text = str(value).strip()
+        if text == '':
+            return None
+        try:
+            return datetime.fromisoformat(text)
+        except Exception:
+            pass
+        try:
+            return datetime.strptime(text, '%Y-%m-%d %H:%M:%S')
+        except Exception:
+            return None
+
+    def _get_license_row(self, account=''):
+        account = str(account or '').strip().upper().replace("'", "''")
+        if account == '':
+            return None
+        query = f"""
+            SELECT * FROM _limit_
+            WHERE UPPER(license)=UPPER('{account}')
+            ORDER BY id DESC
+            LIMIT 1;
+        """
+        dt = self.SelectSqlite(query)
+        if len(dt) <= 0:
+            return None
+        return dt[0]
+
+    def check_limit(self, account=''):
+        row = self._get_license_row(account)
+        if row is None:
+            return {
+                'ok': False,
+                'message': 'Tài khoản chưa được cấp license',
+                'remaining': 0
+            }
+
+        if int(row.get('actived', 0) or 0) != 1:
+            return {
+                'ok': False,
+                'message': 'License chưa kích hoạt',
+                'remaining': int(row.get('counts', 0) or 0)
+            }
+
+        expires_at = self._parse_limit_time(row.get('times', ''))
+        if expires_at is None:
+            return {
+                'ok': False,
+                'message': 'Thời hạn license không hợp lệ',
+                'remaining': int(row.get('counts', 0) or 0)
+            }
+
+        now = datetime.now()
+        if now > expires_at:
+            row_id = int(row.get('id', 0) or 0)
+            if row_id > 0:
+                self.ExcuteSqlite(query=f"UPDATE _limit_ SET actived=0 WHERE id={row_id};")
+            return {
+                'ok': False,
+                'message': 'License đã hết hạn sử dụng',
+                'remaining': int(row.get('counts', 0) or 0)
+            }
+
+        remaining = int(row.get('counts', 0) or 0)
+        if remaining <= 0:
+            row_id = int(row.get('id', 0) or 0)
+            if row_id > 0:
+                self.ExcuteSqlite(query=f"UPDATE _limit_ SET actived=0, counts=0 WHERE id={row_id};")
+            return {
+                'ok': False,
+                'message': 'Đã hết số lượt quay cho phép',
+                'remaining': 0
+            }
+
+        return {
+            'ok': True,
+            'message': 'License hợp lệ',
+            'remaining': remaining,
+            'expires_at': expires_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'license': row.get('license', ''),
+            'id': int(row.get('id', 0) or 0)
+        }
+
+    def consume_spin_quota(self, account=''):
+        state = self.check_limit(account)
+        if not state.get('ok', False):
+            return state
+
+        row_id = int(state.get('id', 0) or 0)
+        remaining = int(state.get('remaining', 0) or 0)
+        if row_id <= 0 or remaining <= 0:
+            return {
+                'ok': False,
+                'message': 'Không thể cập nhật số lượt quay',
+                'remaining': 0
+            }
+
+        new_remaining = remaining - 1
+        new_active = 1 if new_remaining > 0 else 0
+        self.ExcuteSqlite(
+            query=f"UPDATE _limit_ SET counts={new_remaining}, actived={new_active} WHERE id={row_id};"
+        )
+
+        return {
+            'ok': True,
+            'message': 'Đã trừ lượt quay thành công',
+            'remaining': new_remaining
+        }
 
     #thao tác với bảng DB
     def ActionSqlite(self,data,upload={}):
@@ -584,6 +684,9 @@ class SQLITE3(object):
             action=data['Action']
             # action='CREATE'
             query=""
+            if action=='CHECK_LICENSE':
+                account = data.get('LicenseAccount', '')
+                return self.check_limit(account)
             if action=='CREATE':
                 query=f"""
                     CREATE TABLE {tab_name} (
@@ -660,6 +763,10 @@ class SQLITE3(object):
                 query=f""" UPDATE {tab_name} SET VangMat=1 WHERE id={record_id} ;"""
                 type='exec'
             elif action=='SAVE_TICKET_OK':#Lưu mã trúng thưởng
+                account = data.get('LicenseAccount', '')
+                consume = self.consume_spin_quota(account)
+                if not consume.get('ok', False):
+                    return [{'error': consume.get('message', 'License không hợp lệ')}]
                 ma_nhan_vien = str(data.get('MaNhanVien', '')).replace("'", "''")
                 ma_du_thuong = str(data.get('MaDuThuong', '')).replace("'", "''")
                 query=f"""
@@ -672,6 +779,10 @@ class SQLITE3(object):
                 """
                 type='exec'
             elif action=='SAVE_LIST_TICKET_OK':#Lưu danh sách vé trúng thưởng
+                account = data.get('LicenseAccount', '')
+                consume = self.consume_spin_quota(account)
+                if not consume.get('ok', False):
+                    return [{'error': consume.get('message', 'License không hợp lệ')}]
                 # print(data)
                 for item in data:
                     if 'Wincodes' in item:

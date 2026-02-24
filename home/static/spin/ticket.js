@@ -258,6 +258,9 @@ $(document).on('click', '.game-table .fa-eraser', function() {
 
 //<!-- JS cho hiệu ứng click chuột vào thẻ giải thưởng -->
 $(document).on('click', '.list-award .glass-card', function() {
+    if (window.IsSpinRunning === true) {
+        return;
+    }
     chon_Giaithuong(this, option = 1);
 });
 

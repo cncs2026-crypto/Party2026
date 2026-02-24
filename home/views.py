@@ -196,6 +196,12 @@ def action_dbLite(request):
             return True
         
         action=data['Action']
+        if action in ['CHECK_LICENSE', 'SAVE_TICKET_OK', 'SAVE_LIST_TICKET_OK']:
+            account = ''
+            if hasattr(request, 'user') and request.user.is_authenticated:
+                account = str(request.user.username or '').upper()
+            data.update({'LicenseAccount': account})
+
         if 'EXCEL' in action:
             #Lấy danh sách mã nhân viên từ file excel
             file= request.FILES['listfile']
@@ -219,6 +225,13 @@ def action_dbLite(request):
             if  check !=True:return check
 
         tab=_sqlt3.ActionSqlite(data,upload)
+
+        if isinstance(tab, dict) and tab.get('ok') is False:
+            return JsonResponse({'error': tab.get('message', 'License không hợp lệ')}, status=400)
+
+        if isinstance(tab, list) and len(tab) > 0 and isinstance(tab[0], dict) and 'error' in tab[0]:
+            return JsonResponse({'error': tab[0].get('error', 'Có lỗi dữ liệu')}, status=400)
+
         return JsonResponse({'data':tab},status=200)
     except Exception as ex:
         return JsonResponse({'error':str(ex)},status=400)

@@ -174,6 +174,7 @@ function displayNumbers(numbers, column = 3) {
  * @param {number} n - Số lượng giải cần quay trong mỗi vòng (mặc định 1)
  */
 function startLottery(solan = 50, n = 1) {
+    SetCardClickLock(true);
     // ===== KHỞI TẠO TRẠNG THÁI =====
     elapsedTime = 0; // Đếm số lần tick interval
     solan = 30; // Số vòng quay tối đa (mỗi vòng 100ms = 3 giây quay)
@@ -244,6 +245,7 @@ function startLottery(solan = 50, n = 1) {
                 console.log("Lần quay hiện tại: " + LanQuayThu_HienTai);
                 // Cập nhật trạng thái sân chơi (số giải còn lại, lần quay mới, v.v)
                 ActionSanChoi(8);
+                SetCardClickLock(false);
             }, 1500);
         }
 
@@ -253,6 +255,7 @@ function startLottery(solan = 50, n = 1) {
 
 //quay số theo dạng hộp số quay lẻ
 function startGame_1(spinDuration = 2) { // Thời gian quay (giây)
+    SetCardClickLock(true);
 
     $('.circle-button').addClass('quick-round pointer-none');
 
@@ -313,6 +316,7 @@ function startGame_1(spinDuration = 2) { // Thời gian quay (giây)
             //Lưu giá trị vào bảng quay thưởng
             if (MATRUNGTHUONG == "" || MANHANVIENTRUNGTHUONG == "" || TENNHANVIENTRUNGTHUONG == "") {
                 Show_Alert_Message("Chưa xác định được nhân viên trúng giải !");
+                SetCardClickLock(false);
                 return false;
             }
             ActionTrungThuong(10); //Lưu người trúng vào cơ sở dữ liệu
@@ -332,6 +336,7 @@ function startGame_1(spinDuration = 2) { // Thời gian quay (giây)
                 playAudio('mp3EndQuay');
 
                 Run_NhacNen = 0;
+                SetCardClickLock(false);
 
             }, 4000);
         }
@@ -430,65 +435,115 @@ function startGame_1(spinDuration = 2) { // Thời gian quay (giây)
 // Hàm quay số
 chon_giai = '';
 Run_NhacNen = 0;
+window.IsSpinRunning = false;
+
+function SetCardClickLock(isLocked) {
+    window.IsSpinRunning = !!isLocked;
+    if (window.IsSpinRunning) {
+        $('body').addClass('spin-card-lock');
+    } else {
+        $('body').removeClass('spin-card-lock');
+    }
+}
+
+function CheckLicenseForSpin(callback) {
+    $.ajax({
+        type: 'POST',
+        url: '/action_dbLite/',
+        data: {
+            tab_name: 'TabTrungThuong',
+            Action: 'CHECK_LICENSE'
+        },
+        success: function(response) {
+            if (response && response.data && response.data.ok === true) {
+                if (typeof callback === 'function') {
+                    callback(true);
+                }
+                return;
+            }
+            const msg = (response && response.data && response.data.message) ? response.data.message : 'License không hợp lệ';
+            Show_Alert_Message(msg);
+            if (typeof callback === 'function') {
+                callback(false);
+            }
+        },
+        error: function(response) {
+            let msg = 'Không thể kiểm tra license';
+            if (response && response.responseJSON && response.responseJSON.error) {
+                msg = response.responseJSON.error;
+            }
+            Show_Alert_Message(msg);
+            if (typeof callback === 'function') {
+                callback(false);
+            }
+        }
+    });
+}
 
 function startSpin() {
-    DungQuay = 0;
-    MATRUNGTHUONG = "";
-    MANHANVIENTRUNGTHUONG = "";
-    TENNHANVIENTRUNGTHUONG = "";
-    //console.log(SoLanQuay_Tong, LanQuayThu_HienTai)
-    if (chon_giai == '' || MaGiai_HienTai == '' || MaGiai_HienTai == undefined) {
-        console.log(MaGiai_HienTai, chon_giai, MaSanChoi_HienTai);
-        Show_Alert_Message('Chưa chọn giải !');
-        return;
-    } else if (SoGiaiConLai_HienTai <= 0) {
-        Show_Alert_Message('Số phần thưởng không còn đủ : ' + SoGiaiConLai_HienTai);
-        return;
-    } else if (SoLanQuay_Tong <= LanQuayThu_HienTai && SoGiaiConLai_HienTai <= 0) {
-        Show_Alert_Message('Đã hết lượt quay giải hiện tại !');
-        return;
-    } else if (SoGiaiConLai_HienTai <= 0) {
-        Show_Alert_Message('Số giải quay đã hết !');
-        return;
-    } else if (winningCodes.length <= 0) {
-        Show_Alert_Message('Chưa lấy được danh sách mã quay thưởng từ db !');
-        return;
-    }
-
-
-
-
-    //Nếu là giải 2,3,4,5 thì quay dạng nhiều
-    if (['GT003', 'GT004', 'GT005', 'GT006'].includes(MaGiai_HienTai)) {
-        n = TongSoLuongGiai / SoLanQuay_Tong;
-        if ((SoGiaiConLai_HienTai - n) < n) { n = SoGiaiConLai_HienTai }
-
-        //Kiểm tra nếu cài đặt thiết lập đã hoàn thành mới cho quay
-        if (SetUp_pram != 1) {
-            console.log("Đang đợi thiết lập");
-            setTimeout(() => {
-                return startLottery(solan = 120, n = n);
-            }, 700);
+    return CheckLicenseForSpin(function(canSpin) {
+        if (!canSpin) {
             return;
         }
-        SetUp_pram = 0;
 
-        return startLottery(solan = 120, n = n);
-    }
-
-    //là giải đặc biệt hoặc 1 thì quay giải đơn
-    else {
-        //Kiểm tra nếu cài đặt thiết lập đã hoàn thành mới cho quay
-        if (SetUp_pram != 1) {
-            console.log("Đang đợi thiết lập");
-            setTimeout(() => {
-                startGame_1();
-            }, 700);
+        DungQuay = 0;
+        MATRUNGTHUONG = "";
+        MANHANVIENTRUNGTHUONG = "";
+        TENNHANVIENTRUNGTHUONG = "";
+        //console.log(SoLanQuay_Tong, LanQuayThu_HienTai)
+        if (chon_giai == '' || MaGiai_HienTai == '' || MaGiai_HienTai == undefined) {
+            console.log(MaGiai_HienTai, chon_giai, MaSanChoi_HienTai);
+            Show_Alert_Message('Chưa chọn giải !');
+            return;
+        } else if (SoGiaiConLai_HienTai <= 0) {
+            Show_Alert_Message('Số phần thưởng không còn đủ : ' + SoGiaiConLai_HienTai);
+            return;
+        } else if (SoLanQuay_Tong <= LanQuayThu_HienTai && SoGiaiConLai_HienTai <= 0) {
+            Show_Alert_Message('Đã hết lượt quay giải hiện tại !');
+            return;
+        } else if (SoGiaiConLai_HienTai <= 0) {
+            Show_Alert_Message('Số giải quay đã hết !');
+            return;
+        } else if (winningCodes.length <= 0) {
+            Show_Alert_Message('Chưa lấy được danh sách mã quay thưởng từ db !');
             return;
         }
-        SetUp_pram = 0;
-        return startGame_1();
-    }
+
+
+
+
+        //Nếu là giải 2,3,4,5 thì quay dạng nhiều
+        if (['GT003', 'GT004', 'GT005', 'GT006'].includes(MaGiai_HienTai)) {
+            n = TongSoLuongGiai / SoLanQuay_Tong;
+            if ((SoGiaiConLai_HienTai - n) < n) { n = SoGiaiConLai_HienTai }
+
+            //Kiểm tra nếu cài đặt thiết lập đã hoàn thành mới cho quay
+            if (SetUp_pram != 1) {
+                console.log("Đang đợi thiết lập");
+                setTimeout(() => {
+                    return startLottery(solan = 120, n = n);
+                }, 700);
+                return;
+            }
+            SetUp_pram = 0;
+
+            return startLottery(solan = 120, n = n);
+        }
+
+        //là giải đặc biệt hoặc 1 thì quay giải đơn
+        else {
+            //Kiểm tra nếu cài đặt thiết lập đã hoàn thành mới cho quay
+            if (SetUp_pram != 1) {
+                console.log("Đang đợi thiết lập");
+                setTimeout(() => {
+                    startGame_1();
+                }, 700);
+                return;
+            }
+            SetUp_pram = 0;
+            return startGame_1();
+        }
+    });
 
 }
 
