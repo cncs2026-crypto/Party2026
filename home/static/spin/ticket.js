@@ -102,6 +102,22 @@ function setParamesLucky(item) {
 
 //Khởi tạo thẻ giải thưởng:lấy danh sách trúng và danh sách vé quay mới,Khởi tạo giao diện
 function _init_ticket(res) {
+    function normalizeGiftNameForDisplay(value) {
+        return String(value ?? '')
+            .replace(/\\r\\n/g, '\n')
+            .replace(/\\n/g, '\n')
+            .replace(/\\r/g, '\n');
+    }
+
+    function escapeHtml(value) {
+        return String(value ?? '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
     function get_cardTicket(item, option, i) {
         LanQuayThu = item['LanQuayThu'];
         SoLanQuay = item['SoLanQuay'];
@@ -123,12 +139,13 @@ function _init_ticket(res) {
         }
         TienMat = VND.format(item['GiaTien']);
         TienMat = "<span class='text-success ml-4'>SỰ MAY MẮN</span>";
+        TenQuaTangHienThi = escapeHtml(normalizeGiftNameForDisplay(item['TenQuaTang']));
         return '<article class="glass-card ' + active + '" id="ticket-' + i + '" masanchoi="' + item['MaSanChoi'] + '" magiai="' + item['MaGiai'] + '">\
                     <h3 class="glass-card-title">\
                         <a href="#">' + item['TenGiai'] + thongtinboctham + '</a>\
                     </h3>\
                     <div class="tags">\
-                        <a href="#" rel="tag"><pre >' + item['TenQuaTang'] + '</pre></a>\
+                        <a href="#" rel="tag"><pre >' + TenQuaTangHienThi + '</pre></a>\
                         <a href="#" rel="tag" hidden="">tag 2</a>\
                     </div>\
                     <p hidden>Trị giá giải thưởng :<br> ' + TienMat + ' </p>\

@@ -450,6 +450,7 @@ body,
             font-size: 1.3rem;
             margin: 0 0 1rem;
             font-weight: 600;
+            text-align: center;
         }
         a {
             text-decoration: none;
@@ -476,6 +477,7 @@ body,
                 /* Hỗ trợ tự động ngắt dòng */
                 overflow-wrap: break-word;
                 /* Đảm bảo hỗ trợ trên nhiều trình duyệt */
+                text-align: center;
             }
         }
         .author-row {
@@ -489,6 +491,10 @@ body,
             /* margin-top: 10px; */
             bottom: 22px;
             position: fixed;
+        }
+        .author-name {
+            width: 12em;
+            text-align: center;
         }
     }
     img {

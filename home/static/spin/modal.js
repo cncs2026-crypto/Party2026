@@ -30,6 +30,7 @@ let gameBgVideos = [];
 let gameSpinBackgrounds = [];
 const DEFAULT_GAME_BG_IMAGE = 'bg_1.jpg';
 const DEFAULT_SPIN_WHEEL_BG = 'spin3.png';
+let gameVideoLoadRequestId = 0;
 
 function extractFileNameFromPath(path = '') {
     if (!path) return '';
@@ -1451,16 +1452,48 @@ function changeVideo(newSrc, idVideo, idSource, onSuccess = null, onError = null
     let index = src_old.lastIndexOf('video/') + 6;
     src_old = src_old.substring(index);
 
+    const fileName = String(newSrc).trim();
+    const ext = fileName.includes('.') ? fileName.split('.').pop().toLowerCase() : '';
+    const mimeMap = {
+        mp4: 'video/mp4',
+        webm: 'video/webm',
+        ogv: 'video/ogg',
+        mov: 'video/quicktime'
+    };
+    const mimeType = mimeMap[ext] || '';
+    if (mimeType) {
+        source.type = mimeType;
+        const support = video.canPlayType(mimeType);
+        if (!support) {
+            console.warn(`⚠️ Trình duyệt không hỗ trợ định dạng video: ${ext} (${mimeType})`);
+            $('.video-bg').hide();
+            if (typeof onError === 'function') onError();
+            return;
+        }
+    } else {
+        source.removeAttribute('type');
+    }
+
+    const requestId = ++gameVideoLoadRequestId;
+
     let handled = false;
+    let timeoutId = null;
     const clearHandlers = function() {
         video.oncanplay = null;
+        video.onloadeddata = null;
         video.onerror = null;
-        video.onstalled = null;
-        video.onabort = null;
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+            timeoutId = null;
+        }
     };
 
-    video.oncanplay = function() {
-        if (handled) return;
+    const isLatestRequest = function() {
+        return requestId === gameVideoLoadRequestId;
+    };
+
+    const ok = function() {
+        if (handled || !isLatestRequest()) return;
         handled = true;
         clearHandlers();
         $('.video-bg').show();
@@ -1469,8 +1502,11 @@ function changeVideo(newSrc, idVideo, idSource, onSuccess = null, onError = null
         if (typeof onSuccess === 'function') onSuccess();
     };
 
+    video.oncanplay = ok;
+    video.onloadeddata = ok;
+
     const fail = function() {
-        if (handled) return;
+        if (handled || !isLatestRequest()) return;
         handled = true;
         clearHandlers();
         $('.video-bg').hide();
@@ -1478,10 +1514,11 @@ function changeVideo(newSrc, idVideo, idSource, onSuccess = null, onError = null
     };
 
     video.onerror = fail;
-    video.onstalled = fail;
-    video.onabort = fail;
+    timeoutId = setTimeout(function() {
+        fail();
+    }, 5000);
 
-    source.src = url_video + String(newSrc).trim();
+    source.src = url_video + fileName;
     video.load();
 }
 
