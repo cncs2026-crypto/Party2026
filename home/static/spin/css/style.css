@@ -533,10 +533,12 @@ body,
 .list-award .glass-card-grid {
     z-index: 2;
     .glass-card {
-        opacity: 1;
+        opacity: 0.45;
+        filter: saturate(0.75) brightness(0.88);
         background-size: inherit !important;
         background-repeat: no-repeat !important;
         background-position: center center;
+        transition: transform 0.2s, opacity 0.2s, filter 0.2s;
         .glass-card-title {
             text-align: left;
         }
@@ -559,6 +561,10 @@ body,
                 box-shadow: 0rem -20px 3rem -1rem #000;
             }
         }
+    }
+    .glass-card.tick-up {
+        opacity: 1;
+        filter: none;
     }
     .tick-up {
         /* transform: translateY(-1rem) rotate(3deg); */
