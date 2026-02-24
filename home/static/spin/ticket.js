@@ -139,16 +139,20 @@ function _init_ticket(res) {
         }
         thongtinboctham = '';
         if (option == 1) {
-            thongtinboctham = '<br> [' + LanQuayThu + '/' + SoLanQuay + '] (' + item['SoGiaiDaNhan'] + '/' + item['SoLuongGiai'] + ')';
+            thongtinboctham = '[' + LanQuayThu + '/' + SoLanQuay + '] (' + item['SoGiaiDaNhan'] + '/' + item['SoLuongGiai'] + ')';
         } else if (option == 0) {
             fire = '<div class="fire-border"></div>';
         }
         TienMat = VND.format(item['GiaTien']);
         TienMat = "<span class='text-success ml-4'>SỰ MAY MẮN</span>";
+        TenGiaiHienThi = escapeHtml(item['TenGiai']);
         TenQuaTangHienThi = escapeHtml(normalizeGiftNameForDisplay(item['TenQuaTang']));
         return '<article class="glass-card ' + active + '" id="ticket-' + i + '" masanchoi="' + item['MaSanChoi'] + '" magiai="' + item['MaGiai'] + '">\
                     <h3 class="glass-card-title">\
-                        <a href="#">' + item['TenGiai'] + thongtinboctham + '</a>\
+                        <a href="#">\
+                            <span class="card-title-main">' + TenGiaiHienThi + '</span>\
+                            <span class="card-title-meta">' + thongtinboctham + '</span>\
+                        </a>\
                     </h3>\
                     <div class="tags">\
                         <a href="#" rel="tag"><pre >' + TenQuaTangHienThi + '</pre></a>\

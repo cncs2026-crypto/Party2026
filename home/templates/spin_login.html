@@ -1032,21 +1032,32 @@
 
                 }
 
-                //ĐĂNG NHẬP
-                $('#button-login').on('click', function() {
+                function submitLogin() {
                     var matKhau = $('#edit-pass').val().trim();
                     var tenDangNhap = $('#edit-name').val().trim();
 
                     if (tenDangNhap == "") {
                         alert("Bạn chưa nhập số điện thoại!");
-                        return
+                        return;
                     }
                     if (matKhau == "") {
                         alert("Bạn chưa nhập mật khẩu!");
-                        return
+                        return;
                     }
                     document.getElementById("formLogin").submit();
+                }
 
+                //ĐĂNG NHẬP
+                $('#button-login').on('click', function() {
+                    submitLogin();
+                });
+
+                //Nhấn Enter ở ô mật khẩu => đăng nhập luôn
+                $('#edit-pass').on('keydown', function(e) {
+                    if (e.key === 'Enter' || e.keyCode === 13) {
+                        e.preventDefault();
+                        submitLogin();
+                    }
                 });
 
                 window.onload = function() {
