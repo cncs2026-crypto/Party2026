@@ -589,7 +589,6 @@ class SQLITE3(object):
                             WHERE TT.id is null 
                         """
                 
-
             elif action=='INSERT':
                 DsMaGiai=self.getDsMaGiai(data)
                 ma_nhan_vien = str(data.get('MaNhanVien', '')).replace("'", "''")
